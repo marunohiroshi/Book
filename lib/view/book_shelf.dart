@@ -1,0 +1,107 @@
+import 'package:book/model/book.dart' as model;
+import 'package:book/providers.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class BookShelf extends ConsumerWidget {
+  final ScrollController _scrollController = ScrollController();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.read(bookShelfViewModelProvider.notifier);
+    final state = ref.read(bookShelfViewModelProvider);
+    _scrollController.addListener(() {});
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
+    return Scaffold(
+      body: GridView.count(
+        childAspectRatio: (itemWidth / itemHeight),
+        // 1行あたりに表示するWidgetの数
+        crossAxisCount: 1,
+        // Widget間のスペース（上下）
+        mainAxisSpacing: 8,
+        // Widget間のスペース（左右）
+        crossAxisSpacing: 8,
+        // 全体の余白
+        padding: const EdgeInsets.all(8),
+        children: [
+          FutureBuilder(
+            future: viewModel.getBookList(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<model.Book>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: state.crossAxisCount,
+                        childAspectRatio: (itemWidth / itemHeight),
+                      ),
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return Card(
+                          margin: const EdgeInsets.all(8),
+                          child: GridTile(
+                            // header: GridTileBar(
+                            //   backgroundColor: Colors.white,
+                            //   title: Text('title'),
+                            //   subtitle: Text('subtitle'),
+                            //   trailing: IconButton(
+                            //     onPressed: () {},
+                            //     icon: const Icon(
+                            //       Icons.more_vert_rounded,
+                            //       color: Colors.black54,
+                            //     ),
+                            //   ),
+                            // ),
+                            child: Image.network(
+                              viewModel.getSmallThumbnail(index),
+                              height: itemHeight,
+                              width: itemWidth,
+                              fit: BoxFit.fill,
+                            ),
+                            // footer: GridTileBar(
+                            //   backgroundColor: Colors.white,
+                            //   title: Row(
+                            //     children: [
+                            //       Icon(
+                            //         Icons.favorite_outline,
+                            //         color: Colors.grey,
+                            //       ),
+                            //       Text(
+                            //         '20',
+                            //         style: TextStyle(color: Colors.black),
+                            //       ),
+                            //       SizedBox(
+                            //         width: 20,
+                            //       ),
+                            //       Icon(
+                            //         Icons.chat_bubble_outline,
+                            //         color: Colors.grey,
+                            //       ),
+                            //       Text(
+                            //         '5',
+                            //         style: TextStyle(color: Colors.black),
+                            //       )
+                            //     ],
+                            //   ),
+                            //   trailing: const Icon(
+                            //     Icons.bookmark_add_outlined,
+                            //     color: Colors.black,
+                            //   ),
+                            // ),
+                          ),
+                        );
+                      });
+                }
+                return const Text('error');
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          )
+        ],
+      ),
+    );
+  }
+}

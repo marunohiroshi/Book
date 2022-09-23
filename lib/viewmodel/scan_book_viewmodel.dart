@@ -16,6 +16,7 @@ part 'scan_book_viewmodel.freezed.dart';
 class ScanBookState with _$ScanBookState {
   const factory ScanBookState({
     @Default(false) bool scanned,
+    @Default(false) bool closeDialog,
   }) = _ScanBookState;
 }
 
@@ -38,10 +39,15 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
   }
 
   /// 連続スキャン
-  Future<void> scanBarcodeContinue() async {
+  Future<String> scanBarcodeContinue() async {
+    String res = '';
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
             '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
-        .listen((barcode) => print(barcode));
+        .listen((barcode) {
+      print(barcode);
+      res = barcode;
+    });
+    return res;
   }
 
   /// GoogleApi取得

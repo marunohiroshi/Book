@@ -1,5 +1,6 @@
 import 'package:book/model/book.dart' as model;
 import 'package:book/providers.dart';
+import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,22 +10,50 @@ class BookShelf extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.read(bookShelfViewModelProvider.notifier);
-    final state = ref.read(bookShelfViewModelProvider);
+    final state = ref.watch(bookShelfViewModelProvider);
     _scrollController.addListener(() {});
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
+    int crossAxisCount = state.crossAxisCount;
+    ref.listen(bookShelfViewModelProvider, (_, BookShelfState next) {
+      crossAxisCount = next.crossAxisCount;
+    });
+
     return Scaffold(
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'grid_on',
+            onPressed: () {
+              viewModel.changeCrossAxisCount(crossAxisCount + 1);
+            },
+            child: Icon(
+              Icons.grid_on,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          FloatingActionButton(
+            heroTag: 'grid_off',
+            onPressed: () {
+              viewModel.changeCrossAxisCount(crossAxisCount - 1);
+            },
+            child: Icon(
+              Icons.grid_off,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
       body: GridView.count(
         childAspectRatio: (itemWidth / itemHeight),
         // 1行あたりに表示するWidgetの数
         crossAxisCount: 1,
-        // Widget間のスペース（上下）
-        mainAxisSpacing: 8,
-        // Widget間のスペース（左右）
-        crossAxisSpacing: 8,
-        // 全体の余白
-        padding: const EdgeInsets.all(8),
+        // padding: const EdgeInsets.all(8),
         children: [
           FutureBuilder(
             future: viewModel.getBookList(),
@@ -34,7 +63,7 @@ class BookShelf extends ConsumerWidget {
                 if (snapshot.hasData) {
                   return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: state.crossAxisCount,
+                        crossAxisCount: crossAxisCount,
                         childAspectRatio: (itemWidth / itemHeight),
                       ),
                       itemCount: snapshot.data!.length,
@@ -55,7 +84,7 @@ class BookShelf extends ConsumerWidget {
                             //   ),
                             // ),
                             child: Image.network(
-                              viewModel.getSmallThumbnail(index),
+                              viewModel.getThumbnail(index),
                               height: itemHeight,
                               width: itemWidth,
                               fit: BoxFit.fill,
@@ -99,7 +128,7 @@ class BookShelf extends ConsumerWidget {
                 return const CircularProgressIndicator();
               }
             },
-          )
+          ),
         ],
       ),
     );

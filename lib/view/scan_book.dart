@@ -1,5 +1,6 @@
 import 'package:book/model/book.dart' as model;
 import 'package:book/providers.dart';
+import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,13 +11,13 @@ class ScanBook extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.read(scanBookViewModelProvider.notifier);
+    final mainViewModel = ref.read(mainViewModelProvider.notifier);
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Expanded(child:
             NeumorphicButton(
                 onPressed: () async {
                   String res = await viewModel.checkValidBarcode();
@@ -24,7 +25,7 @@ class ScanBook extends ConsumerWidget {
                   showDialog<void>(
                       context: context,
                       builder: (_) {
-                        return showBookInfoDialog(book, context, ref);
+                        return showBookInfoDialog(book, mainViewModel, ref);
                       });
                 },
                 style: const NeumorphicStyle(
@@ -43,7 +44,7 @@ class ScanBook extends ConsumerWidget {
   }
 
   Widget showBookInfoDialog(
-      model.Book book, BuildContext context, WidgetRef ref) {
+      model.Book book, MainViewModel mainViewModel, WidgetRef ref) {
     return AlertDialog(
       title: Text(book.title),
       content: SingleChildScrollView(
@@ -76,7 +77,7 @@ class ScanBook extends ConsumerWidget {
             NeumorphicButton(
               child: const Text('閉じる'),
               onPressed: () {
-                Navigator.of(context).pop();
+                mainViewModel.closeDialog();
               },
             ),
             const Spacer(),
@@ -87,12 +88,12 @@ class ScanBook extends ConsumerWidget {
                 Fluttertoast.showToast(
                     msg: "本棚に追加しました",
                     toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
+                    gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
                     backgroundColor: Colors.blueAccent,
                     textColor: Colors.white,
                     fontSize: 16.0);
-                Navigator.of(context).pop();
+                mainViewModel.closeDialog();
               },
             ),
           ],

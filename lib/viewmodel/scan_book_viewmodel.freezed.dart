@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ScanBookState {
   bool get scanned => throw _privateConstructorUsedError;
+  bool get closeDialog => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScanBookStateCopyWith<ScanBookState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $ScanBookStateCopyWith<$Res> {
   factory $ScanBookStateCopyWith(
           ScanBookState value, $Res Function(ScanBookState) then) =
       _$ScanBookStateCopyWithImpl<$Res>;
-  $Res call({bool scanned});
+  $Res call({bool scanned, bool closeDialog});
 }
 
 /// @nodoc
@@ -43,11 +44,16 @@ class _$ScanBookStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? scanned = freezed,
+    Object? closeDialog = freezed,
   }) {
     return _then(_value.copyWith(
       scanned: scanned == freezed
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
+              as bool,
+      closeDialog: closeDialog == freezed
+          ? _value.closeDialog
+          : closeDialog // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -60,7 +66,7 @@ abstract class _$$_ScanBookStateCopyWith<$Res>
           _$_ScanBookState value, $Res Function(_$_ScanBookState) then) =
       __$$_ScanBookStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool scanned});
+  $Res call({bool scanned, bool closeDialog});
 }
 
 /// @nodoc
@@ -77,11 +83,16 @@ class __$$_ScanBookStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? scanned = freezed,
+    Object? closeDialog = freezed,
   }) {
     return _then(_$_ScanBookState(
       scanned: scanned == freezed
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
+              as bool,
+      closeDialog: closeDialog == freezed
+          ? _value.closeDialog
+          : closeDialog // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -90,15 +101,18 @@ class __$$_ScanBookStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ScanBookState implements _ScanBookState {
-  const _$_ScanBookState({this.scanned = false});
+  const _$_ScanBookState({this.scanned = false, this.closeDialog = false});
 
   @override
   @JsonKey()
   final bool scanned;
+  @override
+  @JsonKey()
+  final bool closeDialog;
 
   @override
   String toString() {
-    return 'ScanBookState(scanned: $scanned)';
+    return 'ScanBookState(scanned: $scanned, closeDialog: $closeDialog)';
   }
 
   @override
@@ -106,12 +120,16 @@ class _$_ScanBookState implements _ScanBookState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ScanBookState &&
-            const DeepCollectionEquality().equals(other.scanned, scanned));
+            const DeepCollectionEquality().equals(other.scanned, scanned) &&
+            const DeepCollectionEquality()
+                .equals(other.closeDialog, closeDialog));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(scanned));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(scanned),
+      const DeepCollectionEquality().hash(closeDialog));
 
   @JsonKey(ignore: true)
   @override
@@ -120,10 +138,13 @@ class _$_ScanBookState implements _ScanBookState {
 }
 
 abstract class _ScanBookState implements ScanBookState {
-  const factory _ScanBookState({final bool scanned}) = _$_ScanBookState;
+  const factory _ScanBookState({final bool scanned, final bool closeDialog}) =
+      _$_ScanBookState;
 
   @override
   bool get scanned;
+  @override
+  bool get closeDialog;
   @override
   @JsonKey(ignore: true)
   _$$_ScanBookStateCopyWith<_$_ScanBookState> get copyWith =>

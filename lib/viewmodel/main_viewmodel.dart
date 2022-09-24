@@ -1,9 +1,9 @@
-import 'package:book/View/scan_book.dart';
+import 'package:book/View/scan_book_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../view/book_shelf.dart';
+import '../view/book_shelf_view.dart';
 
 part 'main_viewmodel.freezed.dart';
 

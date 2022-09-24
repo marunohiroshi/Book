@@ -1,6 +1,6 @@
-import 'package:book/View/scan_book.dart';
+import 'package:book/View/scan_book_view.dart';
 import 'package:book/providers.dart';
-import 'package:book/view/book_shelf.dart';
+import 'package:book/view/book_shelf_view.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';

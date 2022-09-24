@@ -4,12 +4,15 @@ import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class BookShelf extends ConsumerWidget {
   final ScrollController _scrollController = ScrollController();
+
+  BookShelf({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(bookShelfViewModelProvider.notifier);
+    final viewModel = ref.watch(bookShelfViewModelProvider.notifier);
     final state = ref.watch(bookShelfViewModelProvider);
     _scrollController.addListener(() {});
     var size = MediaQuery.of(context).size;
@@ -18,6 +21,7 @@ class BookShelf extends ConsumerWidget {
     int crossAxisCount = state.crossAxisCount;
     ref.listen(bookShelfViewModelProvider, (_, BookShelfState next) {
       crossAxisCount = next.crossAxisCount;
+      if (next.updateDb) {}
     });
 
     return Scaffold(
@@ -67,7 +71,7 @@ class BookShelf extends ConsumerWidget {
                         childAspectRatio: (itemWidth / itemHeight),
                       ),
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, index) {
+                      itemBuilder: (BuildContext context, int index) {
                         return Card(
                           margin: const EdgeInsets.all(8),
                           child: GridTile(
@@ -83,11 +87,19 @@ class BookShelf extends ConsumerWidget {
                             //     ),
                             //   ),
                             // ),
-                            child: Image.network(
-                              viewModel.getThumbnail(index),
-                              height: itemHeight,
-                              width: itemWidth,
-                              fit: BoxFit.fill,
+                            child: InkResponse(
+                              child: Image.network(
+                                viewModel.getThumbnail(index),
+                                height: itemHeight,
+                                width: itemWidth,
+                                fit: BoxFit.fill,
+                              ),
+                              onTap: () {
+                                print('index: $index');
+                                final book = viewModel.getBook(index);
+                                context.goNamed('book_detail_view',
+                                    extra: book);
+                              },
                             ),
                             // footer: GridTileBar(
                             //   backgroundColor: Colors.white,

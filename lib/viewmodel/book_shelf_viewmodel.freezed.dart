@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$BookShelfState {
   int get crossAxisCount => throw _privateConstructorUsedError;
+  bool get updateDb => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookShelfStateCopyWith<BookShelfState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $BookShelfStateCopyWith<$Res> {
   factory $BookShelfStateCopyWith(
           BookShelfState value, $Res Function(BookShelfState) then) =
       _$BookShelfStateCopyWithImpl<$Res>;
-  $Res call({int crossAxisCount});
+  $Res call({int crossAxisCount, bool updateDb});
 }
 
 /// @nodoc
@@ -43,12 +44,17 @@ class _$BookShelfStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? crossAxisCount = freezed,
+    Object? updateDb = freezed,
   }) {
     return _then(_value.copyWith(
       crossAxisCount: crossAxisCount == freezed
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
               as int,
+      updateDb: updateDb == freezed
+          ? _value.updateDb
+          : updateDb // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -60,7 +66,7 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
           _$_BookShelfState value, $Res Function(_$_BookShelfState) then) =
       __$$_BookShelfStateCopyWithImpl<$Res>;
   @override
-  $Res call({int crossAxisCount});
+  $Res call({int crossAxisCount, bool updateDb});
 }
 
 /// @nodoc
@@ -77,12 +83,17 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? crossAxisCount = freezed,
+    Object? updateDb = freezed,
   }) {
     return _then(_$_BookShelfState(
       crossAxisCount: crossAxisCount == freezed
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
               as int,
+      updateDb: updateDb == freezed
+          ? _value.updateDb
+          : updateDb // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -90,15 +101,18 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_BookShelfState implements _BookShelfState {
-  const _$_BookShelfState({this.crossAxisCount = 3});
+  const _$_BookShelfState({this.crossAxisCount = 3, this.updateDb = false});
 
   @override
   @JsonKey()
   final int crossAxisCount;
+  @override
+  @JsonKey()
+  final bool updateDb;
 
   @override
   String toString() {
-    return 'BookShelfState(crossAxisCount: $crossAxisCount)';
+    return 'BookShelfState(crossAxisCount: $crossAxisCount, updateDb: $updateDb)';
   }
 
   @override
@@ -107,12 +121,15 @@ class _$_BookShelfState implements _BookShelfState {
         (other.runtimeType == runtimeType &&
             other is _$_BookShelfState &&
             const DeepCollectionEquality()
-                .equals(other.crossAxisCount, crossAxisCount));
+                .equals(other.crossAxisCount, crossAxisCount) &&
+            const DeepCollectionEquality().equals(other.updateDb, updateDb));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(crossAxisCount));
+      runtimeType,
+      const DeepCollectionEquality().hash(crossAxisCount),
+      const DeepCollectionEquality().hash(updateDb));
 
   @JsonKey(ignore: true)
   @override
@@ -121,10 +138,13 @@ class _$_BookShelfState implements _BookShelfState {
 }
 
 abstract class _BookShelfState implements BookShelfState {
-  const factory _BookShelfState({final int crossAxisCount}) = _$_BookShelfState;
+  const factory _BookShelfState(
+      {final int crossAxisCount, final bool updateDb}) = _$_BookShelfState;
 
   @override
   int get crossAxisCount;
+  @override
+  bool get updateDb;
   @override
   @JsonKey(ignore: true)
   _$$_BookShelfStateCopyWith<_$_BookShelfState> get copyWith =>

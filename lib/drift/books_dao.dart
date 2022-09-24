@@ -1,6 +1,7 @@
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/model/book.dart' as models;
 import 'package:drift/drift.dart';
+import 'package:event/event.dart';
 
 part 'books_dao.g.dart';
 
@@ -19,6 +20,8 @@ class Books extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+final updateDb = Event();
 
 @DriftAccessor(tables: [Books])
 class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
@@ -55,5 +58,23 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         publisher: book.publisher,
         publishedDate: book.publishedDate,
         authors: book.authors));
+    updateDb.broadcast();
+  }
+
+  Future<models.Book> getBook(int id) async {
+    final bookList = await getList;
+    var book;
+    for (var element in bookList) {
+      if (element.id == id) {
+        book = element;
+      }
+    }
+    return book;
+  }
+
+  Future<void> deleteBook(int id) async {
+    (delete(books)..where((tbl) => tbl.id.equals(id))).go();
+    print('maruno delete book');
+    updateDb.broadcast();
   }
 }

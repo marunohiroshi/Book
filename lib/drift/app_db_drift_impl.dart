@@ -22,6 +22,14 @@ class AppDbDriftImpl extends _$AppDbDriftImpl {
     return booksDao.add(book);
   }
 
+  Future getBook(int id) {
+    return booksDao.getBook(id);
+  }
+
+  Future deleteBook(int id) {
+    return booksDao.deleteBook(id);
+  }
+
   @override
   int get schemaVersion => 1;
 }

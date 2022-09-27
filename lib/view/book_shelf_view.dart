@@ -1,10 +1,10 @@
-import 'package:book/model/book.dart' as model;
+import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/providers.dart';
+import 'package:book/view/book_detail_view.dart';
 import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class BookShelf extends ConsumerWidget {
   final ScrollController _scrollController = ScrollController();
@@ -19,9 +19,10 @@ class BookShelf extends ConsumerWidget {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
     int crossAxisCount = state.crossAxisCount;
+    var bookList = state.bookList;
     ref.listen(bookShelfViewModelProvider, (_, BookShelfState next) {
       crossAxisCount = next.crossAxisCount;
-      if (next.updateDb) {}
+      bookList = next.bookList;
     });
 
     return Scaffold(
@@ -33,12 +34,12 @@ class BookShelf extends ConsumerWidget {
             onPressed: () {
               viewModel.changeCrossAxisCount(crossAxisCount + 1);
             },
-            child: Icon(
+            child: const Icon(
               Icons.grid_on,
               color: Colors.white,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           FloatingActionButton(
@@ -46,7 +47,7 @@ class BookShelf extends ConsumerWidget {
             onPressed: () {
               viewModel.changeCrossAxisCount(crossAxisCount - 1);
             },
-            child: Icon(
+            child: const Icon(
               Icons.grid_off,
               color: Colors.white,
             ),
@@ -61,8 +62,8 @@ class BookShelf extends ConsumerWidget {
         children: [
           FutureBuilder(
             future: viewModel.getBookList(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<model.Book>> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   return GridView.builder(
@@ -70,7 +71,7 @@ class BookShelf extends ConsumerWidget {
                         crossAxisCount: crossAxisCount,
                         childAspectRatio: (itemWidth / itemHeight),
                       ),
-                      itemCount: snapshot.data!.length,
+                      itemCount: bookList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
                           margin: const EdgeInsets.all(8),
@@ -96,9 +97,13 @@ class BookShelf extends ConsumerWidget {
                               ),
                               onTap: () {
                                 print('index: $index');
-                                final book = viewModel.getBook(index);
-                                context.goNamed('book_detail_view',
-                                    extra: book);
+                                final book = bookList[index];
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BookDetailView(book)),
+                                );
                               },
                             ),
                             // footer: GridTileBar(

@@ -1,7 +1,6 @@
 import 'dart:convert' as convert;
 
 import 'package:book/drift/app_db_drift_impl.dart';
-import 'package:book/model/book.dart' as model;
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -115,7 +114,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     return res;
   }
 
-  Future<model.Book> getBookInfoFromJson(String res) async {
+  Future<Book> getBookInfoFromJson(String res) async {
     final googleResponse = await getGoogleBookJsonResponse(res);
     final totalPage = googleResponse['items'][0]['volumeInfo']['pageCount'];
     final description = googleResponse['items'][0]['volumeInfo']['description'];
@@ -143,7 +142,10 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     smallThumbnail = googleResponse['items'][0]['volumeInfo']['imageLinks']
         ['smallThumbnail'];
 
-    final book = model.Book(
+    final bookList = await _appDb.getBookList;
+    final id = bookList.last.id + 1;
+
+    final book = Book(
         title: title,
         price: price,
         totalPage: totalPage,
@@ -152,7 +154,8 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
         description: description,
         publisher: publisher,
         publishedDate: publishedDate,
-        authors: authors);
+        authors: authors,
+        id: id);
 
     print('title: ${book.title}');
     print('authors: ${book.authors}');
@@ -165,10 +168,5 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     print('thumbnail: ${book.thumbnail}');
 
     return book;
-  }
-
-  Future<void> save(model.Book book) async {
-    //TODO: すでに登録されている場合はその旨を表示する
-    _appDb.add(book);
   }
 }

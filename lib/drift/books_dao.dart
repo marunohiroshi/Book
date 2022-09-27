@@ -1,7 +1,6 @@
+import 'package:book/Utility/utility.dart';
 import 'package:book/drift/app_db_drift_impl.dart';
-import 'package:book/model/book.dart' as models;
 import 'package:drift/drift.dart';
-import 'package:event/event.dart';
 
 part 'books_dao.g.dart';
 
@@ -16,21 +15,16 @@ class Books extends Table {
   TextColumn get publisher => text()();
   TextColumn get publishedDate => text()();
   TextColumn get authors => text()();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
-
-final updateDb = Event();
 
 @DriftAccessor(tables: [Books])
 class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
   BooksDao(AppDbDriftImpl db) : super(db);
 
-  Future<List<models.Book>> get getList async {
+  Future<List<Book>> get getList async {
     final bookList = await select(books).get();
     return bookList
-        .map((book) => models.Book(
+        .map((book) => Book(
             id: book.id,
             title: book.title,
             price: book.price,
@@ -44,7 +38,7 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         .toList();
   }
 
-  Future<void> add(models.Book book) async {
+  Future<void> add(Book book) async {
     final bookList = await getList;
     final id = bookList.last.id + 1;
     into(books).insertOnConflictUpdate(Book(
@@ -58,10 +52,10 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         publisher: book.publisher,
         publishedDate: book.publishedDate,
         authors: book.authors));
-    updateDb.broadcast();
+    Utility.updateDb.broadcast();
   }
 
-  Future<models.Book> getBook(int id) async {
+  Future<Book> getBook(int id) async {
     final bookList = await getList;
     var book;
     for (var element in bookList) {
@@ -75,6 +69,6 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
   Future<void> deleteBook(int id) async {
     (delete(books)..where((tbl) => tbl.id.equals(id))).go();
     print('maruno delete book');
-    updateDb.broadcast();
+    Utility.updateDb.broadcast();
   }
 }

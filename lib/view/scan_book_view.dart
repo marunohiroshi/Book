@@ -1,4 +1,4 @@
-import 'package:book/model/book.dart' as model;
+import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/providers.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -44,7 +44,7 @@ class ScanBook extends ConsumerWidget {
   }
 
   Widget showBookInfoDialog(
-      model.Book book, MainViewModel mainViewModel, WidgetRef ref) {
+      Book book, MainViewModel mainViewModel, WidgetRef ref) {
     return AlertDialog(
       title: Text(book.title),
       content: SingleChildScrollView(
@@ -84,7 +84,7 @@ class ScanBook extends ConsumerWidget {
             NeumorphicButton(
               child: const Text('本棚に追加する'),
               onPressed: () {
-                ref.read(scanBookViewModelProvider.notifier).save(book);
+                ref.read(bookShelfViewModelProvider.notifier).add(book);
                 Fluttertoast.showToast(
                     msg: "本棚に追加しました",
                     toastLength: Toast.LENGTH_SHORT,

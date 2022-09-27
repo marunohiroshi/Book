@@ -7,8 +7,6 @@ import 'package:book/viewmodel/scan_book_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../model/book.dart' as model;
-
 /// ルータープロバイダー
 final routerProvider = Provider<GoRouter>((ref) => GoRouter(
       routes: bookRoutes,
@@ -33,5 +31,5 @@ final bookShelfViewModelProvider =
 
 /// book_detail_viewプロバイダー
 final bookDetailViewModelProvider = StateNotifierProvider.family
-    .autoDispose<BookDetailViewModel, BookDetailState, model.Book>(
+    .autoDispose<BookDetailViewModel, BookDetailState, Book>(
         (ref, book) => BookDetailViewModel(ref.read(appDbProvider), book));

@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class BookDetailView extends ConsumerWidget {
-  BookDetailView(this.book, {Key? key}) : super(key: key) {
-    print('marunoBook: $book');
-  }
+  BookDetailView(this.book, {Key? key}) : super(key: key) {}
+
   final book;
 
   @override
@@ -18,13 +17,13 @@ class BookDetailView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               Navigator.pop(context, true);
             }),
         title: Text(state.title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        shape: RoundedRectangleBorder(
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomRight: Radius.elliptical(90, 30),
           ),
@@ -64,12 +63,14 @@ class BookDetailView extends ConsumerWidget {
                 children: [
                   Center(
                     child: Container(
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: NeumorphicButton(
-                        child: Text('削除'),
+                        child: const Text('削除'),
                         onPressed: () {
                           print('delete');
-                          viewModel.delete(state.id);
+                          ref
+                              .read(bookShelfViewModelProvider.notifier)
+                              .delete(state.id);
                           Navigator.pop(context, true);
                           Fluttertoast.showToast(
                               msg: '「${viewModel.book.title}」を削除しました。',

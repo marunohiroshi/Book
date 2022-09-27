@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:book/drift/books_dao.dart';
-import 'package:book/model/book.dart' as models;
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
@@ -16,9 +15,9 @@ part 'app_db_drift_impl.g.dart';
 class AppDbDriftImpl extends _$AppDbDriftImpl {
   AppDbDriftImpl() : super(_openConnection());
 
-  Future<List<models.Book>> get getBookList => booksDao.getList;
+  Future<List<Book>> get getBookList => booksDao.getList;
 
-  Future add(models.Book book) {
+  Future add(Book book) {
     return booksDao.add(book);
   }
 

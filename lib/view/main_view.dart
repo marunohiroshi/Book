@@ -25,6 +25,12 @@ class MainView extends ConsumerWidget {
       backgroundColor: Colors.grey.shade100,
       body: PersistentTabView(
         context,
+        navBarStyle: NavBarStyle.style5,
+        hideNavigationBarWhenKeyboardShows: true,
+        screenTransitionAnimation: const ScreenTransitionAnimation(
+            animateTabTransition: true,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease),
         screens: [
           const ScanBook(),
           BookShelf(),
@@ -38,12 +44,12 @@ class MainView extends ConsumerWidget {
             inactiveColorPrimary: Colors.blue,
           ),
           PersistentBottomNavBarItem(
-            icon: const Icon(Icons.collections_bookmark),
+            icon: const Icon(Icons.menu_book_rounded),
             activeColorPrimary: Colors.brown,
             inactiveColorPrimary: Colors.blue,
           ),
           PersistentBottomNavBarItem(
-            icon: const Icon(Icons.recommend),
+            icon: const Icon(Icons.area_chart_outlined),
             activeColorPrimary: Colors.purple,
             inactiveColorPrimary: Colors.blue,
           ),

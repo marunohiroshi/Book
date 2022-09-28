@@ -169,4 +169,6 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
 
     return book;
   }
+
+  checkNewBook() {}
 }

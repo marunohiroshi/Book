@@ -15,6 +15,7 @@ class BookShelf extends ConsumerWidget {
     final viewModel = ref.watch(bookShelfViewModelProvider.notifier);
     final state = ref.watch(bookShelfViewModelProvider);
     _scrollController.addListener(() {});
+    TextEditingController controller = TextEditingController();
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
@@ -140,7 +141,9 @@ class BookShelf extends ConsumerWidget {
                         );
                       });
                 }
-                return const Text('error');
+                return const Center(
+                  child: Text('本を登録しよう！'),
+                );
               } else {
                 return const CircularProgressIndicator();
               }

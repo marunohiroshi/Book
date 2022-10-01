@@ -50,6 +50,8 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   event: ^2.1.2
   easy_search_bar: ^2.3.1
+  flutter_launcher_icons: ^0.10.0
+  toggle_switch: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -110,3 +112,8 @@ flutter:
 analyzer:
   exclude:
     - lib/**/**/*.g.dart
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/assets/book_icon.png"

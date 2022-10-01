@@ -19,7 +19,7 @@ mixin _$BookDetailState {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  int get totalPage => throw _privateConstructorUsedError;
+  String get totalPage => throw _privateConstructorUsedError;
   String get smallThumbnail => throw _privateConstructorUsedError;
   String get thumbnail => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $BookDetailStateCopyWith<$Res> {
       {int id,
       String title,
       int price,
-      int totalPage,
+      String totalPage,
       String smallThumbnail,
       String thumbnail,
       String description,
@@ -88,7 +88,7 @@ class _$BookDetailStateCopyWithImpl<$Res>
       totalPage: totalPage == freezed
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       smallThumbnail: smallThumbnail == freezed
           ? _value.smallThumbnail
           : smallThumbnail // ignore: cast_nullable_to_non_nullable
@@ -128,7 +128,7 @@ abstract class _$$_BookDetailStateCopyWith<$Res>
       {int id,
       String title,
       int price,
-      int totalPage,
+      String totalPage,
       String smallThumbnail,
       String thumbnail,
       String description,
@@ -177,7 +177,7 @@ class __$$_BookDetailStateCopyWithImpl<$Res>
       totalPage: totalPage == freezed
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       smallThumbnail: smallThumbnail == freezed
           ? _value.smallThumbnail
           : smallThumbnail // ignore: cast_nullable_to_non_nullable
@@ -213,7 +213,7 @@ class _$_BookDetailState implements _BookDetailState {
       {this.id = 0,
       this.title = '',
       this.price = 0,
-      this.totalPage = 0,
+      this.totalPage = '',
       this.smallThumbnail = '',
       this.thumbnail = '',
       this.description = '',
@@ -232,7 +232,7 @@ class _$_BookDetailState implements _BookDetailState {
   final int price;
   @override
   @JsonKey()
-  final int totalPage;
+  final String totalPage;
   @override
   @JsonKey()
   final String smallThumbnail;
@@ -302,7 +302,7 @@ abstract class _BookDetailState implements BookDetailState {
       {final int id,
       final String title,
       final int price,
-      final int totalPage,
+      final String totalPage,
       final String smallThumbnail,
       final String thumbnail,
       final String description,
@@ -317,7 +317,7 @@ abstract class _BookDetailState implements BookDetailState {
   @override
   int get price;
   @override
-  int get totalPage;
+  String get totalPage;
   @override
   String get smallThumbnail;
   @override

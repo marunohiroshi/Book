@@ -8,13 +8,14 @@ class Books extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
   IntColumn get price => integer()();
-  IntColumn get totalPage => integer()();
-  TextColumn get smallThumbnail => text()();
+  TextColumn get totalPage => text()();
   TextColumn get thumbnail => text()();
   TextColumn get description => text()();
   TextColumn get publisher => text()();
   TextColumn get publishedDate => text()();
   TextColumn get authors => text()();
+  BoolColumn get isRead => boolean()();
+  TextColumn get memo => text()();
 }
 
 @DriftAccessor(tables: [Books])
@@ -29,29 +30,31 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
             title: book.title,
             price: book.price,
             totalPage: book.totalPage,
-            smallThumbnail: book.smallThumbnail,
             thumbnail: book.thumbnail,
             description: book.description,
             publisher: book.publisher,
             publishedDate: book.publishedDate,
-            authors: book.authors))
+            authors: book.authors,
+            isRead: book.isRead,
+            memo: book.memo))
         .toList();
   }
 
   Future<void> add(Book book) async {
     final bookList = await getList;
-    final id = bookList.last.id + 1;
+    final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
     into(books).insertOnConflictUpdate(Book(
         id: id,
         title: book.title,
         price: book.price,
         totalPage: book.totalPage,
-        smallThumbnail: book.smallThumbnail,
         thumbnail: book.thumbnail,
         description: book.description,
         publisher: book.publisher,
         publishedDate: book.publishedDate,
-        authors: book.authors));
+        authors: book.authors,
+        isRead: book.isRead,
+        memo: book.memo));
     Utility.updateDb.broadcast();
   }
 

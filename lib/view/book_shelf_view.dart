@@ -15,7 +15,6 @@ class BookShelf extends ConsumerWidget {
     final viewModel = ref.watch(bookShelfViewModelProvider.notifier);
     final state = ref.watch(bookShelfViewModelProvider);
     _scrollController.addListener(() {});
-    TextEditingController controller = TextEditingController();
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
@@ -25,8 +24,36 @@ class BookShelf extends ConsumerWidget {
       crossAxisCount = next.crossAxisCount;
       bookList = next.bookList;
     });
+    String searchValue = '';
+    final List<String> bookTitleList = [];
+    for (var element in bookList) {
+      bookTitleList.add(element.title);
+    }
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+        title: Text(
+          '本棚',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+        ],
+        elevation: 0,
+        flexibleSpace: Image.network(
+          // 'https://381d3c8c-a-62cb3a1a-s-sites.googlegroups.com/site/closetvx/picture/09/Title03d.png?attachauth=ANoY7cr302fq6Vo4zsRUxzNaNaUEfqCM67TIUI-CrXUBk-xLUddCCaD85ioEwIWRyhSquocObuGdMv-7-Wg12kR0RSmQxmVr-b-xFVPb25-QgLOzXoIOc6lStLtPuXb3eIa72u9aj3tLuyOOhL_CPYFcm9OmEkuU18ppOTS_cZBVFkpKvusHtFZi8LvNCG1K0nSoJzgPwA35htWOjrliym9Qecyt6zbglE77OstZ0WqxNFWO2j0tULI%3D&attredirects=0',
+          'https://i.pinimg.com/736x/61/87/7e/61877eda9ecd479350b1205a4d35edae--old-books-book-shelves.jpg',
+          fit: BoxFit.cover,
+        ),
+        toolbarHeight: 50,
+        backgroundColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: true,
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

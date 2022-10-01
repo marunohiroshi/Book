@@ -49,6 +49,7 @@ dependencies:
   go_router: ^4.5.0
   persistent_bottom_nav_bar: ^5.0.2
   event: ^2.1.2
+  easy_search_bar: ^2.3.1
 
 dev_dependencies:
   flutter_test:

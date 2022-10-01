@@ -20,21 +20,21 @@ class MyApp extends ConsumerWidget {
     //   routeInformationParser: router.routeInformationParser,
     //   routerDelegate: router.routerDelegate,
     // );
-    return NeumorphicApp(
+    return const NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Book',
       themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
+      theme: NeumorphicThemeData(
         baseColor: Color(0xFFFFFFFF),
         lightSource: LightSource.topLeft,
         depth: 10,
       ),
-      darkTheme: const NeumorphicThemeData(
+      darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
         lightSource: LightSource.topLeft,
         depth: 6,
       ),
-      home: const MainView(),
+      home: MainView(),
       routes: {},
     );
   }

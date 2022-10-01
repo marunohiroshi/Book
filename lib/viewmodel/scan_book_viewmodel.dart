@@ -116,10 +116,12 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
 
   Future<Book> getBookInfoFromJson(String res) async {
     final googleResponse = await getGoogleBookJsonResponse(res);
-    final totalPage = googleResponse['items'][0]['volumeInfo']['pageCount'];
-    final description = googleResponse['items'][0]['volumeInfo']['description'];
     final openDbResponse = await getOpendbBookJsonResponse(barcodeScanRes);
     final title = openDbResponse[0]['summary']['title'];
+    final totalPage = openDbResponse[0]['onix']['DescriptiveDetail']['Extent']
+        [0]['ExtentValue'];
+    final description =
+        openDbResponse[0]['onix']['CollateralDetail']['TextContent'][0]['Text'];
     final authors = openDbResponse[0]['summary']['author'];
     int price;
     try {
@@ -138,25 +140,24 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
           googleResponse['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
     }
 
-    String smallThumbnail;
-    smallThumbnail = googleResponse['items'][0]['volumeInfo']['imageLinks']
-        ['smallThumbnail'];
-
     final bookList = await _appDb.getBookList;
-    final id = bookList.last.id + 1;
-
+    final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
+    const isRead = true;
+    const memo = '';
     final book = Book(
         title: title,
         price: price,
         totalPage: totalPage,
-        smallThumbnail: smallThumbnail,
         thumbnail: thumbnail,
         description: description,
         publisher: publisher,
         publishedDate: publishedDate,
         authors: authors,
-        id: id);
+        id: id,
+        isRead: isRead,
+        memo: memo);
 
+    print('id: ${book.id}');
     print('title: ${book.title}');
     print('authors: ${book.authors}');
     print('price: ${book.price}');
@@ -164,7 +165,6 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     print('description: ${book.description}');
     print('publisher: ${book.publisher}');
     print('publishedDate: ${book.publishedDate}');
-    print('smallThumbnail: ${book.smallThumbnail}');
     print('thumbnail: ${book.thumbnail}');
 
     return book;

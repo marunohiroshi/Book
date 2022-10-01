@@ -11,37 +11,40 @@ class Book extends DataClass implements Insertable<Book> {
   final int id;
   final String title;
   final int price;
-  final int totalPage;
-  final String smallThumbnail;
+  final String totalPage;
   final String thumbnail;
   final String description;
   final String publisher;
   final String publishedDate;
   final String authors;
+  final bool isRead;
+  final String memo;
   const Book(
       {required this.id,
       required this.title,
       required this.price,
       required this.totalPage,
-      required this.smallThumbnail,
       required this.thumbnail,
       required this.description,
       required this.publisher,
       required this.publishedDate,
-      required this.authors});
+      required this.authors,
+      required this.isRead,
+      required this.memo});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['title'] = Variable<String>(title);
     map['price'] = Variable<int>(price);
-    map['total_page'] = Variable<int>(totalPage);
-    map['small_thumbnail'] = Variable<String>(smallThumbnail);
+    map['total_page'] = Variable<String>(totalPage);
     map['thumbnail'] = Variable<String>(thumbnail);
     map['description'] = Variable<String>(description);
     map['publisher'] = Variable<String>(publisher);
     map['published_date'] = Variable<String>(publishedDate);
     map['authors'] = Variable<String>(authors);
+    map['is_read'] = Variable<bool>(isRead);
+    map['memo'] = Variable<String>(memo);
     return map;
   }
 
@@ -51,12 +54,13 @@ class Book extends DataClass implements Insertable<Book> {
       title: Value(title),
       price: Value(price),
       totalPage: Value(totalPage),
-      smallThumbnail: Value(smallThumbnail),
       thumbnail: Value(thumbnail),
       description: Value(description),
       publisher: Value(publisher),
       publishedDate: Value(publishedDate),
       authors: Value(authors),
+      isRead: Value(isRead),
+      memo: Value(memo),
     );
   }
 
@@ -67,13 +71,14 @@ class Book extends DataClass implements Insertable<Book> {
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       price: serializer.fromJson<int>(json['price']),
-      totalPage: serializer.fromJson<int>(json['totalPage']),
-      smallThumbnail: serializer.fromJson<String>(json['smallThumbnail']),
+      totalPage: serializer.fromJson<String>(json['totalPage']),
       thumbnail: serializer.fromJson<String>(json['thumbnail']),
       description: serializer.fromJson<String>(json['description']),
       publisher: serializer.fromJson<String>(json['publisher']),
       publishedDate: serializer.fromJson<String>(json['publishedDate']),
       authors: serializer.fromJson<String>(json['authors']),
+      isRead: serializer.fromJson<bool>(json['isRead']),
+      memo: serializer.fromJson<String>(json['memo']),
     );
   }
   @override
@@ -83,13 +88,14 @@ class Book extends DataClass implements Insertable<Book> {
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String>(title),
       'price': serializer.toJson<int>(price),
-      'totalPage': serializer.toJson<int>(totalPage),
-      'smallThumbnail': serializer.toJson<String>(smallThumbnail),
+      'totalPage': serializer.toJson<String>(totalPage),
       'thumbnail': serializer.toJson<String>(thumbnail),
       'description': serializer.toJson<String>(description),
       'publisher': serializer.toJson<String>(publisher),
       'publishedDate': serializer.toJson<String>(publishedDate),
       'authors': serializer.toJson<String>(authors),
+      'isRead': serializer.toJson<bool>(isRead),
+      'memo': serializer.toJson<String>(memo),
     };
   }
 
@@ -97,24 +103,26 @@ class Book extends DataClass implements Insertable<Book> {
           {int? id,
           String? title,
           int? price,
-          int? totalPage,
-          String? smallThumbnail,
+          String? totalPage,
           String? thumbnail,
           String? description,
           String? publisher,
           String? publishedDate,
-          String? authors}) =>
+          String? authors,
+          bool? isRead,
+          String? memo}) =>
       Book(
         id: id ?? this.id,
         title: title ?? this.title,
         price: price ?? this.price,
         totalPage: totalPage ?? this.totalPage,
-        smallThumbnail: smallThumbnail ?? this.smallThumbnail,
         thumbnail: thumbnail ?? this.thumbnail,
         description: description ?? this.description,
         publisher: publisher ?? this.publisher,
         publishedDate: publishedDate ?? this.publishedDate,
         authors: authors ?? this.authors,
+        isRead: isRead ?? this.isRead,
+        memo: memo ?? this.memo,
       );
   @override
   String toString() {
@@ -123,19 +131,20 @@ class Book extends DataClass implements Insertable<Book> {
           ..write('title: $title, ')
           ..write('price: $price, ')
           ..write('totalPage: $totalPage, ')
-          ..write('smallThumbnail: $smallThumbnail, ')
           ..write('thumbnail: $thumbnail, ')
           ..write('description: $description, ')
           ..write('publisher: $publisher, ')
           ..write('publishedDate: $publishedDate, ')
-          ..write('authors: $authors')
+          ..write('authors: $authors, ')
+          ..write('isRead: $isRead, ')
+          ..write('memo: $memo')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, title, price, totalPage, smallThumbnail,
-      thumbnail, description, publisher, publishedDate, authors);
+  int get hashCode => Object.hash(id, title, price, totalPage, thumbnail,
+      description, publisher, publishedDate, authors, isRead, memo);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -144,80 +153,87 @@ class Book extends DataClass implements Insertable<Book> {
           other.title == this.title &&
           other.price == this.price &&
           other.totalPage == this.totalPage &&
-          other.smallThumbnail == this.smallThumbnail &&
           other.thumbnail == this.thumbnail &&
           other.description == this.description &&
           other.publisher == this.publisher &&
           other.publishedDate == this.publishedDate &&
-          other.authors == this.authors);
+          other.authors == this.authors &&
+          other.isRead == this.isRead &&
+          other.memo == this.memo);
 }
 
 class BooksCompanion extends UpdateCompanion<Book> {
   final Value<int> id;
   final Value<String> title;
   final Value<int> price;
-  final Value<int> totalPage;
-  final Value<String> smallThumbnail;
+  final Value<String> totalPage;
   final Value<String> thumbnail;
   final Value<String> description;
   final Value<String> publisher;
   final Value<String> publishedDate;
   final Value<String> authors;
+  final Value<bool> isRead;
+  final Value<String> memo;
   const BooksCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.price = const Value.absent(),
     this.totalPage = const Value.absent(),
-    this.smallThumbnail = const Value.absent(),
     this.thumbnail = const Value.absent(),
     this.description = const Value.absent(),
     this.publisher = const Value.absent(),
     this.publishedDate = const Value.absent(),
     this.authors = const Value.absent(),
+    this.isRead = const Value.absent(),
+    this.memo = const Value.absent(),
   });
   BooksCompanion.insert({
     this.id = const Value.absent(),
     required String title,
     required int price,
-    required int totalPage,
-    required String smallThumbnail,
+    required String totalPage,
     required String thumbnail,
     required String description,
     required String publisher,
     required String publishedDate,
     required String authors,
+    required bool isRead,
+    required String memo,
   })  : title = Value(title),
         price = Value(price),
         totalPage = Value(totalPage),
-        smallThumbnail = Value(smallThumbnail),
         thumbnail = Value(thumbnail),
         description = Value(description),
         publisher = Value(publisher),
         publishedDate = Value(publishedDate),
-        authors = Value(authors);
+        authors = Value(authors),
+        isRead = Value(isRead),
+        memo = Value(memo);
   static Insertable<Book> custom({
     Expression<int>? id,
     Expression<String>? title,
     Expression<int>? price,
-    Expression<int>? totalPage,
-    Expression<String>? smallThumbnail,
+    Expression<String>? totalPage,
     Expression<String>? thumbnail,
     Expression<String>? description,
     Expression<String>? publisher,
     Expression<String>? publishedDate,
     Expression<String>? authors,
+    Expression<bool>? isRead,
+    Expression<String>? memo,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (title != null) 'title': title,
       if (price != null) 'price': price,
       if (totalPage != null) 'total_page': totalPage,
-      if (smallThumbnail != null) 'small_thumbnail': smallThumbnail,
       if (thumbnail != null) 'thumbnail': thumbnail,
       if (description != null) 'description': description,
       if (publisher != null) 'publisher': publisher,
       if (publishedDate != null) 'published_date': publishedDate,
       if (authors != null) 'authors': authors,
+      if (isRead != null) 'is_read': isRead,
+      if (memo != null) 'memo': memo,
     });
   }
 
@@ -225,24 +241,26 @@ class BooksCompanion extends UpdateCompanion<Book> {
       {Value<int>? id,
       Value<String>? title,
       Value<int>? price,
-      Value<int>? totalPage,
-      Value<String>? smallThumbnail,
+      Value<String>? totalPage,
       Value<String>? thumbnail,
       Value<String>? description,
       Value<String>? publisher,
       Value<String>? publishedDate,
-      Value<String>? authors}) {
+      Value<String>? authors,
+      Value<bool>? isRead,
+      Value<String>? memo}) {
     return BooksCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       price: price ?? this.price,
       totalPage: totalPage ?? this.totalPage,
-      smallThumbnail: smallThumbnail ?? this.smallThumbnail,
       thumbnail: thumbnail ?? this.thumbnail,
       description: description ?? this.description,
       publisher: publisher ?? this.publisher,
       publishedDate: publishedDate ?? this.publishedDate,
       authors: authors ?? this.authors,
+      isRead: isRead ?? this.isRead,
+      memo: memo ?? this.memo,
     );
   }
 
@@ -259,10 +277,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       map['price'] = Variable<int>(price.value);
     }
     if (totalPage.present) {
-      map['total_page'] = Variable<int>(totalPage.value);
-    }
-    if (smallThumbnail.present) {
-      map['small_thumbnail'] = Variable<String>(smallThumbnail.value);
+      map['total_page'] = Variable<String>(totalPage.value);
     }
     if (thumbnail.present) {
       map['thumbnail'] = Variable<String>(thumbnail.value);
@@ -279,6 +294,12 @@ class BooksCompanion extends UpdateCompanion<Book> {
     if (authors.present) {
       map['authors'] = Variable<String>(authors.value);
     }
+    if (isRead.present) {
+      map['is_read'] = Variable<bool>(isRead.value);
+    }
+    if (memo.present) {
+      map['memo'] = Variable<String>(memo.value);
+    }
     return map;
   }
 
@@ -289,12 +310,13 @@ class BooksCompanion extends UpdateCompanion<Book> {
           ..write('title: $title, ')
           ..write('price: $price, ')
           ..write('totalPage: $totalPage, ')
-          ..write('smallThumbnail: $smallThumbnail, ')
           ..write('thumbnail: $thumbnail, ')
           ..write('description: $description, ')
           ..write('publisher: $publisher, ')
           ..write('publishedDate: $publishedDate, ')
-          ..write('authors: $authors')
+          ..write('authors: $authors, ')
+          ..write('isRead: $isRead, ')
+          ..write('memo: $memo')
           ..write(')'))
         .toString();
   }
@@ -324,14 +346,8 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
       type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _totalPageMeta = const VerificationMeta('totalPage');
   @override
-  late final GeneratedColumn<int> totalPage = GeneratedColumn<int>(
+  late final GeneratedColumn<String> totalPage = GeneratedColumn<String>(
       'total_page', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _smallThumbnailMeta =
-      const VerificationMeta('smallThumbnail');
-  @override
-  late final GeneratedColumn<String> smallThumbnail = GeneratedColumn<String>(
-      'small_thumbnail', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _thumbnailMeta = const VerificationMeta('thumbnail');
   @override
@@ -360,18 +376,31 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   late final GeneratedColumn<String> authors = GeneratedColumn<String>(
       'authors', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _isReadMeta = const VerificationMeta('isRead');
+  @override
+  late final GeneratedColumn<bool> isRead = GeneratedColumn<bool>(
+      'is_read', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK (is_read IN (0, 1))');
+  final VerificationMeta _memoMeta = const VerificationMeta('memo');
+  @override
+  late final GeneratedColumn<String> memo = GeneratedColumn<String>(
+      'memo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
         title,
         price,
         totalPage,
-        smallThumbnail,
         thumbnail,
         description,
         publisher,
         publishedDate,
-        authors
+        authors,
+        isRead,
+        memo
       ];
   @override
   String get aliasedName => _alias ?? 'books';
@@ -402,14 +431,6 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
           totalPage.isAcceptableOrUnknown(data['total_page']!, _totalPageMeta));
     } else if (isInserting) {
       context.missing(_totalPageMeta);
-    }
-    if (data.containsKey('small_thumbnail')) {
-      context.handle(
-          _smallThumbnailMeta,
-          smallThumbnail.isAcceptableOrUnknown(
-              data['small_thumbnail']!, _smallThumbnailMeta));
-    } else if (isInserting) {
-      context.missing(_smallThumbnailMeta);
     }
     if (data.containsKey('thumbnail')) {
       context.handle(_thumbnailMeta,
@@ -445,6 +466,18 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
     } else if (isInserting) {
       context.missing(_authorsMeta);
     }
+    if (data.containsKey('is_read')) {
+      context.handle(_isReadMeta,
+          isRead.isAcceptableOrUnknown(data['is_read']!, _isReadMeta));
+    } else if (isInserting) {
+      context.missing(_isReadMeta);
+    }
+    if (data.containsKey('memo')) {
+      context.handle(
+          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
+    } else if (isInserting) {
+      context.missing(_memoMeta);
+    }
     return context;
   }
 
@@ -461,9 +494,7 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
       price: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}price'])!,
       totalPage: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}total_page'])!,
-      smallThumbnail: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}small_thumbnail'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}total_page'])!,
       thumbnail: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}thumbnail'])!,
       description: attachedDatabase.options.types
@@ -474,6 +505,10 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
           .read(DriftSqlType.string, data['${effectivePrefix}published_date'])!,
       authors: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}authors'])!,
+      isRead: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_read'])!,
+      memo: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,
     );
   }
 

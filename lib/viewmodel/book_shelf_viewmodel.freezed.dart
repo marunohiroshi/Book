@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BookShelfState {
   List<Book> get bookList => throw _privateConstructorUsedError;
   int get crossAxisCount => throw _privateConstructorUsedError;
-  bool get updateDb => throw _privateConstructorUsedError;
+  bool get hasRead => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookShelfStateCopyWith<BookShelfState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $BookShelfStateCopyWith<$Res> {
   factory $BookShelfStateCopyWith(
           BookShelfState value, $Res Function(BookShelfState) then) =
       _$BookShelfStateCopyWithImpl<$Res>;
-  $Res call({List<Book> bookList, int crossAxisCount, bool updateDb});
+  $Res call({List<Book> bookList, int crossAxisCount, bool hasRead});
 }
 
 /// @nodoc
@@ -46,7 +46,7 @@ class _$BookShelfStateCopyWithImpl<$Res>
   $Res call({
     Object? bookList = freezed,
     Object? crossAxisCount = freezed,
-    Object? updateDb = freezed,
+    Object? hasRead = freezed,
   }) {
     return _then(_value.copyWith(
       bookList: bookList == freezed
@@ -57,9 +57,9 @@ class _$BookShelfStateCopyWithImpl<$Res>
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
               as int,
-      updateDb: updateDb == freezed
-          ? _value.updateDb
-          : updateDb // ignore: cast_nullable_to_non_nullable
+      hasRead: hasRead == freezed
+          ? _value.hasRead
+          : hasRead // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -72,7 +72,7 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
           _$_BookShelfState value, $Res Function(_$_BookShelfState) then) =
       __$$_BookShelfStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Book> bookList, int crossAxisCount, bool updateDb});
+  $Res call({List<Book> bookList, int crossAxisCount, bool hasRead});
 }
 
 /// @nodoc
@@ -90,7 +90,7 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
   $Res call({
     Object? bookList = freezed,
     Object? crossAxisCount = freezed,
-    Object? updateDb = freezed,
+    Object? hasRead = freezed,
   }) {
     return _then(_$_BookShelfState(
       bookList: bookList == freezed
@@ -101,9 +101,9 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
               as int,
-      updateDb: updateDb == freezed
-          ? _value.updateDb
-          : updateDb // ignore: cast_nullable_to_non_nullable
+      hasRead: hasRead == freezed
+          ? _value.hasRead
+          : hasRead // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -115,7 +115,7 @@ class _$_BookShelfState implements _BookShelfState {
   const _$_BookShelfState(
       {final List<Book> bookList = const <Book>[],
       this.crossAxisCount = 3,
-      this.updateDb = false})
+      this.hasRead = false})
       : _bookList = bookList;
 
   final List<Book> _bookList;
@@ -131,11 +131,11 @@ class _$_BookShelfState implements _BookShelfState {
   final int crossAxisCount;
   @override
   @JsonKey()
-  final bool updateDb;
+  final bool hasRead;
 
   @override
   String toString() {
-    return 'BookShelfState(bookList: $bookList, crossAxisCount: $crossAxisCount, updateDb: $updateDb)';
+    return 'BookShelfState(bookList: $bookList, crossAxisCount: $crossAxisCount, hasRead: $hasRead)';
   }
 
   @override
@@ -146,7 +146,7 @@ class _$_BookShelfState implements _BookShelfState {
             const DeepCollectionEquality().equals(other._bookList, _bookList) &&
             const DeepCollectionEquality()
                 .equals(other.crossAxisCount, crossAxisCount) &&
-            const DeepCollectionEquality().equals(other.updateDb, updateDb));
+            const DeepCollectionEquality().equals(other.hasRead, hasRead));
   }
 
   @override
@@ -154,7 +154,7 @@ class _$_BookShelfState implements _BookShelfState {
       runtimeType,
       const DeepCollectionEquality().hash(_bookList),
       const DeepCollectionEquality().hash(crossAxisCount),
-      const DeepCollectionEquality().hash(updateDb));
+      const DeepCollectionEquality().hash(hasRead));
 
   @JsonKey(ignore: true)
   @override
@@ -166,14 +166,14 @@ abstract class _BookShelfState implements BookShelfState {
   const factory _BookShelfState(
       {final List<Book> bookList,
       final int crossAxisCount,
-      final bool updateDb}) = _$_BookShelfState;
+      final bool hasRead}) = _$_BookShelfState;
 
   @override
   List<Book> get bookList;
   @override
   int get crossAxisCount;
   @override
-  bool get updateDb;
+  bool get hasRead;
   @override
   @JsonKey(ignore: true)
   _$$_BookShelfStateCopyWith<_$_BookShelfState> get copyWith =>

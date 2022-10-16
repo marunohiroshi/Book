@@ -14,7 +14,7 @@ class Books extends Table {
   TextColumn get publisher => text()();
   TextColumn get publishedDate => text()();
   TextColumn get authors => text()();
-  BoolColumn get isRead => boolean()();
+  BoolColumn get hasRead => boolean()();
   TextColumn get memo => text()();
 }
 
@@ -22,7 +22,7 @@ class Books extends Table {
 class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
   BooksDao(AppDbDriftImpl db) : super(db);
 
-  Future<List<Book>> get getList async {
+  Future<List<Book>> get getAllBookList async {
     final bookList = await select(books).get();
     return bookList
         .map((book) => Book(
@@ -35,13 +35,35 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
             publisher: book.publisher,
             publishedDate: book.publishedDate,
             authors: book.authors,
-            isRead: book.isRead,
+            hasRead: book.hasRead,
             memo: book.memo))
         .toList();
   }
 
+  Future<List<Book>> get getHasReadBookList async {
+    final bookList = await select(books).get();
+    List<Book> hasReadBookList = [];
+    for (var book in bookList) {
+      if (book.hasRead == true) {
+        hasReadBookList.add(book);
+      }
+    }
+    return hasReadBookList;
+  }
+
+  Future<List<Book>> get getHasNotReadBookList async {
+    final bookList = await select(books).get();
+    List<Book> hasReadBookList = [];
+    for (var book in bookList) {
+      if (book.hasRead == false) {
+        hasReadBookList.add(book);
+      }
+    }
+    return hasReadBookList;
+  }
+
   Future<void> add(Book book) async {
-    final bookList = await getList;
+    final bookList = await getAllBookList;
     final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
     into(books).insertOnConflictUpdate(Book(
         id: id,
@@ -53,13 +75,13 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         publisher: book.publisher,
         publishedDate: book.publishedDate,
         authors: book.authors,
-        isRead: book.isRead,
+        hasRead: book.hasRead,
         memo: book.memo));
     Utility.updateDb.broadcast();
   }
 
   Future<Book> getBook(int id) async {
-    final bookList = await getList;
+    final bookList = await getAllBookList;
     var book;
     for (var element in bookList) {
       if (element.id == id) {

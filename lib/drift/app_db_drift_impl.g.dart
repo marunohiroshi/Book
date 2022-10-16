@@ -17,7 +17,7 @@ class Book extends DataClass implements Insertable<Book> {
   final String publisher;
   final String publishedDate;
   final String authors;
-  final bool isRead;
+  final bool hasRead;
   final String memo;
   const Book(
       {required this.id,
@@ -29,7 +29,7 @@ class Book extends DataClass implements Insertable<Book> {
       required this.publisher,
       required this.publishedDate,
       required this.authors,
-      required this.isRead,
+      required this.hasRead,
       required this.memo});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -43,7 +43,7 @@ class Book extends DataClass implements Insertable<Book> {
     map['publisher'] = Variable<String>(publisher);
     map['published_date'] = Variable<String>(publishedDate);
     map['authors'] = Variable<String>(authors);
-    map['is_read'] = Variable<bool>(isRead);
+    map['is_read'] = Variable<bool>(hasRead);
     map['memo'] = Variable<String>(memo);
     return map;
   }
@@ -59,7 +59,7 @@ class Book extends DataClass implements Insertable<Book> {
       publisher: Value(publisher),
       publishedDate: Value(publishedDate),
       authors: Value(authors),
-      isRead: Value(isRead),
+      hasRead: Value(hasRead),
       memo: Value(memo),
     );
   }
@@ -77,7 +77,7 @@ class Book extends DataClass implements Insertable<Book> {
       publisher: serializer.fromJson<String>(json['publisher']),
       publishedDate: serializer.fromJson<String>(json['publishedDate']),
       authors: serializer.fromJson<String>(json['authors']),
-      isRead: serializer.fromJson<bool>(json['isRead']),
+      hasRead: serializer.fromJson<bool>(json['hasRead']),
       memo: serializer.fromJson<String>(json['memo']),
     );
   }
@@ -94,7 +94,7 @@ class Book extends DataClass implements Insertable<Book> {
       'publisher': serializer.toJson<String>(publisher),
       'publishedDate': serializer.toJson<String>(publishedDate),
       'authors': serializer.toJson<String>(authors),
-      'isRead': serializer.toJson<bool>(isRead),
+      'hasRead': serializer.toJson<bool>(hasRead),
       'memo': serializer.toJson<String>(memo),
     };
   }
@@ -109,7 +109,7 @@ class Book extends DataClass implements Insertable<Book> {
           String? publisher,
           String? publishedDate,
           String? authors,
-          bool? isRead,
+          bool? hasRead,
           String? memo}) =>
       Book(
         id: id ?? this.id,
@@ -121,7 +121,7 @@ class Book extends DataClass implements Insertable<Book> {
         publisher: publisher ?? this.publisher,
         publishedDate: publishedDate ?? this.publishedDate,
         authors: authors ?? this.authors,
-        isRead: isRead ?? this.isRead,
+        hasRead: hasRead ?? this.hasRead,
         memo: memo ?? this.memo,
       );
   @override
@@ -136,7 +136,7 @@ class Book extends DataClass implements Insertable<Book> {
           ..write('publisher: $publisher, ')
           ..write('publishedDate: $publishedDate, ')
           ..write('authors: $authors, ')
-          ..write('isRead: $isRead, ')
+          ..write('hasRead: $hasRead, ')
           ..write('memo: $memo')
           ..write(')'))
         .toString();
@@ -144,7 +144,7 @@ class Book extends DataClass implements Insertable<Book> {
 
   @override
   int get hashCode => Object.hash(id, title, price, totalPage, thumbnail,
-      description, publisher, publishedDate, authors, isRead, memo);
+      description, publisher, publishedDate, authors, hasRead, memo);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -158,7 +158,7 @@ class Book extends DataClass implements Insertable<Book> {
           other.publisher == this.publisher &&
           other.publishedDate == this.publishedDate &&
           other.authors == this.authors &&
-          other.isRead == this.isRead &&
+          other.hasRead == this.hasRead &&
           other.memo == this.memo);
 }
 
@@ -172,7 +172,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
   final Value<String> publisher;
   final Value<String> publishedDate;
   final Value<String> authors;
-  final Value<bool> isRead;
+  final Value<bool> hasRead;
   final Value<String> memo;
   const BooksCompanion({
     this.id = const Value.absent(),
@@ -184,7 +184,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     this.publisher = const Value.absent(),
     this.publishedDate = const Value.absent(),
     this.authors = const Value.absent(),
-    this.isRead = const Value.absent(),
+    this.hasRead = const Value.absent(),
     this.memo = const Value.absent(),
   });
   BooksCompanion.insert({
@@ -197,7 +197,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     required String publisher,
     required String publishedDate,
     required String authors,
-    required bool isRead,
+    required bool hasRead,
     required String memo,
   })  : title = Value(title),
         price = Value(price),
@@ -207,7 +207,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
         publisher = Value(publisher),
         publishedDate = Value(publishedDate),
         authors = Value(authors),
-        isRead = Value(isRead),
+        hasRead = Value(hasRead),
         memo = Value(memo);
   static Insertable<Book> custom({
     Expression<int>? id,
@@ -219,7 +219,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     Expression<String>? publisher,
     Expression<String>? publishedDate,
     Expression<String>? authors,
-    Expression<bool>? isRead,
+    Expression<bool>? hasRead,
     Expression<String>? memo,
   }) {
     return RawValuesInsertable({
@@ -232,7 +232,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       if (publisher != null) 'publisher': publisher,
       if (publishedDate != null) 'published_date': publishedDate,
       if (authors != null) 'authors': authors,
-      if (isRead != null) 'is_read': isRead,
+      if (hasRead != null) 'is_read': hasRead,
       if (memo != null) 'memo': memo,
     });
   }
@@ -247,7 +247,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       Value<String>? publisher,
       Value<String>? publishedDate,
       Value<String>? authors,
-      Value<bool>? isRead,
+      Value<bool>? hasRead,
       Value<String>? memo}) {
     return BooksCompanion(
       id: id ?? this.id,
@@ -259,7 +259,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       publisher: publisher ?? this.publisher,
       publishedDate: publishedDate ?? this.publishedDate,
       authors: authors ?? this.authors,
-      isRead: isRead ?? this.isRead,
+      hasRead: hasRead ?? this.hasRead,
       memo: memo ?? this.memo,
     );
   }
@@ -294,8 +294,8 @@ class BooksCompanion extends UpdateCompanion<Book> {
     if (authors.present) {
       map['authors'] = Variable<String>(authors.value);
     }
-    if (isRead.present) {
-      map['is_read'] = Variable<bool>(isRead.value);
+    if (hasRead.present) {
+      map['is_read'] = Variable<bool>(hasRead.value);
     }
     if (memo.present) {
       map['memo'] = Variable<String>(memo.value);
@@ -315,7 +315,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
           ..write('publisher: $publisher, ')
           ..write('publishedDate: $publishedDate, ')
           ..write('authors: $authors, ')
-          ..write('isRead: $isRead, ')
+          ..write('hasRead: $hasRead, ')
           ..write('memo: $memo')
           ..write(')'))
         .toString();
@@ -376,9 +376,9 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   late final GeneratedColumn<String> authors = GeneratedColumn<String>(
       'authors', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _isReadMeta = const VerificationMeta('isRead');
+  final VerificationMeta _hasReadMeta = const VerificationMeta('hasRead');
   @override
-  late final GeneratedColumn<bool> isRead = GeneratedColumn<bool>(
+  late final GeneratedColumn<bool> hasRead = GeneratedColumn<bool>(
       'is_read', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: true,
@@ -399,7 +399,7 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
         publisher,
         publishedDate,
         authors,
-        isRead,
+        hasRead,
         memo
       ];
   @override
@@ -467,10 +467,10 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
       context.missing(_authorsMeta);
     }
     if (data.containsKey('is_read')) {
-      context.handle(_isReadMeta,
-          isRead.isAcceptableOrUnknown(data['is_read']!, _isReadMeta));
+      context.handle(_hasReadMeta,
+          hasRead.isAcceptableOrUnknown(data['is_read']!, _hasReadMeta));
     } else if (isInserting) {
-      context.missing(_isReadMeta);
+      context.missing(_hasReadMeta);
     }
     if (data.containsKey('memo')) {
       context.handle(
@@ -505,7 +505,7 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
           .read(DriftSqlType.string, data['${effectivePrefix}published_date'])!,
       authors: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}authors'])!,
-      isRead: attachedDatabase.options.types
+      hasRead: attachedDatabase.options.types
           .read(DriftSqlType.bool, data['${effectivePrefix}is_read'])!,
       memo: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,

@@ -140,9 +140,9 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
           googleResponse['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
     }
 
-    final bookList = await _appDb.getBookList;
+    final bookList = await _appDb.getAllBookList;
     final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
-    const isRead = true;
+    const hasRead = true;
     const memo = '';
     final book = Book(
         title: title,
@@ -154,7 +154,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
         publishedDate: publishedDate,
         authors: authors,
         id: id,
-        isRead: isRead,
+        hasRead: hasRead,
         memo: memo);
 
     print('id: ${book.id}');

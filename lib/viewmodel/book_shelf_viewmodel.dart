@@ -8,10 +8,11 @@ part 'book_shelf_viewmodel.freezed.dart';
 
 @freezed
 class BookShelfState with _$BookShelfState {
-  const factory BookShelfState(
-      {@Default(<Book>[]) List<Book> bookList,
-      @Default(3) int crossAxisCount,
-      @Default(false) bool updateDb}) = _BookShelfState;
+  const factory BookShelfState({
+    @Default(<Book>[]) List<Book> bookList,
+    @Default(3) int crossAxisCount,
+    @Default(false) bool hasRead,
+  }) = _BookShelfState;
 }
 
 class BookShelfViewModel extends StateNotifier<BookShelfState> {
@@ -21,14 +22,18 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
   late final AppDbDriftImpl _appDb;
 
   Future<void> fetch() async {
-    final bookList = await _appDb.getBookList;
+    final bookList = await _appDb.getHasReadBookList;
     state = state.copyWith(
       bookList: bookList,
     );
   }
 
-  Future<List<Book>> getBookList() async {
-    return await _appDb.getBookList;
+  Future<List<Book>> getBookList(bool hasRead) async {
+    if (hasRead) {
+      return await _appDb.getHasReadBookList;
+    } else {
+      return await _appDb.getHasNotReadBookList;
+    }
   }
 
   String getThumbnail(int index) {
@@ -50,15 +55,28 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
     print(crossAxisCount);
   }
 
+  //TODO: Stream
   void add(Book book) async {
     await _appDb.add(book);
-    final bookList = await _appDb.getBookList;
+    final bookList = await _appDb.getAllBookList;
     state = state.copyWith(bookList: bookList);
   }
 
+  //TODO: Stream
   void delete(int id) async {
     await _appDb.deleteBook(id);
-    final bookList = await _appDb.getBookList;
+    final bookList = await _appDb.getAllBookList;
     state = state.copyWith(bookList: bookList);
+  }
+
+  void switchDisplay(int index) {
+    switch (index) {
+      case 0:
+        state = state.copyWith(hasRead: true);
+        return;
+      case 1:
+        state = state.copyWith(hasRead: false);
+        return;
+    }
   }
 }

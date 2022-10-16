@@ -15,7 +15,12 @@ part 'app_db_drift_impl.g.dart';
 class AppDbDriftImpl extends _$AppDbDriftImpl {
   AppDbDriftImpl() : super(_openConnection());
 
-  Future<List<Book>> get getBookList => booksDao.getList;
+  Future<List<Book>> get getAllBookList => booksDao.getAllBookList;
+
+  Future<List<Book>> get getHasReadBookList => booksDao.getHasReadBookList;
+
+  Future<List<Book>> get getHasNotReadBookList =>
+      booksDao.getHasNotReadBookList;
 
   Future add(Book book) {
     return booksDao.add(book);

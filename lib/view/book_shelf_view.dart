@@ -5,6 +5,7 @@ import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class BookShelf extends ConsumerWidget {
   final ScrollController _scrollController = ScrollController();
@@ -24,25 +25,48 @@ class BookShelf extends ConsumerWidget {
       crossAxisCount = next.crossAxisCount;
       bookList = next.bookList;
     });
-    String searchValue = '';
-    final List<String> bookTitleList = [];
-    for (var element in bookList) {
-      bookTitleList.add(element.title);
-    }
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-        title: Text(
-          '本棚',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+        title: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Scrollbar(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: ToggleSwitch(
+                  customWidths: const [100.0, 100.0],
+                  cornerRadius: 20.0,
+                  activeBgColors: const [
+                    [Colors.blue],
+                    [Colors.green]
+                  ],
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.grey,
+                  inactiveFgColor: Colors.white,
+                  labels: const ['本棚', '読みたい'],
+                  onToggle: (index) {
+                    print('switched to: $index');
+                    if (index != null) {
+                      viewModel.switchDisplay(index);
+                    }
+                  },
+                ),
+              ),
+            ),
           ),
         ),
+        // Text(
+        //   '本棚',
+        //   style: TextStyle(
+        //     color: Colors.white,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
         centerTitle: true,
         actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
         ],
         elevation: 0,
         flexibleSpace: Image.network(
@@ -89,7 +113,7 @@ class BookShelf extends ConsumerWidget {
         // padding: const EdgeInsets.all(8),
         children: [
           FutureBuilder(
-            future: viewModel.getBookList(),
+            future: viewModel.getBookList(state.hasRead),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {

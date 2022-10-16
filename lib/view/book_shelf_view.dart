@@ -20,6 +20,7 @@ class BookShelf extends ConsumerWidget {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
     int crossAxisCount = state.crossAxisCount;
+    int index = state.hasRead ? 0 : 1;
     var bookList = state.bookList;
     ref.listen(bookShelfViewModelProvider, (_, BookShelfState next) {
       crossAxisCount = next.crossAxisCount;
@@ -38,6 +39,7 @@ class BookShelf extends ConsumerWidget {
                 child: ToggleSwitch(
                   customWidths: const [100.0, 100.0],
                   cornerRadius: 20.0,
+                  initialLabelIndex: index,
                   activeBgColors: const [
                     [Colors.blue],
                     [Colors.green]

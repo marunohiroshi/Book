@@ -115,7 +115,7 @@ class _$_BookShelfState implements _BookShelfState {
   const _$_BookShelfState(
       {final List<Book> bookList = const <Book>[],
       this.crossAxisCount = 3,
-      this.hasRead = false})
+      this.hasRead = true})
       : _bookList = bookList;
 
   final List<Book> _bookList;

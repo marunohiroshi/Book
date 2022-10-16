@@ -53,13 +53,13 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
 
   Future<List<Book>> get getHasNotReadBookList async {
     final bookList = await select(books).get();
-    List<Book> hasReadBookList = [];
+    List<Book> hasNotReadBookList = [];
     for (var book in bookList) {
       if (book.hasRead == false) {
-        hasReadBookList.add(book);
+        hasNotReadBookList.add(book);
       }
     }
-    return hasReadBookList;
+    return hasNotReadBookList;
   }
 
   Future<void> add(Book book) async {

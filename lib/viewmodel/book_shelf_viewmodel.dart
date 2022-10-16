@@ -11,7 +11,7 @@ class BookShelfState with _$BookShelfState {
   const factory BookShelfState({
     @Default(<Book>[]) List<Book> bookList,
     @Default(3) int crossAxisCount,
-    @Default(false) bool hasRead,
+    @Default(true) bool hasRead,
   }) = _BookShelfState;
 }
 
@@ -30,8 +30,14 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
 
   Future<List<Book>> getBookList(bool hasRead) async {
     if (hasRead) {
+      print('has read');
+      // final test = await _appDb.getHasReadBookList;
+      // print('${test}');
       return await _appDb.getHasReadBookList;
     } else {
+      print('has not read');
+      // final test = await _appDb.getHasNotReadBookList;
+      // print('${test}');
       return await _appDb.getHasNotReadBookList;
     }
   }

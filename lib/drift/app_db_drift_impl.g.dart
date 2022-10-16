@@ -43,7 +43,7 @@ class Book extends DataClass implements Insertable<Book> {
     map['publisher'] = Variable<String>(publisher);
     map['published_date'] = Variable<String>(publishedDate);
     map['authors'] = Variable<String>(authors);
-    map['is_read'] = Variable<bool>(hasRead);
+    map['has_read'] = Variable<bool>(hasRead);
     map['memo'] = Variable<String>(memo);
     return map;
   }
@@ -232,7 +232,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       if (publisher != null) 'publisher': publisher,
       if (publishedDate != null) 'published_date': publishedDate,
       if (authors != null) 'authors': authors,
-      if (hasRead != null) 'is_read': hasRead,
+      if (hasRead != null) 'has_read': hasRead,
       if (memo != null) 'memo': memo,
     });
   }
@@ -295,7 +295,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       map['authors'] = Variable<String>(authors.value);
     }
     if (hasRead.present) {
-      map['is_read'] = Variable<bool>(hasRead.value);
+      map['has_read'] = Variable<bool>(hasRead.value);
     }
     if (memo.present) {
       map['memo'] = Variable<String>(memo.value);
@@ -379,10 +379,10 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   final VerificationMeta _hasReadMeta = const VerificationMeta('hasRead');
   @override
   late final GeneratedColumn<bool> hasRead = GeneratedColumn<bool>(
-      'is_read', aliasedName, false,
+      'has_read', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: true,
-      defaultConstraints: 'CHECK (is_read IN (0, 1))');
+      defaultConstraints: 'CHECK (has_read IN (0, 1))');
   final VerificationMeta _memoMeta = const VerificationMeta('memo');
   @override
   late final GeneratedColumn<String> memo = GeneratedColumn<String>(
@@ -466,9 +466,9 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
     } else if (isInserting) {
       context.missing(_authorsMeta);
     }
-    if (data.containsKey('is_read')) {
+    if (data.containsKey('has_read')) {
       context.handle(_hasReadMeta,
-          hasRead.isAcceptableOrUnknown(data['is_read']!, _hasReadMeta));
+          hasRead.isAcceptableOrUnknown(data['has_read']!, _hasReadMeta));
     } else if (isInserting) {
       context.missing(_hasReadMeta);
     }
@@ -506,7 +506,7 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
       authors: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}authors'])!,
       hasRead: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_read'])!,
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_read'])!,
       memo: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,
     );

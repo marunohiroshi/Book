@@ -4,6 +4,7 @@ import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class ScanBook extends ConsumerWidget {
   const ScanBook({Key? key}) : super(key: key);
@@ -37,6 +38,31 @@ class ScanBook extends ConsumerWidget {
                   'バーコード読み取り',
                   textAlign: TextAlign.center,
                 )),
+            Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Scrollbar(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: ToggleSwitch(
+                      customWidths: const [100.0, 100.0],
+                      cornerRadius: 20.0,
+                      activeBgColors: const [
+                        [Colors.blue],
+                        [Colors.green]
+                      ],
+                      activeFgColor: Colors.white,
+                      inactiveBgColor: Colors.grey,
+                      inactiveFgColor: Colors.white,
+                      labels: const ['読んだ', '読みたい'],
+                      onToggle: (index) {
+                        print('switched to: $index');
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

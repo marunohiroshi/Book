@@ -41,7 +41,7 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
   }
 
   Future<List<Book>> get getHasReadBookList async {
-    final bookList = await select(books).get();
+    final bookList = await getAllBookList;
     List<Book> hasReadBookList = [];
     for (var book in bookList) {
       if (book.hasRead == true) {
@@ -52,7 +52,7 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
   }
 
   Future<List<Book>> get getHasNotReadBookList async {
-    final bookList = await select(books).get();
+    final bookList = await getAllBookList;
     List<Book> hasNotReadBookList = [];
     for (var book in bookList) {
       if (book.hasRead == false) {

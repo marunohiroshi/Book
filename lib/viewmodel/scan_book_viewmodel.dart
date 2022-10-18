@@ -170,5 +170,13 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     return book;
   }
 
-  checkNewBook() {}
+  Future<bool> checkNewBook(String title) async {
+    final bookList = await _appDb.getHasReadBookList;
+    for (var book in bookList) {
+      if (book.title == title) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

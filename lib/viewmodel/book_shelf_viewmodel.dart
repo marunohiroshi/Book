@@ -31,13 +31,11 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
   Future<List<Book>> getBookList(bool hasRead) async {
     if (hasRead) {
       print('has read');
-      // final test = await _appDb.getHasReadBookList;
-      // print('${test}');
+      final bookList = await _appDb.getHasReadBookList;
       return await _appDb.getHasReadBookList;
     } else {
       print('has not read');
-      // final test = await _appDb.getHasNotReadBookList;
-      // print('${test}');
+      final bookList = await _appDb.getHasNotReadBookList;
       return await _appDb.getHasNotReadBookList;
     }
   }

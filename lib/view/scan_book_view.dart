@@ -22,10 +22,12 @@ class ScanBook extends ConsumerWidget {
                 onPressed: () async {
                   String res = await viewModel.checkValidBarcode();
                   final book = await viewModel.getBookInfoFromJson(res);
+                  final isNewBook = await viewModel.checkNewBook(book.title);
                   showDialog<void>(
                       context: context,
                       builder: (_) {
-                        return showBookInfoDialog(book, mainViewModel, ref);
+                        return showBookInfoDialog(
+                            book, mainViewModel, ref, isNewBook);
                       });
                 },
                 style: const NeumorphicStyle(
@@ -44,16 +46,13 @@ class ScanBook extends ConsumerWidget {
   }
 
   Widget showBookInfoDialog(
-      Book book, MainViewModel mainViewModel, WidgetRef ref) {
+      Book book, MainViewModel mainViewModel, WidgetRef ref, bool isNewBook) {
     return AlertDialog(
       title: Text(book.title),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(book.authors),
-            Text('${book.totalPage}ページ'),
-            Text('${book.price}円'),
-            // Image.network(book.smallThumbnail),
+            getAlertText(isNewBook),
             Container(
               height: 300,
               width: 200,
@@ -68,6 +67,9 @@ class ScanBook extends ConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
+            Text(book.authors),
+            Text('${book.totalPage}ページ'),
+            Text('${book.price}円'),
           ],
         ),
       ),
@@ -100,5 +102,15 @@ class ScanBook extends ConsumerWidget {
         )
       ],
     );
+  }
+
+  Widget getAlertText(bool isNewBook) {
+    if (!isNewBook) {
+      return const Text(
+        '※この本は既に登録されています',
+        style: TextStyle(color: Colors.red),
+      );
+    }
+    return const Spacer();
   }
 }

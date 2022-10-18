@@ -21,10 +21,8 @@ class BookShelf extends ConsumerWidget {
     final double itemWidth = size.width / 2;
     int crossAxisCount = state.crossAxisCount;
     int index = state.hasRead ? 0 : 1;
-    var bookList = state.bookList;
     ref.listen(bookShelfViewModelProvider, (_, BookShelfState next) {
       crossAxisCount = next.crossAxisCount;
-      bookList = next.bookList;
     });
 
     return Scaffold(
@@ -125,7 +123,7 @@ class BookShelf extends ConsumerWidget {
                         crossAxisCount: crossAxisCount,
                         childAspectRatio: (itemWidth / itemHeight),
                       ),
-                      itemCount: bookList.length,
+                      itemCount: snapshot.data?.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
                           margin: const EdgeInsets.all(8),
@@ -151,7 +149,7 @@ class BookShelf extends ConsumerWidget {
                               ),
                               onTap: () {
                                 print('index: $index');
-                                final book = bookList[index];
+                                final book = snapshot.data?[index];
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/router.dart';
 import 'package:book/viewmodel/book_detail_viewmodel.dart';
+import 'package:book/viewmodel/book_search_viewmodel.dart';
 import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:book/viewmodel/scan_book_viewmodel.dart';
@@ -33,3 +34,8 @@ final bookShelfViewModelProvider =
 final bookDetailViewModelProvider = StateNotifierProvider.family
     .autoDispose<BookDetailViewModel, BookDetailState, Book>(
         (ref, book) => BookDetailViewModel(ref.read(appDbProvider), book));
+
+/// book_sarch_viewプロバイダー
+final bookSearchViewModelProvider =
+    StateNotifierProvider.autoDispose<BookSearchViewModel, BookSearchState>(
+        (ref) => BookSearchViewModel());

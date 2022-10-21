@@ -1,5 +1,6 @@
 import 'package:book/View/scan_book_view.dart';
 import 'package:book/providers.dart';
+import 'package:book/view/book_search_view.dart';
 import 'package:book/view/book_shelf_view.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class MainView extends ConsumerWidget {
         screens: [
           const ScanBook(),
           BookShelf(),
-          const ScanBook(),
+          const BookSearch(),
           const ScanBook()
         ],
         items: [

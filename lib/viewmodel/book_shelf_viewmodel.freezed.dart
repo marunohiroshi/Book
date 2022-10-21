@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BookShelfState {
-  List<Book> get bookList => throw _privateConstructorUsedError;
+  List<model.Book> get bookList => throw _privateConstructorUsedError;
   int get crossAxisCount => throw _privateConstructorUsedError;
   bool get hasRead => throw _privateConstructorUsedError;
 
@@ -30,7 +30,7 @@ abstract class $BookShelfStateCopyWith<$Res> {
   factory $BookShelfStateCopyWith(
           BookShelfState value, $Res Function(BookShelfState) then) =
       _$BookShelfStateCopyWithImpl<$Res>;
-  $Res call({List<Book> bookList, int crossAxisCount, bool hasRead});
+  $Res call({List<model.Book> bookList, int crossAxisCount, bool hasRead});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$BookShelfStateCopyWithImpl<$Res>
       bookList: bookList == freezed
           ? _value.bookList
           : bookList // ignore: cast_nullable_to_non_nullable
-              as List<Book>,
+              as List<model.Book>,
       crossAxisCount: crossAxisCount == freezed
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,7 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
           _$_BookShelfState value, $Res Function(_$_BookShelfState) then) =
       __$$_BookShelfStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Book> bookList, int crossAxisCount, bool hasRead});
+  $Res call({List<model.Book> bookList, int crossAxisCount, bool hasRead});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
       bookList: bookList == freezed
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
-              as List<Book>,
+              as List<model.Book>,
       crossAxisCount: crossAxisCount == freezed
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
@@ -113,15 +113,15 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
 
 class _$_BookShelfState implements _BookShelfState {
   const _$_BookShelfState(
-      {final List<Book> bookList = const <Book>[],
+      {final List<model.Book> bookList = const <model.Book>[],
       this.crossAxisCount = 3,
       this.hasRead = true})
       : _bookList = bookList;
 
-  final List<Book> _bookList;
+  final List<model.Book> _bookList;
   @override
   @JsonKey()
-  List<Book> get bookList {
+  List<model.Book> get bookList {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bookList);
   }
@@ -164,12 +164,12 @@ class _$_BookShelfState implements _BookShelfState {
 
 abstract class _BookShelfState implements BookShelfState {
   const factory _BookShelfState(
-      {final List<Book> bookList,
+      {final List<model.Book> bookList,
       final int crossAxisCount,
       final bool hasRead}) = _$_BookShelfState;
 
   @override
-  List<Book> get bookList;
+  List<model.Book> get bookList;
   @override
   int get crossAxisCount;
   @override

@@ -46,7 +46,7 @@ class BookShelf extends ConsumerWidget {
                   inactiveBgColor: Colors.grey,
                   inactiveFgColor: Colors.white,
                   labels: const ['本棚', '読みたい'],
-                  onToggle: (index) {
+                  onToggle: (index) async {
                     print('switched to: $index');
                     if (index != null) {
                       viewModel.switchDisplay(index);
@@ -57,13 +57,6 @@ class BookShelf extends ConsumerWidget {
             ),
           ),
         ),
-        // Text(
-        //   '本棚',
-        //   style: TextStyle(
-        //     color: Colors.white,
-        //     fontWeight: FontWeight.bold,
-        //   ),
-        // ),
         centerTitle: true,
         actions: [
           IconButton(icon: const Icon(Icons.search), onPressed: () {}),

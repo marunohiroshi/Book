@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:book/drift/app_db_drift_impl.dart';
+import 'package:book/drift/app_db_drift_impl.dart' as model;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,7 +10,7 @@ part 'book_shelf_viewmodel.freezed.dart';
 @freezed
 class BookShelfState with _$BookShelfState {
   const factory BookShelfState({
-    @Default(<Book>[]) List<Book> bookList,
+    @Default(<model.Book>[]) List<model.Book> bookList,
     @Default(3) int crossAxisCount,
     @Default(true) bool hasRead,
   }) = _BookShelfState;
@@ -28,14 +29,12 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
     );
   }
 
-  Future<List<Book>> getBookList(bool hasRead) async {
+  Future<List<model.Book>> getBookList(bool hasRead) async {
     if (hasRead) {
       print('has read');
-      final bookList = await _appDb.getHasReadBookList;
       return await _appDb.getHasReadBookList;
     } else {
       print('has not read');
-      final bookList = await _appDb.getHasNotReadBookList;
       return await _appDb.getHasNotReadBookList;
     }
   }
@@ -60,7 +59,7 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
   }
 
   //TODO: Stream
-  void add(Book book) async {
+  void add(model.Book book) async {
     await _appDb.add(book);
     final bookList = await _appDb.getAllBookList;
     state = state.copyWith(bookList: bookList);

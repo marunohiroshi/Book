@@ -1,4 +1,5 @@
 import 'package:book/View/scan_book_view.dart';
+import 'package:book/view/book_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,7 +30,7 @@ class MainViewModel extends StateNotifier<MainState> {
       case 1:
         return BookShelf();
     }
-    return const ScanBook();
+    return const BookSearch();
   }
 
   void closeDialog() {

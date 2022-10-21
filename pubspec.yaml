@@ -54,6 +54,9 @@ dependencies:
   toggle_switch: ^2.0.1
   font_awesome_flutter: ^10.2.1
   getwidget: ^3.0.1
+  books_finder: ^4.3.0
+  flutter_staggered_animations: ^1.0.0
+  anim_search_bar: ^2.0.2
 
 dev_dependencies:
   flutter_test:

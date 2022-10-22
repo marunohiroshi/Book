@@ -30,7 +30,7 @@ class MainViewModel extends StateNotifier<MainState> {
       case 1:
         return BookShelf();
     }
-    return const BookSearch();
+    return const BookSearch('DaiGo');
   }
 
   void closeDialog() {

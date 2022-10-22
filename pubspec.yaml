@@ -57,6 +57,7 @@ dependencies:
   books_finder: ^4.3.0
   flutter_staggered_animations: ^1.0.0
   anim_search_bar: ^2.0.2
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

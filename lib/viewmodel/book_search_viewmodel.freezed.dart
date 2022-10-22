@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BookSearchState {
-  String get searchWord => throw _privateConstructorUsedError;
   List<model.Book> get bookList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +28,7 @@ abstract class $BookSearchStateCopyWith<$Res> {
   factory $BookSearchStateCopyWith(
           BookSearchState value, $Res Function(BookSearchState) then) =
       _$BookSearchStateCopyWithImpl<$Res>;
-  $Res call({String searchWord, List<model.Book> bookList});
+  $Res call({List<model.Book> bookList});
 }
 
 /// @nodoc
@@ -43,14 +42,9 @@ class _$BookSearchStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? searchWord = freezed,
     Object? bookList = freezed,
   }) {
     return _then(_value.copyWith(
-      searchWord: searchWord == freezed
-          ? _value.searchWord
-          : searchWord // ignore: cast_nullable_to_non_nullable
-              as String,
       bookList: bookList == freezed
           ? _value.bookList
           : bookList // ignore: cast_nullable_to_non_nullable
@@ -66,7 +60,7 @@ abstract class _$$_BookSearchCopyWith<$Res>
           _$_BookSearch value, $Res Function(_$_BookSearch) then) =
       __$$_BookSearchCopyWithImpl<$Res>;
   @override
-  $Res call({String searchWord, List<model.Book> bookList});
+  $Res call({List<model.Book> bookList});
 }
 
 /// @nodoc
@@ -82,14 +76,9 @@ class __$$_BookSearchCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? searchWord = freezed,
     Object? bookList = freezed,
   }) {
     return _then(_$_BookSearch(
-      searchWord: searchWord == freezed
-          ? _value.searchWord
-          : searchWord // ignore: cast_nullable_to_non_nullable
-              as String,
       bookList: bookList == freezed
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
@@ -101,14 +90,9 @@ class __$$_BookSearchCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_BookSearch implements _BookSearch {
-  const _$_BookSearch(
-      {this.searchWord = '',
-      final List<model.Book> bookList = const <model.Book>[]})
+  const _$_BookSearch({final List<model.Book> bookList = const <model.Book>[]})
       : _bookList = bookList;
 
-  @override
-  @JsonKey()
-  final String searchWord;
   final List<model.Book> _bookList;
   @override
   @JsonKey()
@@ -119,7 +103,7 @@ class _$_BookSearch implements _BookSearch {
 
   @override
   String toString() {
-    return 'BookSearchState(searchWord: $searchWord, bookList: $bookList)';
+    return 'BookSearchState(bookList: $bookList)';
   }
 
   @override
@@ -127,16 +111,12 @@ class _$_BookSearch implements _BookSearch {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BookSearch &&
-            const DeepCollectionEquality()
-                .equals(other.searchWord, searchWord) &&
             const DeepCollectionEquality().equals(other._bookList, _bookList));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(searchWord),
-      const DeepCollectionEquality().hash(_bookList));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_bookList));
 
   @JsonKey(ignore: true)
   @override
@@ -145,12 +125,8 @@ class _$_BookSearch implements _BookSearch {
 }
 
 abstract class _BookSearch implements BookSearchState {
-  const factory _BookSearch(
-      {final String searchWord,
-      final List<model.Book> bookList}) = _$_BookSearch;
+  const factory _BookSearch({final List<model.Book> bookList}) = _$_BookSearch;
 
-  @override
-  String get searchWord;
   @override
   List<model.Book> get bookList;
   @override

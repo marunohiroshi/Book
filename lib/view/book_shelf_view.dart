@@ -7,6 +7,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import 'book_search_view.dart';
+
 class BookShelf extends ConsumerWidget {
   final ScrollController _scrollController = ScrollController();
 
@@ -24,43 +26,56 @@ class BookShelf extends ConsumerWidget {
     ref.listen(bookShelfViewModelProvider, (_, BookShelfState next) {
       crossAxisCount = next.crossAxisCount;
     });
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
-        title: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Scrollbar(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: ToggleSwitch(
-                  customWidths: const [100.0, 100.0],
-                  cornerRadius: 20.0,
-                  initialLabelIndex: index,
-                  activeBgColors: const [
-                    [Colors.blue],
-                    [Colors.green]
-                  ],
-                  activeFgColor: Colors.white,
-                  inactiveBgColor: Colors.grey,
-                  inactiveFgColor: Colors.white,
-                  labels: const ['本棚', '読みたい'],
-                  onToggle: (index) async {
-                    print('switched to: $index');
-                    if (index != null) {
-                      viewModel.switchDisplay(index);
-                    }
-                  },
+        title: !state.searchMode
+            ? Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Scrollbar(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ToggleSwitch(
+                        customWidths: const [100.0, 100.0],
+                        cornerRadius: 20.0,
+                        initialLabelIndex: index,
+                        activeBgColors: const [
+                          [Colors.blue],
+                          [Colors.green]
+                        ],
+                        activeFgColor: Colors.white,
+                        inactiveBgColor: Colors.grey,
+                        inactiveFgColor: Colors.white,
+                        labels: const ['本棚', '読みたい'],
+                        onToggle: (index) async {
+                          print('switched to: $index');
+                          if (index != null) {
+                            viewModel.switchDisplay(index);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ),
+              )
+            : _searchTextField(context),
         centerTitle: true,
-        actions: [
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-        ],
+        actions: !state.searchMode
+            ? [
+                IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      viewModel.switchSearchMode(true);
+                    })
+              ]
+            : [
+                IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      viewModel.switchSearchMode(false);
+                    })
+              ],
         elevation: 0,
         flexibleSpace: Image.network(
           // 'https://381d3c8c-a-62cb3a1a-s-sites.googlegroups.com/site/closetvx/picture/09/Title03d.png?attachauth=ANoY7cr302fq6Vo4zsRUxzNaNaUEfqCM67TIUI-CrXUBk-xLUddCCaD85ioEwIWRyhSquocObuGdMv-7-Wg12kR0RSmQxmVr-b-xFVPb25-QgLOzXoIOc6lStLtPuXb3eIa72u9aj3tLuyOOhL_CPYFcm9OmEkuU18ppOTS_cZBVFkpKvusHtFZi8LvNCG1K0nSoJzgPwA35htWOjrliym9Qecyt6zbglE77OstZ0WqxNFWO2j0tULI%3D&attredirects=0',
@@ -195,6 +210,40 @@ class BookShelf extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _searchTextField(BuildContext context) {
+    return TextField(
+      autofocus: true, //TextFieldが表示されるときにフォーカスする（キーボードを表示する）
+      cursorColor: Colors.white, //カーソルの色
+      style: const TextStyle(
+        //テキストのスタイル
+        color: Colors.white,
+        fontSize: 20,
+      ),
+      textInputAction: TextInputAction.search, //キーボードのアクションボタンを指定
+      decoration: const InputDecoration(
+        //TextFiledのスタイル
+        enabledBorder: UnderlineInputBorder(
+            //デフォルトのTextFieldの枠線
+            borderSide: BorderSide(color: Colors.white)),
+        focusedBorder: UnderlineInputBorder(
+            //TextFieldにフォーカス時の枠線
+            borderSide: BorderSide(color: Colors.white)),
+        hintText: '本のタイトル、著者名など', //何も入力してないときに表示されるテキスト
+        hintStyle: TextStyle(
+          //hintTextのスタイル
+          color: Colors.white60,
+          fontSize: 20,
+        ),
+      ),
+      onSubmitted: (String searchWord) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BookSearch(searchWord)),
+        );
+      },
     );
   }
 }

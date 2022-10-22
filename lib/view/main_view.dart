@@ -35,7 +35,7 @@ class MainView extends ConsumerWidget {
         screens: [
           const ScanBook(),
           BookShelf(),
-          const BookSearch(),
+          const BookSearch('DaiGo'),
           const ScanBook()
         ],
         items: [

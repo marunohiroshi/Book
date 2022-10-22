@@ -8,20 +8,12 @@ part 'book_search_viewmodel.freezed.dart';
 @freezed
 class BookSearchState with _$BookSearchState {
   const factory BookSearchState({
-    @Default('') String searchWord,
     @Default(<model.Book>[]) List<model.Book> bookList,
   }) = _BookSearch;
 }
 
 class BookSearchViewModel extends StateNotifier<BookSearchState> {
-  BookSearchViewModel() : super(const BookSearchState()) {
-    setSearchWord('');
-  }
-
-  void setSearchWord(String searchWord) {
-    var searchWord2 = 'DaiGo';
-    state = state.copyWith(searchWord: searchWord2);
-  }
+  BookSearchViewModel() : super(const BookSearchState()) {}
 
   Future<List<model.Book>> getSearchBookList(String word) async {
     final books = await queryBooks(

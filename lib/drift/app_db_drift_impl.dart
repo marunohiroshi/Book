@@ -34,6 +34,10 @@ class AppDbDriftImpl extends _$AppDbDriftImpl {
     return booksDao.deleteBook(id);
   }
 
+  Future getLastId() {
+    return booksDao.getLastId();
+  }
+
   @override
   int get schemaVersion => 1;
 }

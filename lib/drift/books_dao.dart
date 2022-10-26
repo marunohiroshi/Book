@@ -1,4 +1,3 @@
-import 'package:book/Utility/utility.dart';
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:drift/drift.dart';
 
@@ -77,7 +76,6 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         authors: book.authors,
         hasRead: book.hasRead,
         memo: book.memo));
-    Utility.updateDb.broadcast();
   }
 
   Future<Book> getBook(int id) async {
@@ -93,7 +91,11 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
 
   Future<void> deleteBook(int id) async {
     (delete(books)..where((tbl) => tbl.id.equals(id))).go();
-    print('maruno delete book');
-    Utility.updateDb.broadcast();
+  }
+
+  Future<int> getLastId() async {
+    final bookList = await getAllBookList;
+    final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
+    return id;
   }
 }

@@ -150,7 +150,8 @@ class BookShelf extends ConsumerWidget {
                             // ),
                             child: InkResponse(
                               child: Image.network(
-                                viewModel.getThumbnail(index),
+                                snapshot.data?[index].thumbnail ??
+                                    'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png',
                                 height: itemHeight,
                                 width: itemWidth,
                                 fit: BoxFit.fill,

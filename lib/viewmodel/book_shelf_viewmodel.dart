@@ -40,18 +40,6 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
     }
   }
 
-  String getThumbnail(int index) {
-    print(index);
-    String? thumbnail;
-    if (thumbnail != '') {
-      thumbnail = state.bookList[index].thumbnail;
-    } else {
-      thumbnail =
-          'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png';
-    }
-    return thumbnail;
-  }
-
   void changeCrossAxisCount(int crossAxisCount) {
     if (crossAxisCount > 0) {
       state = state.copyWith(crossAxisCount: crossAxisCount);

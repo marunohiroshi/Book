@@ -38,4 +38,4 @@ final bookDetailViewModelProvider = StateNotifierProvider.family
 /// book_sarch_viewプロバイダー
 final bookSearchViewModelProvider =
     StateNotifierProvider.autoDispose<BookSearchViewModel, BookSearchState>(
-        (ref) => BookSearchViewModel());
+        (ref) => BookSearchViewModel(ref.read(appDbProvider)));

@@ -3,8 +3,10 @@ import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BookSearch extends ConsumerWidget {
   const BookSearch(this.searchWord, {super.key});
@@ -37,7 +39,7 @@ class BookSearch extends ConsumerWidget {
             if (snapshot.hasData) {
               return AnimationLimiter(
                 child: ListView.builder(
-                  itemCount: 30,
+                  itemCount: 40,
                   itemBuilder: (BuildContext context, int index) {
                     return AnimationConfiguration.staggeredList(
                       position: index,
@@ -58,16 +60,7 @@ class BookSearch extends ConsumerWidget {
                                         width: 100,
                                         fit: BoxFit.fill,
                                       ),
-                                      onTap: () {
-                                        print('index: $index');
-                                        final book = snapshot.data?[index];
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //       builder: (context) =>
-                                        //           BookDetailView(book)),
-                                        // );
-                                      },
+                                      onTap: () {},
                                     ),
                                     Column(
                                       mainAxisAlignment:
@@ -75,18 +68,95 @@ class BookSearch extends ConsumerWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        AutoSizeText(
-                                          snapshot.data?[index].title ?? '',
-                                          style: const TextStyle(fontSize: 15),
-                                          maxLines: 1,
+                                        Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: SizedBox(
+                                            width: 250,
+                                            child: AutoSizeText(
+                                              snapshot.data?[index].title ?? '',
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                              maxLines: 3,
+                                            ),
+                                          ),
                                         ),
-                                        Text(snapshot.data?[index].authors ??
-                                            ''),
-                                        Text(snapshot
-                                                .data?[index].publishedDate ??
-                                            ''),
-                                        Text(snapshot.data?[index].publisher ??
-                                            ''),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: SizedBox(
+                                            width: 250,
+                                            child: AutoSizeText(
+                                              snapshot.data?[index].authors ??
+                                                  '',
+                                              maxLines: 3,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: SizedBox(
+                                            width: 250,
+                                            child: AutoSizeText(
+                                              snapshot.data?[index]
+                                                      .publishedDate ??
+                                                  '',
+                                              maxLines: 3,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 250,
+                                          child: Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: IconButton(
+                                                icon: const Icon(Icons.add),
+                                                onPressed: () async {
+                                                  print(index);
+                                                  final id = await viewModel
+                                                      .getLastId();
+                                                  final book = Book(
+                                                    id: id,
+                                                    price: snapshot
+                                                        .data![index].price,
+                                                    title: snapshot
+                                                        .data![index].title,
+                                                    totalPage: snapshot
+                                                        .data![index].totalPage,
+                                                    thumbnail: snapshot
+                                                        .data![index].thumbnail,
+                                                    description: snapshot
+                                                        .data![index]
+                                                        .description,
+                                                    publisher: snapshot
+                                                        .data![index].publisher,
+                                                    publishedDate: snapshot
+                                                        .data![index]
+                                                        .publishedDate,
+                                                    authors: snapshot
+                                                        .data![index].authors,
+                                                    hasRead: snapshot
+                                                        .data![index].hasRead,
+                                                    memo: snapshot
+                                                        .data![index].memo,
+                                                  );
+                                                  viewModel
+                                                      .addNotHasReadBook(book);
+                                                  Fluttertoast.showToast(
+                                                      msg: "読みたいに追加しました",
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.CENTER,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          Colors.greenAccent,
+                                                      textColor: Colors.white,
+                                                      fontSize: 16.0);
+                                                }),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],

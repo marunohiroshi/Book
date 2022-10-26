@@ -1,4 +1,5 @@
 import 'package:book/drift/app_db_drift_impl.dart' as model;
+import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:books_finder/books_finder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,12 +14,13 @@ class BookSearchState with _$BookSearchState {
 }
 
 class BookSearchViewModel extends StateNotifier<BookSearchState> {
-  BookSearchViewModel() : super(const BookSearchState()) {}
+  BookSearchViewModel(this._appDb) : super(const BookSearchState()) {}
+  late final AppDbDriftImpl _appDb;
 
   Future<List<model.Book>> getSearchBookList(String word) async {
     final books = await queryBooks(
       word,
-      maxResults: 30,
+      maxResults: 40,
       printType: PrintType.all,
       orderBy: OrderBy.relevance,
       reschemeImageLinks: true,
@@ -43,5 +45,13 @@ class BookSearchViewModel extends StateNotifier<BookSearchState> {
     }
     print('${bookList.toString()}¥n');
     return bookList;
+  }
+
+  Future<void> addNotHasReadBook(model.Book book) async {
+    _appDb.add(book);
+  }
+
+  Future<int> getLastId() async {
+    return await _appDb.getLastId();
   }
 }

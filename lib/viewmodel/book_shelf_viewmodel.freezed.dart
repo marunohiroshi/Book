@@ -20,6 +20,7 @@ mixin _$BookShelfState {
   int get crossAxisCount => throw _privateConstructorUsedError;
   bool get hasRead => throw _privateConstructorUsedError;
   bool get searchMode => throw _privateConstructorUsedError;
+  bool get listMode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookShelfStateCopyWith<BookShelfState> get copyWith =>
@@ -35,7 +36,8 @@ abstract class $BookShelfStateCopyWith<$Res> {
       {List<model.Book> bookList,
       int crossAxisCount,
       bool hasRead,
-      bool searchMode});
+      bool searchMode,
+      bool listMode});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$BookShelfStateCopyWithImpl<$Res>
     Object? crossAxisCount = freezed,
     Object? hasRead = freezed,
     Object? searchMode = freezed,
+    Object? listMode = freezed,
   }) {
     return _then(_value.copyWith(
       bookList: bookList == freezed
@@ -71,6 +74,10 @@ class _$BookShelfStateCopyWithImpl<$Res>
           ? _value.searchMode
           : searchMode // ignore: cast_nullable_to_non_nullable
               as bool,
+      listMode: listMode == freezed
+          ? _value.listMode
+          : listMode // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -86,7 +93,8 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
       {List<model.Book> bookList,
       int crossAxisCount,
       bool hasRead,
-      bool searchMode});
+      bool searchMode,
+      bool listMode});
 }
 
 /// @nodoc
@@ -106,6 +114,7 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
     Object? crossAxisCount = freezed,
     Object? hasRead = freezed,
     Object? searchMode = freezed,
+    Object? listMode = freezed,
   }) {
     return _then(_$_BookShelfState(
       bookList: bookList == freezed
@@ -124,6 +133,10 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
           ? _value.searchMode
           : searchMode // ignore: cast_nullable_to_non_nullable
               as bool,
+      listMode: listMode == freezed
+          ? _value.listMode
+          : listMode // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -135,7 +148,8 @@ class _$_BookShelfState implements _BookShelfState {
       {final List<model.Book> bookList = const <model.Book>[],
       this.crossAxisCount = 3,
       this.hasRead = true,
-      this.searchMode = false})
+      this.searchMode = false,
+      this.listMode = false})
       : _bookList = bookList;
 
   final List<model.Book> _bookList;
@@ -155,10 +169,13 @@ class _$_BookShelfState implements _BookShelfState {
   @override
   @JsonKey()
   final bool searchMode;
+  @override
+  @JsonKey()
+  final bool listMode;
 
   @override
   String toString() {
-    return 'BookShelfState(bookList: $bookList, crossAxisCount: $crossAxisCount, hasRead: $hasRead, searchMode: $searchMode)';
+    return 'BookShelfState(bookList: $bookList, crossAxisCount: $crossAxisCount, hasRead: $hasRead, searchMode: $searchMode, listMode: $listMode)';
   }
 
   @override
@@ -171,7 +188,8 @@ class _$_BookShelfState implements _BookShelfState {
                 .equals(other.crossAxisCount, crossAxisCount) &&
             const DeepCollectionEquality().equals(other.hasRead, hasRead) &&
             const DeepCollectionEquality()
-                .equals(other.searchMode, searchMode));
+                .equals(other.searchMode, searchMode) &&
+            const DeepCollectionEquality().equals(other.listMode, listMode));
   }
 
   @override
@@ -180,7 +198,8 @@ class _$_BookShelfState implements _BookShelfState {
       const DeepCollectionEquality().hash(_bookList),
       const DeepCollectionEquality().hash(crossAxisCount),
       const DeepCollectionEquality().hash(hasRead),
-      const DeepCollectionEquality().hash(searchMode));
+      const DeepCollectionEquality().hash(searchMode),
+      const DeepCollectionEquality().hash(listMode));
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +212,8 @@ abstract class _BookShelfState implements BookShelfState {
       {final List<model.Book> bookList,
       final int crossAxisCount,
       final bool hasRead,
-      final bool searchMode}) = _$_BookShelfState;
+      final bool searchMode,
+      final bool listMode}) = _$_BookShelfState;
 
   @override
   List<model.Book> get bookList;
@@ -203,6 +223,8 @@ abstract class _BookShelfState implements BookShelfState {
   bool get hasRead;
   @override
   bool get searchMode;
+  @override
+  bool get listMode;
   @override
   @JsonKey(ignore: true)
   _$$_BookShelfStateCopyWith<_$_BookShelfState> get copyWith =>

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/providers.dart';
 import 'package:book/view/book_detail_view.dart';
@@ -5,6 +6,7 @@ import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import 'book_search_view.dart';
@@ -28,7 +30,17 @@ class BookShelf extends ConsumerWidget {
     });
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+        leading: !state.listMode
+            ? IconButton(
+                icon: const Icon(Icons.list),
+                onPressed: () {
+                  viewModel.switchListMode(true);
+                })
+            : IconButton(
+                icon: const Icon(Icons.grid_view),
+                onPressed: () {
+                  viewModel.switchListMode(false);
+                }),
         title: !state.searchMode
             ? Center(
                 child: SingleChildScrollView(
@@ -126,80 +138,153 @@ class BookShelf extends ConsumerWidget {
                 (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  if (!state.listMode) {
+                    return AnimationLimiter(
+                      child: GridView.count(
                         crossAxisCount: crossAxisCount,
                         childAspectRatio: (itemWidth / itemHeight),
+                        children: List.generate(
+                          snapshot.data?.length ?? 0,
+                          (int index) {
+                            return AnimationConfiguration.staggeredGrid(
+                              position: index,
+                              duration: const Duration(milliseconds: 800),
+                              columnCount: snapshot.data?.length ?? 0,
+                              child: ScaleAnimation(
+                                child: FadeInAnimation(
+                                  child: Card(
+                                    margin: const EdgeInsets.all(8),
+                                    child: GridTile(
+                                      child: InkResponse(
+                                        child: Image.network(
+                                          snapshot.data?[index].thumbnail ??
+                                              'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png',
+                                          height: itemHeight,
+                                          width: itemWidth,
+                                          fit: BoxFit.fill,
+                                        ),
+                                        onTap: () {
+                                          print('index: $index');
+                                          final book = snapshot.data?[index];
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BookDetailView(book)),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
+                    );
+                  } else {
+                    return ListView.builder(
                       itemCount: snapshot.data?.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          margin: const EdgeInsets.all(8),
-                          child: GridTile(
-                            // header: GridTileBar(
-                            //   backgroundColor: Colors.white,
-                            //   title: Text('title'),
-                            //   subtitle: Text('subtitle'),
-                            //   trailing: IconButton(
-                            //     onPressed: () {},
-                            //     icon: const Icon(
-                            //       Icons.more_vert_rounded,
-                            //       color: Colors.black54,
-                            //     ),
-                            //   ),
-                            // ),
-                            child: InkResponse(
-                              child: Image.network(
-                                snapshot.data?[index].thumbnail ??
-                                    'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png',
-                                height: itemHeight,
-                                width: itemWidth,
-                                fit: BoxFit.fill,
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 1000),
+                          child: SlideAnimation(
+                            verticalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        print('index: $index');
+                                        final book = snapshot.data?[index];
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BookDetailView(book)));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          InkResponse(
+                                            child: Image.network(
+                                              snapshot.data?[index].thumbnail ??
+                                                  '',
+                                              height: 150,
+                                              width: 100,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            onTap: () {},
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: SizedBox(
+                                                  width: 250,
+                                                  child: AutoSizeText(
+                                                    snapshot.data?[index]
+                                                            .title ??
+                                                        '',
+                                                    style: const TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    maxLines: 3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: SizedBox(
+                                                  width: 250,
+                                                  child: AutoSizeText(
+                                                    snapshot.data?[index]
+                                                            .authors ??
+                                                        '',
+                                                    maxLines: 3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: SizedBox(
+                                                  width: 250,
+                                                  child: AutoSizeText(
+                                                    snapshot.data?[index]
+                                                            .publishedDate ??
+                                                        '',
+                                                    maxLines: 3,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Divider(
+                                      color: Colors.black,
+                                    )
+                                  ],
+                                ),
                               ),
-                              onTap: () {
-                                print('index: $index');
-                                final book = snapshot.data?[index];
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          BookDetailView(book)),
-                                );
-                              },
                             ),
-                            // footer: GridTileBar(
-                            //   backgroundColor: Colors.white,
-                            //   title: Row(
-                            //     children: [
-                            //       Icon(
-                            //         Icons.favorite_outline,
-                            //         color: Colors.grey,
-                            //       ),
-                            //       Text(
-                            //         '20',
-                            //         style: TextStyle(color: Colors.black),
-                            //       ),
-                            //       SizedBox(
-                            //         width: 20,
-                            //       ),
-                            //       Icon(
-                            //         Icons.chat_bubble_outline,
-                            //         color: Colors.grey,
-                            //       ),
-                            //       Text(
-                            //         '5',
-                            //         style: TextStyle(color: Colors.black),
-                            //       )
-                            //     ],
-                            //   ),
-                            //   trailing: const Icon(
-                            //     Icons.bookmark_add_outlined,
-                            //     color: Colors.black,
-                            //   ),
-                            // ),
                           ),
                         );
-                      });
+                      },
+                    );
+                  }
                 }
                 return const Center(
                   child: Text('本を登録しよう！'),

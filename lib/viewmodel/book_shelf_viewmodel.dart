@@ -14,6 +14,7 @@ class BookShelfState with _$BookShelfState {
     @Default(3) int crossAxisCount,
     @Default(true) bool hasRead,
     @Default(false) bool searchMode,
+    @Default(false) bool listMode,
   }) = _BookShelfState;
 }
 
@@ -70,6 +71,10 @@ class BookShelfViewModel extends StateNotifier<BookShelfState> {
         state = state.copyWith(hasRead: false);
         return;
     }
+  }
+
+  void switchListMode(bool listMode) {
+    state = state.copyWith(listMode: listMode);
   }
 
   void switchSearchMode(bool searchMode) {

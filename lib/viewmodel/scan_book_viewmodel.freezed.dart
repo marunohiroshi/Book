@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'scan_book_viewmodel.dart';
 
@@ -28,34 +28,37 @@ mixin _$ScanBookState {
 abstract class $ScanBookStateCopyWith<$Res> {
   factory $ScanBookStateCopyWith(
           ScanBookState value, $Res Function(ScanBookState) then) =
-      _$ScanBookStateCopyWithImpl<$Res>;
+      _$ScanBookStateCopyWithImpl<$Res, ScanBookState>;
+  @useResult
   $Res call({bool scanned, bool closeDialog});
 }
 
 /// @nodoc
-class _$ScanBookStateCopyWithImpl<$Res>
+class _$ScanBookStateCopyWithImpl<$Res, $Val extends ScanBookState>
     implements $ScanBookStateCopyWith<$Res> {
   _$ScanBookStateCopyWithImpl(this._value, this._then);
 
-  final ScanBookState _value;
   // ignore: unused_field
-  final $Res Function(ScanBookState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? scanned = freezed,
-    Object? closeDialog = freezed,
+    Object? scanned = null,
+    Object? closeDialog = null,
   }) {
     return _then(_value.copyWith(
-      scanned: scanned == freezed
+      scanned: null == scanned
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
               as bool,
-      closeDialog: closeDialog == freezed
+      closeDialog: null == closeDialog
           ? _value.closeDialog
           : closeDialog // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,31 +69,30 @@ abstract class _$$_ScanBookStateCopyWith<$Res>
           _$_ScanBookState value, $Res Function(_$_ScanBookState) then) =
       __$$_ScanBookStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({bool scanned, bool closeDialog});
 }
 
 /// @nodoc
 class __$$_ScanBookStateCopyWithImpl<$Res>
-    extends _$ScanBookStateCopyWithImpl<$Res>
+    extends _$ScanBookStateCopyWithImpl<$Res, _$_ScanBookState>
     implements _$$_ScanBookStateCopyWith<$Res> {
   __$$_ScanBookStateCopyWithImpl(
       _$_ScanBookState _value, $Res Function(_$_ScanBookState) _then)
-      : super(_value, (v) => _then(v as _$_ScanBookState));
+      : super(_value, _then);
 
-  @override
-  _$_ScanBookState get _value => super._value as _$_ScanBookState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? scanned = freezed,
-    Object? closeDialog = freezed,
+    Object? scanned = null,
+    Object? closeDialog = null,
   }) {
     return _then(_$_ScanBookState(
-      scanned: scanned == freezed
+      scanned: null == scanned
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
               as bool,
-      closeDialog: closeDialog == freezed
+      closeDialog: null == closeDialog
           ? _value.closeDialog
           : closeDialog // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -120,19 +122,17 @@ class _$_ScanBookState implements _ScanBookState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ScanBookState &&
-            const DeepCollectionEquality().equals(other.scanned, scanned) &&
-            const DeepCollectionEquality()
-                .equals(other.closeDialog, closeDialog));
+            (identical(other.scanned, scanned) || other.scanned == scanned) &&
+            (identical(other.closeDialog, closeDialog) ||
+                other.closeDialog == closeDialog));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(scanned),
-      const DeepCollectionEquality().hash(closeDialog));
+  int get hashCode => Object.hash(runtimeType, scanned, closeDialog);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ScanBookStateCopyWith<_$_ScanBookState> get copyWith =>
       __$$_ScanBookStateCopyWithImpl<_$_ScanBookState>(this, _$identity);
 }

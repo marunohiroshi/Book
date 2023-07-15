@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'book_shelf_viewmodel.dart';
 
@@ -31,7 +31,8 @@ mixin _$BookShelfState {
 abstract class $BookShelfStateCopyWith<$Res> {
   factory $BookShelfStateCopyWith(
           BookShelfState value, $Res Function(BookShelfState) then) =
-      _$BookShelfStateCopyWithImpl<$Res>;
+      _$BookShelfStateCopyWithImpl<$Res, BookShelfState>;
+  @useResult
   $Res call(
       {List<model.Book> bookList,
       int crossAxisCount,
@@ -41,44 +42,46 @@ abstract class $BookShelfStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BookShelfStateCopyWithImpl<$Res>
+class _$BookShelfStateCopyWithImpl<$Res, $Val extends BookShelfState>
     implements $BookShelfStateCopyWith<$Res> {
   _$BookShelfStateCopyWithImpl(this._value, this._then);
 
-  final BookShelfState _value;
   // ignore: unused_field
-  final $Res Function(BookShelfState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bookList = freezed,
-    Object? crossAxisCount = freezed,
-    Object? hasRead = freezed,
-    Object? searchMode = freezed,
-    Object? listMode = freezed,
+    Object? bookList = null,
+    Object? crossAxisCount = null,
+    Object? hasRead = null,
+    Object? searchMode = null,
+    Object? listMode = null,
   }) {
     return _then(_value.copyWith(
-      bookList: bookList == freezed
+      bookList: null == bookList
           ? _value.bookList
           : bookList // ignore: cast_nullable_to_non_nullable
               as List<model.Book>,
-      crossAxisCount: crossAxisCount == freezed
+      crossAxisCount: null == crossAxisCount
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
               as int,
-      hasRead: hasRead == freezed
+      hasRead: null == hasRead
           ? _value.hasRead
           : hasRead // ignore: cast_nullable_to_non_nullable
               as bool,
-      searchMode: searchMode == freezed
+      searchMode: null == searchMode
           ? _value.searchMode
           : searchMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      listMode: listMode == freezed
+      listMode: null == listMode
           ? _value.listMode
           : listMode // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -89,6 +92,7 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
           _$_BookShelfState value, $Res Function(_$_BookShelfState) then) =
       __$$_BookShelfStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<model.Book> bookList,
       int crossAxisCount,
@@ -99,41 +103,39 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_BookShelfStateCopyWithImpl<$Res>
-    extends _$BookShelfStateCopyWithImpl<$Res>
+    extends _$BookShelfStateCopyWithImpl<$Res, _$_BookShelfState>
     implements _$$_BookShelfStateCopyWith<$Res> {
   __$$_BookShelfStateCopyWithImpl(
       _$_BookShelfState _value, $Res Function(_$_BookShelfState) _then)
-      : super(_value, (v) => _then(v as _$_BookShelfState));
+      : super(_value, _then);
 
-  @override
-  _$_BookShelfState get _value => super._value as _$_BookShelfState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bookList = freezed,
-    Object? crossAxisCount = freezed,
-    Object? hasRead = freezed,
-    Object? searchMode = freezed,
-    Object? listMode = freezed,
+    Object? bookList = null,
+    Object? crossAxisCount = null,
+    Object? hasRead = null,
+    Object? searchMode = null,
+    Object? listMode = null,
   }) {
     return _then(_$_BookShelfState(
-      bookList: bookList == freezed
+      bookList: null == bookList
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
               as List<model.Book>,
-      crossAxisCount: crossAxisCount == freezed
+      crossAxisCount: null == crossAxisCount
           ? _value.crossAxisCount
           : crossAxisCount // ignore: cast_nullable_to_non_nullable
               as int,
-      hasRead: hasRead == freezed
+      hasRead: null == hasRead
           ? _value.hasRead
           : hasRead // ignore: cast_nullable_to_non_nullable
               as bool,
-      searchMode: searchMode == freezed
+      searchMode: null == searchMode
           ? _value.searchMode
           : searchMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      listMode: listMode == freezed
+      listMode: null == listMode
           ? _value.listMode
           : listMode // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -156,6 +158,7 @@ class _$_BookShelfState implements _BookShelfState {
   @override
   @JsonKey()
   List<model.Book> get bookList {
+    if (_bookList is EqualUnmodifiableListView) return _bookList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bookList);
   }
@@ -184,25 +187,27 @@ class _$_BookShelfState implements _BookShelfState {
         (other.runtimeType == runtimeType &&
             other is _$_BookShelfState &&
             const DeepCollectionEquality().equals(other._bookList, _bookList) &&
-            const DeepCollectionEquality()
-                .equals(other.crossAxisCount, crossAxisCount) &&
-            const DeepCollectionEquality().equals(other.hasRead, hasRead) &&
-            const DeepCollectionEquality()
-                .equals(other.searchMode, searchMode) &&
-            const DeepCollectionEquality().equals(other.listMode, listMode));
+            (identical(other.crossAxisCount, crossAxisCount) ||
+                other.crossAxisCount == crossAxisCount) &&
+            (identical(other.hasRead, hasRead) || other.hasRead == hasRead) &&
+            (identical(other.searchMode, searchMode) ||
+                other.searchMode == searchMode) &&
+            (identical(other.listMode, listMode) ||
+                other.listMode == listMode));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_bookList),
-      const DeepCollectionEquality().hash(crossAxisCount),
-      const DeepCollectionEquality().hash(hasRead),
-      const DeepCollectionEquality().hash(searchMode),
-      const DeepCollectionEquality().hash(listMode));
+      crossAxisCount,
+      hasRead,
+      searchMode,
+      listMode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BookShelfStateCopyWith<_$_BookShelfState> get copyWith =>
       __$$_BookShelfStateCopyWithImpl<_$_BookShelfState>(this, _$identity);
 }

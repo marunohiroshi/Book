@@ -2,10 +2,7 @@
 
 part of 'books_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$BooksDaoMixin on DatabaseAccessor<AppDbDriftImpl> {
   $BooksTable get books => attachedDatabase.books;
 }

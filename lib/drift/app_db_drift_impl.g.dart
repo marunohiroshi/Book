@@ -2,11 +2,214 @@
 
 part of 'app_db_drift_impl.dart';
 
-// **************************************************************************
-// DriftDatabaseGenerator
-// **************************************************************************
-
 // ignore_for_file: type=lint
+class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BooksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _priceMeta = const VerificationMeta('price');
+  @override
+  late final GeneratedColumn<int> price = GeneratedColumn<int>(
+      'price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _totalPageMeta =
+      const VerificationMeta('totalPage');
+  @override
+  late final GeneratedColumn<String> totalPage = GeneratedColumn<String>(
+      'total_page', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _thumbnailMeta =
+      const VerificationMeta('thumbnail');
+  @override
+  late final GeneratedColumn<String> thumbnail = GeneratedColumn<String>(
+      'thumbnail', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _publisherMeta =
+      const VerificationMeta('publisher');
+  @override
+  late final GeneratedColumn<String> publisher = GeneratedColumn<String>(
+      'publisher', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _publishedDateMeta =
+      const VerificationMeta('publishedDate');
+  @override
+  late final GeneratedColumn<String> publishedDate = GeneratedColumn<String>(
+      'published_date', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _authorsMeta =
+      const VerificationMeta('authors');
+  @override
+  late final GeneratedColumn<String> authors = GeneratedColumn<String>(
+      'authors', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _hasReadMeta =
+      const VerificationMeta('hasRead');
+  @override
+  late final GeneratedColumn<bool> hasRead =
+      GeneratedColumn<bool>('has_read', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("has_read" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _memoMeta = const VerificationMeta('memo');
+  @override
+  late final GeneratedColumn<String> memo = GeneratedColumn<String>(
+      'memo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        title,
+        price,
+        totalPage,
+        thumbnail,
+        description,
+        publisher,
+        publishedDate,
+        authors,
+        hasRead,
+        memo
+      ];
+  @override
+  String get aliasedName => _alias ?? 'books';
+  @override
+  String get actualTableName => 'books';
+  @override
+  VerificationContext validateIntegrity(Insertable<Book> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('price')) {
+      context.handle(
+          _priceMeta, price.isAcceptableOrUnknown(data['price']!, _priceMeta));
+    } else if (isInserting) {
+      context.missing(_priceMeta);
+    }
+    if (data.containsKey('total_page')) {
+      context.handle(_totalPageMeta,
+          totalPage.isAcceptableOrUnknown(data['total_page']!, _totalPageMeta));
+    } else if (isInserting) {
+      context.missing(_totalPageMeta);
+    }
+    if (data.containsKey('thumbnail')) {
+      context.handle(_thumbnailMeta,
+          thumbnail.isAcceptableOrUnknown(data['thumbnail']!, _thumbnailMeta));
+    } else if (isInserting) {
+      context.missing(_thumbnailMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('publisher')) {
+      context.handle(_publisherMeta,
+          publisher.isAcceptableOrUnknown(data['publisher']!, _publisherMeta));
+    } else if (isInserting) {
+      context.missing(_publisherMeta);
+    }
+    if (data.containsKey('published_date')) {
+      context.handle(
+          _publishedDateMeta,
+          publishedDate.isAcceptableOrUnknown(
+              data['published_date']!, _publishedDateMeta));
+    } else if (isInserting) {
+      context.missing(_publishedDateMeta);
+    }
+    if (data.containsKey('authors')) {
+      context.handle(_authorsMeta,
+          authors.isAcceptableOrUnknown(data['authors']!, _authorsMeta));
+    } else if (isInserting) {
+      context.missing(_authorsMeta);
+    }
+    if (data.containsKey('has_read')) {
+      context.handle(_hasReadMeta,
+          hasRead.isAcceptableOrUnknown(data['has_read']!, _hasReadMeta));
+    } else if (isInserting) {
+      context.missing(_hasReadMeta);
+    }
+    if (data.containsKey('memo')) {
+      context.handle(
+          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
+    } else if (isInserting) {
+      context.missing(_memoMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Book map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Book(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      price: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}price'])!,
+      totalPage: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}total_page'])!,
+      thumbnail: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}thumbnail'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      publisher: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}publisher'])!,
+      publishedDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}published_date'])!,
+      authors: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}authors'])!,
+      hasRead: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_read'])!,
+      memo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,
+    );
+  }
+
+  @override
+  $BooksTable createAlias(String alias) {
+    return $BooksTable(attachedDatabase, alias);
+  }
+}
+
 class Book extends DataClass implements Insertable<Book> {
   final int id;
   final String title;
@@ -322,208 +525,12 @@ class BooksCompanion extends UpdateCompanion<Book> {
   }
 }
 
-class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $BooksTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _priceMeta = const VerificationMeta('price');
-  @override
-  late final GeneratedColumn<int> price = GeneratedColumn<int>(
-      'price', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _totalPageMeta = const VerificationMeta('totalPage');
-  @override
-  late final GeneratedColumn<String> totalPage = GeneratedColumn<String>(
-      'total_page', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _thumbnailMeta = const VerificationMeta('thumbnail');
-  @override
-  late final GeneratedColumn<String> thumbnail = GeneratedColumn<String>(
-      'thumbnail', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
-  @override
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _publisherMeta = const VerificationMeta('publisher');
-  @override
-  late final GeneratedColumn<String> publisher = GeneratedColumn<String>(
-      'publisher', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _publishedDateMeta =
-      const VerificationMeta('publishedDate');
-  @override
-  late final GeneratedColumn<String> publishedDate = GeneratedColumn<String>(
-      'published_date', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _authorsMeta = const VerificationMeta('authors');
-  @override
-  late final GeneratedColumn<String> authors = GeneratedColumn<String>(
-      'authors', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _hasReadMeta = const VerificationMeta('hasRead');
-  @override
-  late final GeneratedColumn<bool> hasRead = GeneratedColumn<bool>(
-      'has_read', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK (has_read IN (0, 1))');
-  final VerificationMeta _memoMeta = const VerificationMeta('memo');
-  @override
-  late final GeneratedColumn<String> memo = GeneratedColumn<String>(
-      'memo', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        title,
-        price,
-        totalPage,
-        thumbnail,
-        description,
-        publisher,
-        publishedDate,
-        authors,
-        hasRead,
-        memo
-      ];
-  @override
-  String get aliasedName => _alias ?? 'books';
-  @override
-  String get actualTableName => 'books';
-  @override
-  VerificationContext validateIntegrity(Insertable<Book> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('price')) {
-      context.handle(
-          _priceMeta, price.isAcceptableOrUnknown(data['price']!, _priceMeta));
-    } else if (isInserting) {
-      context.missing(_priceMeta);
-    }
-    if (data.containsKey('total_page')) {
-      context.handle(_totalPageMeta,
-          totalPage.isAcceptableOrUnknown(data['total_page']!, _totalPageMeta));
-    } else if (isInserting) {
-      context.missing(_totalPageMeta);
-    }
-    if (data.containsKey('thumbnail')) {
-      context.handle(_thumbnailMeta,
-          thumbnail.isAcceptableOrUnknown(data['thumbnail']!, _thumbnailMeta));
-    } else if (isInserting) {
-      context.missing(_thumbnailMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('publisher')) {
-      context.handle(_publisherMeta,
-          publisher.isAcceptableOrUnknown(data['publisher']!, _publisherMeta));
-    } else if (isInserting) {
-      context.missing(_publisherMeta);
-    }
-    if (data.containsKey('published_date')) {
-      context.handle(
-          _publishedDateMeta,
-          publishedDate.isAcceptableOrUnknown(
-              data['published_date']!, _publishedDateMeta));
-    } else if (isInserting) {
-      context.missing(_publishedDateMeta);
-    }
-    if (data.containsKey('authors')) {
-      context.handle(_authorsMeta,
-          authors.isAcceptableOrUnknown(data['authors']!, _authorsMeta));
-    } else if (isInserting) {
-      context.missing(_authorsMeta);
-    }
-    if (data.containsKey('has_read')) {
-      context.handle(_hasReadMeta,
-          hasRead.isAcceptableOrUnknown(data['has_read']!, _hasReadMeta));
-    } else if (isInserting) {
-      context.missing(_hasReadMeta);
-    }
-    if (data.containsKey('memo')) {
-      context.handle(
-          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
-    } else if (isInserting) {
-      context.missing(_memoMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Book map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Book(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      price: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}price'])!,
-      totalPage: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}total_page'])!,
-      thumbnail: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}thumbnail'])!,
-      description: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
-      publisher: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}publisher'])!,
-      publishedDate: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}published_date'])!,
-      authors: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}authors'])!,
-      hasRead: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}has_read'])!,
-      memo: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,
-    );
-  }
-
-  @override
-  $BooksTable createAlias(String alias) {
-    return $BooksTable(attachedDatabase, alias);
-  }
-}
-
 abstract class _$AppDbDriftImpl extends GeneratedDatabase {
   _$AppDbDriftImpl(QueryExecutor e) : super(e);
   late final $BooksTable books = $BooksTable(this);
   late final BooksDao booksDao = BooksDao(this as AppDbDriftImpl);
   @override
-  Iterable<TableInfo<Table, dynamic>> get allTables =>
+  Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [books];

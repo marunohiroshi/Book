@@ -1,6 +1,5 @@
 import 'package:book/providers.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -64,7 +63,7 @@ class BookDetailView extends ConsumerWidget {
                   Center(
                     child: Container(
                       margin: const EdgeInsets.all(8),
-                      child: NeumorphicButton(
+                      child: OutlinedButton(
                         child: const Text('削除'),
                         onPressed: () {
                           print('delete');
@@ -87,7 +86,7 @@ class BookDetailView extends ConsumerWidget {
                   Center(
                     child: Container(
                       margin: EdgeInsets.all(8),
-                      child: NeumorphicButton(
+                      child: OutlinedButton(
                         child: Text('更新'),
                         onPressed: () {
                           print('update');

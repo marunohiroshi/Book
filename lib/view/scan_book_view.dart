@@ -1,7 +1,8 @@
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/providers.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -18,7 +19,7 @@ class ScanBook extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            NeumorphicButton(
+            OutlinedButton(
                 onPressed: () async {
                   String res = await viewModel.checkValidBarcode();
                   final book = await viewModel.getBookInfoFromJson(res);
@@ -30,11 +31,6 @@ class ScanBook extends ConsumerWidget {
                             book, mainViewModel, ref, isNewBook);
                       });
                 },
-                style: const NeumorphicStyle(
-                  shape: NeumorphicShape.flat,
-                ),
-                margin: const EdgeInsets.all(12),
-                padding: const EdgeInsets.all(12.0),
                 child: const Text(
                   'バーコード読み取り',
                   textAlign: TextAlign.center,
@@ -76,14 +72,14 @@ class ScanBook extends ConsumerWidget {
       actions: <Widget>[
         Row(
           children: [
-            NeumorphicButton(
+            OutlinedButton(
               child: const Text('閉じる'),
               onPressed: () {
                 mainViewModel.closeDialog();
               },
             ),
             const Spacer(),
-            NeumorphicButton(
+            OutlinedButton(
               child: const Text('本棚に追加する'),
               onPressed: () {
                 ref.read(bookShelfViewModelProvider.notifier).add(book);

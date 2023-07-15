@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'book_detail_viewmodel.dart';
 
@@ -36,7 +36,8 @@ mixin _$BookDetailState {
 abstract class $BookDetailStateCopyWith<$Res> {
   factory $BookDetailStateCopyWith(
           BookDetailState value, $Res Function(BookDetailState) then) =
-      _$BookDetailStateCopyWithImpl<$Res>;
+      _$BookDetailStateCopyWithImpl<$Res, BookDetailState>;
+  @useResult
   $Res call(
       {int id,
       String title,
@@ -51,69 +52,71 @@ abstract class $BookDetailStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BookDetailStateCopyWithImpl<$Res>
+class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
     implements $BookDetailStateCopyWith<$Res> {
   _$BookDetailStateCopyWithImpl(this._value, this._then);
 
-  final BookDetailState _value;
   // ignore: unused_field
-  final $Res Function(BookDetailState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? title = freezed,
-    Object? price = freezed,
-    Object? totalPage = freezed,
-    Object? smallThumbnail = freezed,
-    Object? thumbnail = freezed,
-    Object? description = freezed,
-    Object? publisher = freezed,
-    Object? publishedDate = freezed,
-    Object? authors = freezed,
+    Object? id = null,
+    Object? title = null,
+    Object? price = null,
+    Object? totalPage = null,
+    Object? smallThumbnail = null,
+    Object? thumbnail = null,
+    Object? description = null,
+    Object? publisher = null,
+    Object? publishedDate = null,
+    Object? authors = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      price: price == freezed
+      price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      totalPage: totalPage == freezed
+      totalPage: null == totalPage
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
               as String,
-      smallThumbnail: smallThumbnail == freezed
+      smallThumbnail: null == smallThumbnail
           ? _value.smallThumbnail
           : smallThumbnail // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: thumbnail == freezed
+      thumbnail: null == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      publisher: publisher == freezed
+      publisher: null == publisher
           ? _value.publisher
           : publisher // ignore: cast_nullable_to_non_nullable
               as String,
-      publishedDate: publishedDate == freezed
+      publishedDate: null == publishedDate
           ? _value.publishedDate
           : publishedDate // ignore: cast_nullable_to_non_nullable
               as String,
-      authors: authors == freezed
+      authors: null == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -124,6 +127,7 @@ abstract class _$$_BookDetailStateCopyWith<$Res>
           _$_BookDetailState value, $Res Function(_$_BookDetailState) then) =
       __$$_BookDetailStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int id,
       String title,
@@ -139,66 +143,64 @@ abstract class _$$_BookDetailStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_BookDetailStateCopyWithImpl<$Res>
-    extends _$BookDetailStateCopyWithImpl<$Res>
+    extends _$BookDetailStateCopyWithImpl<$Res, _$_BookDetailState>
     implements _$$_BookDetailStateCopyWith<$Res> {
   __$$_BookDetailStateCopyWithImpl(
       _$_BookDetailState _value, $Res Function(_$_BookDetailState) _then)
-      : super(_value, (v) => _then(v as _$_BookDetailState));
+      : super(_value, _then);
 
-  @override
-  _$_BookDetailState get _value => super._value as _$_BookDetailState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? title = freezed,
-    Object? price = freezed,
-    Object? totalPage = freezed,
-    Object? smallThumbnail = freezed,
-    Object? thumbnail = freezed,
-    Object? description = freezed,
-    Object? publisher = freezed,
-    Object? publishedDate = freezed,
-    Object? authors = freezed,
+    Object? id = null,
+    Object? title = null,
+    Object? price = null,
+    Object? totalPage = null,
+    Object? smallThumbnail = null,
+    Object? thumbnail = null,
+    Object? description = null,
+    Object? publisher = null,
+    Object? publishedDate = null,
+    Object? authors = null,
   }) {
     return _then(_$_BookDetailState(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      price: price == freezed
+      price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      totalPage: totalPage == freezed
+      totalPage: null == totalPage
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
               as String,
-      smallThumbnail: smallThumbnail == freezed
+      smallThumbnail: null == smallThumbnail
           ? _value.smallThumbnail
           : smallThumbnail // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: thumbnail == freezed
+      thumbnail: null == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      publisher: publisher == freezed
+      publisher: null == publisher
           ? _value.publisher
           : publisher // ignore: cast_nullable_to_non_nullable
               as String,
-      publishedDate: publishedDate == freezed
+      publishedDate: null == publishedDate
           ? _value.publishedDate
           : publishedDate // ignore: cast_nullable_to_non_nullable
               as String,
-      authors: authors == freezed
+      authors: null == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as String,
@@ -262,37 +264,41 @@ class _$_BookDetailState implements _BookDetailState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BookDetailState &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
-            const DeepCollectionEquality().equals(other.totalPage, totalPage) &&
-            const DeepCollectionEquality()
-                .equals(other.smallThumbnail, smallThumbnail) &&
-            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.publisher, publisher) &&
-            const DeepCollectionEquality()
-                .equals(other.publishedDate, publishedDate) &&
-            const DeepCollectionEquality().equals(other.authors, authors));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.totalPage, totalPage) ||
+                other.totalPage == totalPage) &&
+            (identical(other.smallThumbnail, smallThumbnail) ||
+                other.smallThumbnail == smallThumbnail) &&
+            (identical(other.thumbnail, thumbnail) ||
+                other.thumbnail == thumbnail) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.publisher, publisher) ||
+                other.publisher == publisher) &&
+            (identical(other.publishedDate, publishedDate) ||
+                other.publishedDate == publishedDate) &&
+            (identical(other.authors, authors) || other.authors == authors));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(totalPage),
-      const DeepCollectionEquality().hash(smallThumbnail),
-      const DeepCollectionEquality().hash(thumbnail),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(publisher),
-      const DeepCollectionEquality().hash(publishedDate),
-      const DeepCollectionEquality().hash(authors));
+      id,
+      title,
+      price,
+      totalPage,
+      smallThumbnail,
+      thumbnail,
+      description,
+      publisher,
+      publishedDate,
+      authors);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BookDetailStateCopyWith<_$_BookDetailState> get copyWith =>
       __$$_BookDetailStateCopyWithImpl<_$_BookDetailState>(this, _$identity);
 }

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'book_search_viewmodel.dart';
 
@@ -27,29 +27,32 @@ mixin _$BookSearchState {
 abstract class $BookSearchStateCopyWith<$Res> {
   factory $BookSearchStateCopyWith(
           BookSearchState value, $Res Function(BookSearchState) then) =
-      _$BookSearchStateCopyWithImpl<$Res>;
+      _$BookSearchStateCopyWithImpl<$Res, BookSearchState>;
+  @useResult
   $Res call({List<model.Book> bookList});
 }
 
 /// @nodoc
-class _$BookSearchStateCopyWithImpl<$Res>
+class _$BookSearchStateCopyWithImpl<$Res, $Val extends BookSearchState>
     implements $BookSearchStateCopyWith<$Res> {
   _$BookSearchStateCopyWithImpl(this._value, this._then);
 
-  final BookSearchState _value;
   // ignore: unused_field
-  final $Res Function(BookSearchState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bookList = freezed,
+    Object? bookList = null,
   }) {
     return _then(_value.copyWith(
-      bookList: bookList == freezed
+      bookList: null == bookList
           ? _value.bookList
           : bookList // ignore: cast_nullable_to_non_nullable
               as List<model.Book>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -60,26 +63,25 @@ abstract class _$$_BookSearchCopyWith<$Res>
           _$_BookSearch value, $Res Function(_$_BookSearch) then) =
       __$$_BookSearchCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<model.Book> bookList});
 }
 
 /// @nodoc
 class __$$_BookSearchCopyWithImpl<$Res>
-    extends _$BookSearchStateCopyWithImpl<$Res>
+    extends _$BookSearchStateCopyWithImpl<$Res, _$_BookSearch>
     implements _$$_BookSearchCopyWith<$Res> {
   __$$_BookSearchCopyWithImpl(
       _$_BookSearch _value, $Res Function(_$_BookSearch) _then)
-      : super(_value, (v) => _then(v as _$_BookSearch));
+      : super(_value, _then);
 
-  @override
-  _$_BookSearch get _value => super._value as _$_BookSearch;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bookList = freezed,
+    Object? bookList = null,
   }) {
     return _then(_$_BookSearch(
-      bookList: bookList == freezed
+      bookList: null == bookList
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
               as List<model.Book>,
@@ -97,6 +99,7 @@ class _$_BookSearch implements _BookSearch {
   @override
   @JsonKey()
   List<model.Book> get bookList {
+    if (_bookList is EqualUnmodifiableListView) return _bookList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bookList);
   }
@@ -120,6 +123,7 @@ class _$_BookSearch implements _BookSearch {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BookSearchCopyWith<_$_BookSearch> get copyWith =>
       __$$_BookSearchCopyWithImpl<_$_BookSearch>(this, _$identity);
 }

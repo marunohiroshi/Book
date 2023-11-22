@@ -57,22 +57,22 @@ class _$BookSearchStateCopyWithImpl<$Res, $Val extends BookSearchState>
 }
 
 /// @nodoc
-abstract class _$$_BookSearchCopyWith<$Res>
+abstract class _$$BookSearchImplCopyWith<$Res>
     implements $BookSearchStateCopyWith<$Res> {
-  factory _$$_BookSearchCopyWith(
-          _$_BookSearch value, $Res Function(_$_BookSearch) then) =
-      __$$_BookSearchCopyWithImpl<$Res>;
+  factory _$$BookSearchImplCopyWith(
+          _$BookSearchImpl value, $Res Function(_$BookSearchImpl) then) =
+      __$$BookSearchImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<model.Book> bookList});
 }
 
 /// @nodoc
-class __$$_BookSearchCopyWithImpl<$Res>
-    extends _$BookSearchStateCopyWithImpl<$Res, _$_BookSearch>
-    implements _$$_BookSearchCopyWith<$Res> {
-  __$$_BookSearchCopyWithImpl(
-      _$_BookSearch _value, $Res Function(_$_BookSearch) _then)
+class __$$BookSearchImplCopyWithImpl<$Res>
+    extends _$BookSearchStateCopyWithImpl<$Res, _$BookSearchImpl>
+    implements _$$BookSearchImplCopyWith<$Res> {
+  __$$BookSearchImplCopyWithImpl(
+      _$BookSearchImpl _value, $Res Function(_$BookSearchImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$_BookSearchCopyWithImpl<$Res>
   $Res call({
     Object? bookList = null,
   }) {
-    return _then(_$_BookSearch(
+    return _then(_$BookSearchImpl(
       bookList: null == bookList
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
@@ -91,8 +91,9 @@ class __$$_BookSearchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BookSearch implements _BookSearch {
-  const _$_BookSearch({final List<model.Book> bookList = const <model.Book>[]})
+class _$BookSearchImpl implements _BookSearch {
+  const _$BookSearchImpl(
+      {final List<model.Book> bookList = const <model.Book>[]})
       : _bookList = bookList;
 
   final List<model.Book> _bookList;
@@ -113,7 +114,7 @@ class _$_BookSearch implements _BookSearch {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BookSearch &&
+            other is _$BookSearchImpl &&
             const DeepCollectionEquality().equals(other._bookList, _bookList));
   }
 
@@ -124,17 +125,18 @@ class _$_BookSearch implements _BookSearch {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BookSearchCopyWith<_$_BookSearch> get copyWith =>
-      __$$_BookSearchCopyWithImpl<_$_BookSearch>(this, _$identity);
+  _$$BookSearchImplCopyWith<_$BookSearchImpl> get copyWith =>
+      __$$BookSearchImplCopyWithImpl<_$BookSearchImpl>(this, _$identity);
 }
 
 abstract class _BookSearch implements BookSearchState {
-  const factory _BookSearch({final List<model.Book> bookList}) = _$_BookSearch;
+  const factory _BookSearch({final List<model.Book> bookList}) =
+      _$BookSearchImpl;
 
   @override
   List<model.Book> get bookList;
   @override
   @JsonKey(ignore: true)
-  _$$_BookSearchCopyWith<_$_BookSearch> get copyWith =>
+  _$$BookSearchImplCopyWith<_$BookSearchImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -30,7 +30,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
+      print('スキャン番号; $barcodeScanRes');
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -51,19 +51,26 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
 
   /// GoogleApi取得
   Future<Map<String, dynamic>> getGoogleBookJsonResponse(String isbn) async {
-    Uri url = Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': isbn});
+    Uri url = Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': 'isbn:$isbn'});
     print('url: $url');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       print('api request success');
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
-      return jsonResponse;
+
+      String bookInfoUrl = jsonResponse['items'][0]['selfLink'];
+      final url = Uri.parse(bookInfoUrl);
+      final bookResponse = await http.get(url);
+      print('book url: $url');
+      var bookJsonResponse = convert.jsonDecode(bookResponse.body) as Map<String, dynamic>;
+      return bookJsonResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
       final responseError = "" as Map<String, dynamic>;
       return responseError;
     }
+
   }
 
   // book.title = googleResponse['items'][0]['volumeInfo']['title'];
@@ -97,15 +104,15 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
 
   /// 有効なバーコードかどうか確認
   Future<String> checkValidBarcode() async {
-    var res = '192';
-    while (res.startsWith('192')) {
+    var res = '';
+    while (!res.startsWith('978')) {
       res = await scanBarcode();
-      if (res.startsWith('192')) {
+      if (!res.startsWith('978')) {
         Fluttertoast.showToast(
-            msg: "もう一方のバーコードをスキャンしてください",
+            msg: "'978'から始まるバーコードをスキャンしてください",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 2,
+            timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
@@ -117,12 +124,20 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
   Future<Book> getBookInfoFromJson(String res) async {
     final googleResponse = await getGoogleBookJsonResponse(res);
     final openDbResponse = await getOpendbBookJsonResponse(barcodeScanRes);
-    final title = openDbResponse[0]['summary']['title'];
-    final totalPage = openDbResponse[0]['onix']['DescriptiveDetail']['Extent']
-        [0]['ExtentValue'];
-    final description =
-        openDbResponse[0]['onix']['CollateralDetail']['TextContent'][0]['Text'];
-    final authors = openDbResponse[0]['summary']['author'];
+    final title = googleResponse['volumeInfo']['title'];
+    int totalPage;
+    try {
+      totalPage = googleResponse['volumeInfo']['pageCount'];
+    } catch (e) {
+      totalPage = 0;
+    }
+    final authors = googleResponse['volumeInfo']['authors'][0];
+    String description;
+    try {
+      description = googleResponse['volumeInfo']['description'];
+    } catch (e) {
+      description = "0";
+    }
     int price;
     try {
       price = int.parse(openDbResponse[0]['onix']['ProductSupply']
@@ -130,14 +145,18 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     } catch (e) {
       price = 0;
     }
-    final publishedDate = (openDbResponse[0]['summary']['pubdate']);
-    final publisher = openDbResponse[0]['summary']['publisher'];
+    final publishedDate = googleResponse['volumeInfo']['publishedDate'];
+    final publisher = googleResponse['volumeInfo']['publisher'];
 
     String thumbnail;
-    thumbnail = openDbResponse[0]['summary']['cover'];
+    thumbnail = googleResponse['volumeInfo']['imageLinks']['thumbnail'];
     if (thumbnail == '') {
-      thumbnail =
-          googleResponse['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+      try {
+        thumbnail =
+        openDbResponse[0]['summary']['cover'];
+      } catch (e) {
+        thumbnail = 'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png';
+      }
     }
 
     final bookList = await _appDb.getAllBookList;
@@ -178,5 +197,15 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
       }
     }
     return true;
+  }
+
+  dynamic checkError(dynamic target) {
+    Object check;
+    try {
+     check = target;
+      return check;
+    } catch (e) {
+      check = 0;
+    }
   }
 }

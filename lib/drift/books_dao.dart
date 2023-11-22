@@ -7,7 +7,7 @@ class Books extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
   IntColumn get price => integer()();
-  TextColumn get totalPage => text()();
+  IntColumn get totalPage => integer()();
   TextColumn get thumbnail => text()();
   TextColumn get description => text()();
   TextColumn get publisher => text()();

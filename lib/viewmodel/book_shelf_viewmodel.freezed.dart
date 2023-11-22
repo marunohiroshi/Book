@@ -86,11 +86,11 @@ class _$BookShelfStateCopyWithImpl<$Res, $Val extends BookShelfState>
 }
 
 /// @nodoc
-abstract class _$$_BookShelfStateCopyWith<$Res>
+abstract class _$$BookShelfStateImplCopyWith<$Res>
     implements $BookShelfStateCopyWith<$Res> {
-  factory _$$_BookShelfStateCopyWith(
-          _$_BookShelfState value, $Res Function(_$_BookShelfState) then) =
-      __$$_BookShelfStateCopyWithImpl<$Res>;
+  factory _$$BookShelfStateImplCopyWith(_$BookShelfStateImpl value,
+          $Res Function(_$BookShelfStateImpl) then) =
+      __$$BookShelfStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,11 +102,11 @@ abstract class _$$_BookShelfStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BookShelfStateCopyWithImpl<$Res>
-    extends _$BookShelfStateCopyWithImpl<$Res, _$_BookShelfState>
-    implements _$$_BookShelfStateCopyWith<$Res> {
-  __$$_BookShelfStateCopyWithImpl(
-      _$_BookShelfState _value, $Res Function(_$_BookShelfState) _then)
+class __$$BookShelfStateImplCopyWithImpl<$Res>
+    extends _$BookShelfStateCopyWithImpl<$Res, _$BookShelfStateImpl>
+    implements _$$BookShelfStateImplCopyWith<$Res> {
+  __$$BookShelfStateImplCopyWithImpl(
+      _$BookShelfStateImpl _value, $Res Function(_$BookShelfStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,7 +118,7 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
     Object? searchMode = null,
     Object? listMode = null,
   }) {
-    return _then(_$_BookShelfState(
+    return _then(_$BookShelfStateImpl(
       bookList: null == bookList
           ? _value._bookList
           : bookList // ignore: cast_nullable_to_non_nullable
@@ -145,8 +145,8 @@ class __$$_BookShelfStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BookShelfState implements _BookShelfState {
-  const _$_BookShelfState(
+class _$BookShelfStateImpl implements _BookShelfState {
+  const _$BookShelfStateImpl(
       {final List<model.Book> bookList = const <model.Book>[],
       this.crossAxisCount = 3,
       this.hasRead = true,
@@ -185,7 +185,7 @@ class _$_BookShelfState implements _BookShelfState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BookShelfState &&
+            other is _$BookShelfStateImpl &&
             const DeepCollectionEquality().equals(other._bookList, _bookList) &&
             (identical(other.crossAxisCount, crossAxisCount) ||
                 other.crossAxisCount == crossAxisCount) &&
@@ -208,8 +208,9 @@ class _$_BookShelfState implements _BookShelfState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BookShelfStateCopyWith<_$_BookShelfState> get copyWith =>
-      __$$_BookShelfStateCopyWithImpl<_$_BookShelfState>(this, _$identity);
+  _$$BookShelfStateImplCopyWith<_$BookShelfStateImpl> get copyWith =>
+      __$$BookShelfStateImplCopyWithImpl<_$BookShelfStateImpl>(
+          this, _$identity);
 }
 
 abstract class _BookShelfState implements BookShelfState {
@@ -218,7 +219,7 @@ abstract class _BookShelfState implements BookShelfState {
       final int crossAxisCount,
       final bool hasRead,
       final bool searchMode,
-      final bool listMode}) = _$_BookShelfState;
+      final bool listMode}) = _$BookShelfStateImpl;
 
   @override
   List<model.Book> get bookList;
@@ -232,6 +233,6 @@ abstract class _BookShelfState implements BookShelfState {
   bool get listMode;
   @override
   @JsonKey(ignore: true)
-  _$$_BookShelfStateCopyWith<_$_BookShelfState> get copyWith =>
+  _$$BookShelfStateImplCopyWith<_$BookShelfStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

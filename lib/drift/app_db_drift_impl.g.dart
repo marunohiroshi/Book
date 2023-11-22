@@ -30,9 +30,9 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   static const VerificationMeta _totalPageMeta =
       const VerificationMeta('totalPage');
   @override
-  late final GeneratedColumn<String> totalPage = GeneratedColumn<String>(
+  late final GeneratedColumn<int> totalPage = GeneratedColumn<int>(
       'total_page', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _thumbnailMeta =
       const VerificationMeta('thumbnail');
   @override
@@ -66,15 +66,12 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   static const VerificationMeta _hasReadMeta =
       const VerificationMeta('hasRead');
   @override
-  late final GeneratedColumn<bool> hasRead =
-      GeneratedColumn<bool>('has_read', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("has_read" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hasRead = GeneratedColumn<bool>(
+      'has_read', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("has_read" IN (0, 1))'));
   static const VerificationMeta _memoMeta = const VerificationMeta('memo');
   @override
   late final GeneratedColumn<String> memo = GeneratedColumn<String>(
@@ -95,9 +92,10 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
         memo
       ];
   @override
-  String get aliasedName => _alias ?? 'books';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'books';
+  String get actualTableName => $name;
+  static const String $name = 'books';
   @override
   VerificationContext validateIntegrity(Insertable<Book> instance,
       {bool isInserting = false}) {
@@ -186,7 +184,7 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
       price: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}price'])!,
       totalPage: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}total_page'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}total_page'])!,
       thumbnail: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}thumbnail'])!,
       description: attachedDatabase.typeMapping
@@ -214,7 +212,7 @@ class Book extends DataClass implements Insertable<Book> {
   final int id;
   final String title;
   final int price;
-  final String totalPage;
+  final int totalPage;
   final String thumbnail;
   final String description;
   final String publisher;
@@ -240,7 +238,7 @@ class Book extends DataClass implements Insertable<Book> {
     map['id'] = Variable<int>(id);
     map['title'] = Variable<String>(title);
     map['price'] = Variable<int>(price);
-    map['total_page'] = Variable<String>(totalPage);
+    map['total_page'] = Variable<int>(totalPage);
     map['thumbnail'] = Variable<String>(thumbnail);
     map['description'] = Variable<String>(description);
     map['publisher'] = Variable<String>(publisher);
@@ -274,7 +272,7 @@ class Book extends DataClass implements Insertable<Book> {
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       price: serializer.fromJson<int>(json['price']),
-      totalPage: serializer.fromJson<String>(json['totalPage']),
+      totalPage: serializer.fromJson<int>(json['totalPage']),
       thumbnail: serializer.fromJson<String>(json['thumbnail']),
       description: serializer.fromJson<String>(json['description']),
       publisher: serializer.fromJson<String>(json['publisher']),
@@ -291,7 +289,7 @@ class Book extends DataClass implements Insertable<Book> {
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String>(title),
       'price': serializer.toJson<int>(price),
-      'totalPage': serializer.toJson<String>(totalPage),
+      'totalPage': serializer.toJson<int>(totalPage),
       'thumbnail': serializer.toJson<String>(thumbnail),
       'description': serializer.toJson<String>(description),
       'publisher': serializer.toJson<String>(publisher),
@@ -306,7 +304,7 @@ class Book extends DataClass implements Insertable<Book> {
           {int? id,
           String? title,
           int? price,
-          String? totalPage,
+          int? totalPage,
           String? thumbnail,
           String? description,
           String? publisher,
@@ -369,7 +367,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
   final Value<int> id;
   final Value<String> title;
   final Value<int> price;
-  final Value<String> totalPage;
+  final Value<int> totalPage;
   final Value<String> thumbnail;
   final Value<String> description;
   final Value<String> publisher;
@@ -394,7 +392,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     this.id = const Value.absent(),
     required String title,
     required int price,
-    required String totalPage,
+    required int totalPage,
     required String thumbnail,
     required String description,
     required String publisher,
@@ -416,7 +414,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     Expression<int>? id,
     Expression<String>? title,
     Expression<int>? price,
-    Expression<String>? totalPage,
+    Expression<int>? totalPage,
     Expression<String>? thumbnail,
     Expression<String>? description,
     Expression<String>? publisher,
@@ -444,7 +442,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       {Value<int>? id,
       Value<String>? title,
       Value<int>? price,
-      Value<String>? totalPage,
+      Value<int>? totalPage,
       Value<String>? thumbnail,
       Value<String>? description,
       Value<String>? publisher,
@@ -480,7 +478,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       map['price'] = Variable<int>(price.value);
     }
     if (totalPage.present) {
-      map['total_page'] = Variable<String>(totalPage.value);
+      map['total_page'] = Variable<int>(totalPage.value);
     }
     if (thumbnail.present) {
       map['thumbnail'] = Variable<String>(thumbnail.value);

@@ -32,7 +32,7 @@ class BookSearchViewModel extends StateNotifier<BookSearchState> {
           id: 0,
           price: 0,
           title: info.title,
-          totalPage: info.pageCount.toString(),
+          totalPage: info.pageCount,
           thumbnail: info.imageLinks['thumbnail']?.toString() ??
               'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png',
           description: info.description,

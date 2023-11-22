@@ -63,22 +63,22 @@ class _$ScanBookStateCopyWithImpl<$Res, $Val extends ScanBookState>
 }
 
 /// @nodoc
-abstract class _$$_ScanBookStateCopyWith<$Res>
+abstract class _$$ScanBookStateImplCopyWith<$Res>
     implements $ScanBookStateCopyWith<$Res> {
-  factory _$$_ScanBookStateCopyWith(
-          _$_ScanBookState value, $Res Function(_$_ScanBookState) then) =
-      __$$_ScanBookStateCopyWithImpl<$Res>;
+  factory _$$ScanBookStateImplCopyWith(
+          _$ScanBookStateImpl value, $Res Function(_$ScanBookStateImpl) then) =
+      __$$ScanBookStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool scanned, bool closeDialog});
 }
 
 /// @nodoc
-class __$$_ScanBookStateCopyWithImpl<$Res>
-    extends _$ScanBookStateCopyWithImpl<$Res, _$_ScanBookState>
-    implements _$$_ScanBookStateCopyWith<$Res> {
-  __$$_ScanBookStateCopyWithImpl(
-      _$_ScanBookState _value, $Res Function(_$_ScanBookState) _then)
+class __$$ScanBookStateImplCopyWithImpl<$Res>
+    extends _$ScanBookStateCopyWithImpl<$Res, _$ScanBookStateImpl>
+    implements _$$ScanBookStateImplCopyWith<$Res> {
+  __$$ScanBookStateImplCopyWithImpl(
+      _$ScanBookStateImpl _value, $Res Function(_$ScanBookStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_ScanBookStateCopyWithImpl<$Res>
     Object? scanned = null,
     Object? closeDialog = null,
   }) {
-    return _then(_$_ScanBookState(
+    return _then(_$ScanBookStateImpl(
       scanned: null == scanned
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_ScanBookStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ScanBookState implements _ScanBookState {
-  const _$_ScanBookState({this.scanned = false, this.closeDialog = false});
+class _$ScanBookStateImpl implements _ScanBookState {
+  const _$ScanBookStateImpl({this.scanned = false, this.closeDialog = false});
 
   @override
   @JsonKey()
@@ -121,7 +121,7 @@ class _$_ScanBookState implements _ScanBookState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ScanBookState &&
+            other is _$ScanBookStateImpl &&
             (identical(other.scanned, scanned) || other.scanned == scanned) &&
             (identical(other.closeDialog, closeDialog) ||
                 other.closeDialog == closeDialog));
@@ -133,13 +133,13 @@ class _$_ScanBookState implements _ScanBookState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ScanBookStateCopyWith<_$_ScanBookState> get copyWith =>
-      __$$_ScanBookStateCopyWithImpl<_$_ScanBookState>(this, _$identity);
+  _$$ScanBookStateImplCopyWith<_$ScanBookStateImpl> get copyWith =>
+      __$$ScanBookStateImplCopyWithImpl<_$ScanBookStateImpl>(this, _$identity);
 }
 
 abstract class _ScanBookState implements ScanBookState {
   const factory _ScanBookState({final bool scanned, final bool closeDialog}) =
-      _$_ScanBookState;
+      _$ScanBookStateImpl;
 
   @override
   bool get scanned;
@@ -147,6 +147,6 @@ abstract class _ScanBookState implements ScanBookState {
   bool get closeDialog;
   @override
   @JsonKey(ignore: true)
-  _$$_ScanBookStateCopyWith<_$_ScanBookState> get copyWith =>
+  _$$ScanBookStateImplCopyWith<_$ScanBookStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

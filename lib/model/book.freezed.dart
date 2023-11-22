@@ -119,9 +119,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
 }
 
 /// @nodoc
-abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
-  factory _$$_BookCopyWith(_$_Book value, $Res Function(_$_Book) then) =
-      __$$_BookCopyWithImpl<$Res>;
+abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
+  factory _$$BookImplCopyWith(
+          _$BookImpl value, $Res Function(_$BookImpl) then) =
+      __$$BookImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -138,9 +139,10 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
-    implements _$$_BookCopyWith<$Res> {
-  __$$_BookCopyWithImpl(_$_Book _value, $Res Function(_$_Book) _then)
+class __$$BookImplCopyWithImpl<$Res>
+    extends _$BookCopyWithImpl<$Res, _$BookImpl>
+    implements _$$BookImplCopyWith<$Res> {
+  __$$BookImplCopyWithImpl(_$BookImpl _value, $Res Function(_$BookImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -157,7 +159,7 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
     Object? publishedDate = null,
     Object? authors = null,
   }) {
-    return _then(_$_Book(
+    return _then(_$BookImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -204,8 +206,8 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
 
 /// @nodoc
 
-class _$_Book extends _Book {
-  const _$_Book(
+class _$BookImpl extends _Book {
+  const _$BookImpl(
       {this.id = 0,
       this.title = '',
       this.price = 0,
@@ -258,7 +260,7 @@ class _$_Book extends _Book {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Book &&
+            other is _$BookImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.price, price) || other.price == price) &&
@@ -294,8 +296,8 @@ class _$_Book extends _Book {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BookCopyWith<_$_Book> get copyWith =>
-      __$$_BookCopyWithImpl<_$_Book>(this, _$identity);
+  _$$BookImplCopyWith<_$BookImpl> get copyWith =>
+      __$$BookImplCopyWithImpl<_$BookImpl>(this, _$identity);
 }
 
 abstract class _Book extends Book {
@@ -309,7 +311,7 @@ abstract class _Book extends Book {
       final String description,
       final String publisher,
       final String publishedDate,
-      final String authors}) = _$_Book;
+      final String authors}) = _$BookImpl;
   const _Book._() : super._();
 
   @override
@@ -334,5 +336,6 @@ abstract class _Book extends Book {
   String get authors;
   @override
   @JsonKey(ignore: true)
-  _$$_BookCopyWith<_$_Book> get copyWith => throw _privateConstructorUsedError;
+  _$$BookImplCopyWith<_$BookImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -19,7 +19,7 @@ mixin _$BookDetailState {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  String get totalPage => throw _privateConstructorUsedError;
+  int get totalPage => throw _privateConstructorUsedError;
   String get smallThumbnail => throw _privateConstructorUsedError;
   String get thumbnail => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $BookDetailStateCopyWith<$Res> {
       {int id,
       String title,
       int price,
-      String totalPage,
+      int totalPage,
       String smallThumbnail,
       String thumbnail,
       String description,
@@ -91,7 +91,7 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
       totalPage: null == totalPage
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       smallThumbnail: null == smallThumbnail
           ? _value.smallThumbnail
           : smallThumbnail // ignore: cast_nullable_to_non_nullable
@@ -121,18 +121,18 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
 }
 
 /// @nodoc
-abstract class _$$_BookDetailStateCopyWith<$Res>
+abstract class _$$BookDetailStateImplCopyWith<$Res>
     implements $BookDetailStateCopyWith<$Res> {
-  factory _$$_BookDetailStateCopyWith(
-          _$_BookDetailState value, $Res Function(_$_BookDetailState) then) =
-      __$$_BookDetailStateCopyWithImpl<$Res>;
+  factory _$$BookDetailStateImplCopyWith(_$BookDetailStateImpl value,
+          $Res Function(_$BookDetailStateImpl) then) =
+      __$$BookDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {int id,
       String title,
       int price,
-      String totalPage,
+      int totalPage,
       String smallThumbnail,
       String thumbnail,
       String description,
@@ -142,11 +142,11 @@ abstract class _$$_BookDetailStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BookDetailStateCopyWithImpl<$Res>
-    extends _$BookDetailStateCopyWithImpl<$Res, _$_BookDetailState>
-    implements _$$_BookDetailStateCopyWith<$Res> {
-  __$$_BookDetailStateCopyWithImpl(
-      _$_BookDetailState _value, $Res Function(_$_BookDetailState) _then)
+class __$$BookDetailStateImplCopyWithImpl<$Res>
+    extends _$BookDetailStateCopyWithImpl<$Res, _$BookDetailStateImpl>
+    implements _$$BookDetailStateImplCopyWith<$Res> {
+  __$$BookDetailStateImplCopyWithImpl(
+      _$BookDetailStateImpl _value, $Res Function(_$BookDetailStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -163,7 +163,7 @@ class __$$_BookDetailStateCopyWithImpl<$Res>
     Object? publishedDate = null,
     Object? authors = null,
   }) {
-    return _then(_$_BookDetailState(
+    return _then(_$BookDetailStateImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -179,7 +179,7 @@ class __$$_BookDetailStateCopyWithImpl<$Res>
       totalPage: null == totalPage
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       smallThumbnail: null == smallThumbnail
           ? _value.smallThumbnail
           : smallThumbnail // ignore: cast_nullable_to_non_nullable
@@ -210,12 +210,12 @@ class __$$_BookDetailStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BookDetailState implements _BookDetailState {
-  const _$_BookDetailState(
+class _$BookDetailStateImpl implements _BookDetailState {
+  const _$BookDetailStateImpl(
       {this.id = 0,
       this.title = '',
       this.price = 0,
-      this.totalPage = '',
+      this.totalPage = 0,
       this.smallThumbnail = '',
       this.thumbnail = '',
       this.description = '',
@@ -234,7 +234,7 @@ class _$_BookDetailState implements _BookDetailState {
   final int price;
   @override
   @JsonKey()
-  final String totalPage;
+  final int totalPage;
   @override
   @JsonKey()
   final String smallThumbnail;
@@ -263,7 +263,7 @@ class _$_BookDetailState implements _BookDetailState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BookDetailState &&
+            other is _$BookDetailStateImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.price, price) || other.price == price) &&
@@ -299,8 +299,9 @@ class _$_BookDetailState implements _BookDetailState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BookDetailStateCopyWith<_$_BookDetailState> get copyWith =>
-      __$$_BookDetailStateCopyWithImpl<_$_BookDetailState>(this, _$identity);
+  _$$BookDetailStateImplCopyWith<_$BookDetailStateImpl> get copyWith =>
+      __$$BookDetailStateImplCopyWithImpl<_$BookDetailStateImpl>(
+          this, _$identity);
 }
 
 abstract class _BookDetailState implements BookDetailState {
@@ -308,13 +309,13 @@ abstract class _BookDetailState implements BookDetailState {
       {final int id,
       final String title,
       final int price,
-      final String totalPage,
+      final int totalPage,
       final String smallThumbnail,
       final String thumbnail,
       final String description,
       final String publisher,
       final String publishedDate,
-      final String authors}) = _$_BookDetailState;
+      final String authors}) = _$BookDetailStateImpl;
 
   @override
   int get id;
@@ -323,7 +324,7 @@ abstract class _BookDetailState implements BookDetailState {
   @override
   int get price;
   @override
-  String get totalPage;
+  int get totalPage;
   @override
   String get smallThumbnail;
   @override
@@ -338,6 +339,6 @@ abstract class _BookDetailState implements BookDetailState {
   String get authors;
   @override
   @JsonKey(ignore: true)
-  _$$_BookDetailStateCopyWith<_$_BookDetailState> get copyWith =>
+  _$$BookDetailStateImplCopyWith<_$BookDetailStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

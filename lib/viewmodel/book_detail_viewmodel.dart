@@ -10,7 +10,7 @@ class BookDetailState with _$BookDetailState {
     @Default(0) int id,
     @Default('') String title,
     @Default(0) int price,
-    @Default('') String totalPage,
+    @Default(0) int totalPage,
     @Default('') String smallThumbnail,
     @Default('') String thumbnail,
     @Default('') String description,

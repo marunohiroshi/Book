@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert' as convert;
+import 'dart:io';
 
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:flutter/material.dart';
@@ -40,18 +42,29 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
   /// 連続スキャン
   Future<String> scanBarcodeContinue() async {
     String res = '';
+    // final subscription = stream.listen(null);
+    // subscription.onData((data) {
+    //   subscription.cancel();
+    // });
+
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
             '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
-        .listen((barcode) {
+        .listen((barcode) async {
       print(barcode);
-      res = barcode;
+      if (barcode.toString().startsWith('978')) {
+        res = barcode.toString();
+        closeDialog();
+      }
+    }).onDone(() {
+      closeDialog();
     });
     return res;
   }
 
   /// GoogleApi取得
   Future<Map<String, dynamic>> getGoogleBookJsonResponse(String isbn) async {
-    Uri url = Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': 'isbn:$isbn'});
+    Uri url = Uri.https(
+        'www.googleapis.com', '/books/v1/volumes', {'q': 'isbn:$isbn'});
     print('url: $url');
     var response = await http.get(url);
     if (response.statusCode == 200) {
@@ -63,14 +76,14 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
       final url = Uri.parse(bookInfoUrl);
       final bookResponse = await http.get(url);
       print('book url: $url');
-      var bookJsonResponse = convert.jsonDecode(bookResponse.body) as Map<String, dynamic>;
+      var bookJsonResponse =
+          convert.jsonDecode(bookResponse.body) as Map<String, dynamic>;
       return bookJsonResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
       final responseError = "" as Map<String, dynamic>;
       return responseError;
     }
-
   }
 
   // book.title = googleResponse['items'][0]['volumeInfo']['title'];
@@ -107,16 +120,20 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     var res = '';
     while (!res.startsWith('978')) {
       res = await scanBarcode();
-      if (!res.startsWith('978')) {
-        Fluttertoast.showToast(
-            msg: "'978'から始まるバーコードをスキャンしてください",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+      if (res.startsWith('-1')) {
+        return '';
       }
+      var msg =
+          res.startsWith('978') ? 'スキャン成功!!🐶' : '’978’から始まるバーコードをスキャンしてね🐾';
+      Fluttertoast.showToast(
+          msg: msg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 0.05.toInt(),
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      sleep(const Duration(seconds: 1));
     }
     return res;
   }
@@ -152,10 +169,10 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     thumbnail = googleResponse['volumeInfo']['imageLinks']['thumbnail'];
     if (thumbnail == '') {
       try {
-        thumbnail =
-        openDbResponse[0]['summary']['cover'];
+        thumbnail = openDbResponse[0]['summary']['cover'];
       } catch (e) {
-        thumbnail = 'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png';
+        thumbnail =
+            'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png';
       }
     }
 
@@ -199,13 +216,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     return true;
   }
 
-  dynamic checkError(dynamic target) {
-    Object check;
-    try {
-     check = target;
-      return check;
-    } catch (e) {
-      check = 0;
-    }
+  void closeDialog() {
+    state = state.copyWith(closeDialog: true);
   }
 }

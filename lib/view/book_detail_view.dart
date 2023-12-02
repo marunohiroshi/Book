@@ -34,7 +34,12 @@ class BookDetailView extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Center(
-              child: Image.network(book.thumbnail),
+              child: Image.network(
+                book.thumbnail,
+                height: 450,
+                width: 300,
+                fit: BoxFit.fill,
+              ),
             ),
             const Text('タイトル'),
             Text(book.title),

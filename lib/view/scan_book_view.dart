@@ -1,7 +1,7 @@
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:book/providers.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:book/viewmodel/scan_book_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,13 +13,17 @@ class ScanBook extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.read(scanBookViewModelProvider.notifier);
     final mainViewModel = ref.read(mainViewModelProvider.notifier);
+    ref.listen(scanBookViewModelProvider, (_, ScanBookState next) {});
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            OutlinedButton(
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: OutlinedButton(
                 onPressed: () async {
                   String res = await viewModel.checkValidBarcode();
                   final book = await viewModel.getBookInfoFromJson(res);
@@ -34,7 +38,9 @@ class ScanBook extends ConsumerWidget {
                 child: const Text(
                   'バーコード読み取り',
                   textAlign: TextAlign.center,
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),

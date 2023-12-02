@@ -4,6 +4,8 @@ import 'package:book/view/book_shelf_view.dart';
 import 'package:book/view/main_view.dart';
 import 'package:go_router/go_router.dart';
 
+import 'drift/app_db_drift_impl.dart';
+
 final bookRoutes = [
   GoRoute(
       path: '/main_view',
@@ -12,7 +14,7 @@ final bookRoutes = [
         GoRoute(
           name: 'book_detail_view',
           path: 'book_detail_view',
-          builder: (context, state) => BookDetailView(state.extra),
+          builder: (context, state) => BookDetailView(state.extra as Book),
         ),
       ]),
   GoRoute(

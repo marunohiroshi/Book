@@ -29,10 +29,16 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
 
   /// シングルスキャン
   Future<String> scanBarcode() async {
+    barcodeScanRes = '';
     try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print('スキャン番号; $barcodeScanRes');
+      while (!barcodeScanRes.startsWith('978')) {
+        barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+            '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+        print('スキャン番号; $barcodeScanRes');
+        if (barcodeScanRes.startsWith('-1')) {
+          return '-1';
+        }
+      }
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -129,7 +135,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
           msg: msg,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 0.05.toInt(),
+          timeInSecForIosWeb: 0.1.toInt(),
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);

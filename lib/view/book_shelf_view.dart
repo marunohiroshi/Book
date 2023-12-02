@@ -4,7 +4,6 @@ import 'package:book/providers.dart';
 import 'package:book/view/book_detail_view.dart';
 import 'package:book/viewmodel/book_shelf_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -170,7 +169,7 @@ class BookShelf extends ConsumerWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    BookDetailView(book)),
+                                                    BookDetailView(book!)),
                                           );
                                         },
                                       ),
@@ -205,7 +204,7 @@ class BookShelf extends ConsumerWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    BookDetailView(book)));
+                                                    BookDetailView(book!)));
                                       },
                                       child: Row(
                                         children: [

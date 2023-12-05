@@ -131,167 +131,173 @@ class BookShelf extends ConsumerWidget {
         crossAxisCount: 1,
         // padding: const EdgeInsets.all(8),
         children: [
-          FutureBuilder(
-            future: viewModel.getBookList(state.hasRead),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  if (!state.listMode) {
-                    return AnimationLimiter(
-                      child: GridView.count(
-                        crossAxisCount: crossAxisCount,
-                        childAspectRatio: (itemWidth / itemHeight),
-                        children: List.generate(
-                          snapshot.data?.length ?? 0,
-                          (int index) {
-                            return AnimationConfiguration.staggeredGrid(
-                              position: index,
-                              duration: const Duration(milliseconds: 800),
-                              columnCount: snapshot.data?.length ?? 0,
-                              child: ScaleAnimation(
-                                child: FadeInAnimation(
-                                  child: Card(
-                                    margin: const EdgeInsets.all(8),
-                                    child: GridTile(
-                                      child: InkResponse(
-                                        child: Image.network(
-                                          snapshot.data?[index].thumbnail ??
-                                              'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png',
-                                          height: itemHeight,
-                                          width: itemWidth,
-                                          fit: BoxFit.fill,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 60.0),
+            child: FutureBuilder(
+              future: viewModel.getBookList(state.hasRead),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Book>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    if (!state.listMode) {
+                      return AnimationLimiter(
+                        child: GridView.count(
+                          crossAxisCount: crossAxisCount,
+                          childAspectRatio: (itemWidth / itemHeight),
+                          children: List.generate(
+                            snapshot.data?.length ?? 0,
+                            (int index) {
+                              return AnimationConfiguration.staggeredGrid(
+                                position: index,
+                                duration: const Duration(milliseconds: 800),
+                                columnCount: snapshot.data?.length ?? 0,
+                                child: ScaleAnimation(
+                                  child: FadeInAnimation(
+                                    child: Card(
+                                      margin: const EdgeInsets.all(8),
+                                      child: GridTile(
+                                        child: InkResponse(
+                                          child: Image.network(
+                                            snapshot.data?[index].thumbnail ??
+                                                'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png',
+                                            height: itemHeight,
+                                            width: itemWidth,
+                                            fit: BoxFit.fill,
+                                          ),
+                                          onTap: () {
+                                            print('index: $index');
+                                            final book = snapshot.data?[index];
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BookDetailView(book!)),
+                                            );
+                                          },
                                         ),
-                                        onTap: () {
-                                          print('index: $index');
-                                          final book = snapshot.data?[index];
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BookDetailView(book!)),
-                                          );
-                                        },
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    );
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 1000),
-                          child: SlideAnimation(
-                            verticalOffset: 50.0,
-                            child: FadeInAnimation(
-                              child: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        print('index: $index');
-                                        final book = snapshot.data?[index];
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BookDetailView(book!)));
-                                      },
-                                      child: Row(
-                                        children: [
-                                          InkResponse(
-                                            child: Image.network(
-                                              snapshot.data?[index].thumbnail ??
-                                                  '',
-                                              height: 150,
-                                              width: 100,
-                                              fit: BoxFit.fill,
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 1000),
+                            child: SlideAnimation(
+                              verticalOffset: 50.0,
+                              child: FadeInAnimation(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          print('index: $index');
+                                          final book = snapshot.data?[index];
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BookDetailView(book!)));
+                                        },
+                                        child: Row(
+                                          children: [
+                                            InkResponse(
+                                              child: Image.network(
+                                                snapshot.data?[index]
+                                                        .thumbnail ??
+                                                    '',
+                                                height: 150,
+                                                width: 100,
+                                                fit: BoxFit.fill,
+                                              ),
+                                              onTap: () {},
                                             ),
-                                            onTap: () {},
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                child: SizedBox(
-                                                  width: 250,
-                                                  child: AutoSizeText(
-                                                    snapshot.data?[index]
-                                                            .title ??
-                                                        '',
-                                                    style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    maxLines: 3,
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: SizedBox(
+                                                    width: 250,
+                                                    child: AutoSizeText(
+                                                      snapshot.data?[index]
+                                                              .title ??
+                                                          '',
+                                                      style: const TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      maxLines: 3,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5),
-                                                child: SizedBox(
-                                                  width: 250,
-                                                  child: AutoSizeText(
-                                                    snapshot.data?[index]
-                                                            .authors ??
-                                                        '',
-                                                    maxLines: 3,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5),
+                                                  child: SizedBox(
+                                                    width: 250,
+                                                    child: AutoSizeText(
+                                                      snapshot.data?[index]
+                                                              .authors ??
+                                                          '',
+                                                      maxLines: 3,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5),
-                                                child: SizedBox(
-                                                  width: 250,
-                                                  child: AutoSizeText(
-                                                    snapshot.data?[index]
-                                                            .publishedDate ??
-                                                        '',
-                                                    maxLines: 3,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5),
+                                                  child: SizedBox(
+                                                    width: 250,
+                                                    child: AutoSizeText(
+                                                      snapshot.data?[index]
+                                                              .publishedDate ??
+                                                          '',
+                                                      maxLines: 3,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    const Divider(
-                                      color: Colors.black,
-                                    )
-                                  ],
+                                      const Divider(
+                                        color: Colors.black,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
+                          );
+                        },
+                      );
+                    }
                   }
+                  return const Center(
+                    child: Text('本を登録しよう！'),
+                  );
+                } else {
+                  return const CircularProgressIndicator();
                 }
-                return const Center(
-                  child: Text('本を登録しよう！'),
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            },
+              },
+            ),
           ),
         ],
       ),

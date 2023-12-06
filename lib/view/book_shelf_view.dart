@@ -198,84 +198,68 @@ class BookShelf extends ConsumerWidget {
                                   padding: const EdgeInsets.all(5),
                                   child: Column(
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          print('index: $index');
-                                          final book = snapshot.data?[index];
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BookDetailView(book!)));
-                                        },
-                                        child: Row(
-                                          children: [
-                                            InkResponse(
-                                              child: Image.network(
-                                                snapshot.data?[index]
-                                                        .thumbnail ??
-                                                    '',
-                                                height: 150,
-                                                width: 100,
-                                                fit: BoxFit.fill,
+                                      Row(
+                                        children: [
+                                          InkResponse(
+                                            child: Image.network(
+                                              snapshot.data?[index].thumbnail ??
+                                                  '',
+                                              height: 150,
+                                              width: 100,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            onTap: () {},
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: SizedBox(
+                                                  child: AutoSizeText(
+                                                    snapshot.data?[index]
+                                                            .title ??
+                                                        '',
+                                                    style: const TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    maxLines: 3,
+                                                  ),
+                                                ),
                                               ),
-                                              onTap: () {},
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5),
-                                                  child: SizedBox(
-                                                    width: 250,
-                                                    child: AutoSizeText(
-                                                      snapshot.data?[index]
-                                                              .title ??
-                                                          '',
-                                                      style: const TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                      maxLines: 3,
-                                                    ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: SizedBox(
+                                                  child: AutoSizeText(
+                                                    snapshot.data?[index]
+                                                            .authors ??
+                                                        '',
+                                                    maxLines: 3,
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5),
-                                                  child: SizedBox(
-                                                    width: 250,
-                                                    child: AutoSizeText(
-                                                      snapshot.data?[index]
-                                                              .authors ??
-                                                          '',
-                                                      maxLines: 3,
-                                                    ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: SizedBox(
+                                                  width: 100,
+                                                  child: AutoSizeText(
+                                                    snapshot.data?[index]
+                                                            .publishedDate ??
+                                                        '',
+                                                    maxLines: 3,
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5),
-                                                  child: SizedBox(
-                                                    width: 250,
-                                                    child: AutoSizeText(
-                                                      snapshot.data?[index]
-                                                              .publishedDate ??
-                                                          '',
-                                                      maxLines: 3,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                       const Divider(
                                         color: Colors.black,

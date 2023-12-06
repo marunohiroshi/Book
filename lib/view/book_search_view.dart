@@ -69,7 +69,6 @@ class BookSearch extends ConsumerWidget {
                                         Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: SizedBox(
-                                            width: 250,
                                             child: AutoSizeText(
                                               snapshot.data?[index].title ?? '',
                                               style: const TextStyle(
@@ -83,7 +82,6 @@ class BookSearch extends ConsumerWidget {
                                           padding:
                                               const EdgeInsets.only(left: 5),
                                           child: SizedBox(
-                                            width: 250,
                                             child: AutoSizeText(
                                               snapshot.data?[index].authors ??
                                                   '',
@@ -95,7 +93,6 @@ class BookSearch extends ConsumerWidget {
                                           padding:
                                               const EdgeInsets.only(left: 5),
                                           child: SizedBox(
-                                            width: 250,
                                             child: AutoSizeText(
                                               snapshot.data?[index]
                                                       .publishedDate ??
@@ -105,7 +102,6 @@ class BookSearch extends ConsumerWidget {
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 250,
                                           child: Align(
                                             alignment: Alignment.bottomRight,
                                             child: IconButton(

@@ -31,8 +31,8 @@ final bookShelfViewModelProvider =
         (ref) => BookShelfViewModel(ref.read(appDbProvider)));
 
 /// book_detail_viewプロバイダー
-final bookDetailViewModelProvider = StateNotifierProvider.family
-    .autoDispose<BookDetailViewModel, BookDetailState, Book>(
+final bookDetailViewModelProvider =
+    StateNotifierProvider.family<BookDetailViewModel, BookDetailState, Book>(
         (ref, book) => BookDetailViewModel(ref.read(appDbProvider), book));
 
 /// book_sarch_viewプロバイダー

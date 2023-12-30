@@ -63,7 +63,15 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
 
   Future<void> add(Book book) async {
     final bookList = await getAllBookList;
-    final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
+    final target = await getBook(book.id);
+    int id;
+    if (target != null) {
+      // すでにDBに登録されていれば本情報をUpdateする
+      id = target.id;
+    } else {
+      // 本情報が登録されていなければ、新規でidを付与して登録する
+      id = bookList.isEmpty ? 0 : bookList.last.id + 1;
+    }
     into(books).insertOnConflictUpdate(Book(
         id: id,
         title: book.title,
@@ -78,9 +86,24 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         memo: book.memo));
   }
 
-  Future<Book> getBook(int id) async {
+  Future<void> updateMemo(Book book, String memo) async {
+    into(books).insertOnConflictUpdate(Book(
+        id: book.id,
+        title: book.title,
+        price: book.price,
+        totalPage: book.totalPage,
+        thumbnail: book.thumbnail,
+        description: book.description,
+        publisher: book.publisher,
+        publishedDate: book.publishedDate,
+        authors: book.authors,
+        hasRead: book.hasRead,
+        memo: memo));
+  }
+
+  Future<Book?> getBook(int id) async {
     final bookList = await getAllBookList;
-    var book;
+    var book = null;
     for (var element in bookList) {
       if (element.id == id) {
         book = element;

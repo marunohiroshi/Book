@@ -111,12 +111,15 @@ class BookDetailView extends ConsumerWidget {
               padding:
                   const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
               child: TextFormField(
+                initialValue: state.memo,
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     hintText: '感想、心に残った言葉など',
                     labelStyle: TextStyle(fontSize: 24),
                     labelText: 'メモ'),
-                onChanged: (value) {},
+                onChanged: (value) async {
+                  await viewModel.updateMemo(book, value);
+                },
               ),
             ),
             Center(

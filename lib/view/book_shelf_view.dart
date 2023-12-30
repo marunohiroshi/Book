@@ -190,7 +190,7 @@ class BookShelf extends ConsumerWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return AnimationConfiguration.staggeredList(
                             position: index,
-                            duration: const Duration(milliseconds: 1000),
+                            duration: const Duration(milliseconds: 800),
                             child: SlideAnimation(
                               verticalOffset: 50.0,
                               child: FadeInAnimation(

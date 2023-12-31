@@ -17,5 +17,6 @@ class Book with _$Book {
     @Default('') String publisher,
     @Default('') String publishedDate,
     @Default('') String authors,
+    @Default(3) double rating,
   }) = _Book;
 }

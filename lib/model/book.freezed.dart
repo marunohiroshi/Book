@@ -26,6 +26,7 @@ mixin _$Book {
   String get publisher => throw _privateConstructorUsedError;
   String get publishedDate => throw _privateConstructorUsedError;
   String get authors => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookCopyWith<Book> get copyWith => throw _privateConstructorUsedError;
@@ -46,7 +47,8 @@ abstract class $BookCopyWith<$Res> {
       String description,
       String publisher,
       String publishedDate,
-      String authors});
+      String authors,
+      double rating});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? publisher = null,
     Object? publishedDate = null,
     Object? authors = null,
+    Object? rating = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -114,6 +117,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -135,7 +142,8 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       String description,
       String publisher,
       String publishedDate,
-      String authors});
+      String authors,
+      double rating});
 }
 
 /// @nodoc
@@ -158,6 +166,7 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? publisher = null,
     Object? publishedDate = null,
     Object? authors = null,
+    Object? rating = null,
   }) {
     return _then(_$BookImpl(
       id: null == id
@@ -200,6 +209,10 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -217,7 +230,8 @@ class _$BookImpl extends _Book {
       this.description = '',
       this.publisher = '',
       this.publishedDate = '',
-      this.authors = ''})
+      this.authors = '',
+      this.rating = 3})
       : super._();
 
   @override
@@ -250,10 +264,13 @@ class _$BookImpl extends _Book {
   @override
   @JsonKey()
   final String authors;
+  @override
+  @JsonKey()
+  final double rating;
 
   @override
   String toString() {
-    return 'Book(id: $id, title: $title, price: $price, totalPage: $totalPage, smallThumbnail: $smallThumbnail, thumbnail: $thumbnail, description: $description, publisher: $publisher, publishedDate: $publishedDate, authors: $authors)';
+    return 'Book(id: $id, title: $title, price: $price, totalPage: $totalPage, smallThumbnail: $smallThumbnail, thumbnail: $thumbnail, description: $description, publisher: $publisher, publishedDate: $publishedDate, authors: $authors, rating: $rating)';
   }
 
   @override
@@ -276,7 +293,8 @@ class _$BookImpl extends _Book {
                 other.publisher == publisher) &&
             (identical(other.publishedDate, publishedDate) ||
                 other.publishedDate == publishedDate) &&
-            (identical(other.authors, authors) || other.authors == authors));
+            (identical(other.authors, authors) || other.authors == authors) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @override
@@ -291,7 +309,8 @@ class _$BookImpl extends _Book {
       description,
       publisher,
       publishedDate,
-      authors);
+      authors,
+      rating);
 
   @JsonKey(ignore: true)
   @override
@@ -311,7 +330,8 @@ abstract class _Book extends Book {
       final String description,
       final String publisher,
       final String publishedDate,
-      final String authors}) = _$BookImpl;
+      final String authors,
+      final double rating}) = _$BookImpl;
   const _Book._() : super._();
 
   @override
@@ -334,6 +354,8 @@ abstract class _Book extends Book {
   String get publishedDate;
   @override
   String get authors;
+  @override
+  double get rating;
   @override
   @JsonKey(ignore: true)
   _$$BookImplCopyWith<_$BookImpl> get copyWith =>

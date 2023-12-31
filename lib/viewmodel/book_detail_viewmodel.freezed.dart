@@ -27,6 +27,7 @@ mixin _$BookDetailState {
   String get publishedDate => throw _privateConstructorUsedError;
   String get authors => throw _privateConstructorUsedError;
   String get memo => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookDetailStateCopyWith<BookDetailState> get copyWith =>
@@ -50,7 +51,8 @@ abstract class $BookDetailStateCopyWith<$Res> {
       String publisher,
       String publishedDate,
       String authors,
-      String memo});
+      String memo,
+      double rating});
 }
 
 /// @nodoc
@@ -77,6 +79,7 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
     Object? publishedDate = null,
     Object? authors = null,
     Object? memo = null,
+    Object? rating = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -123,6 +126,10 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
               as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -146,7 +153,8 @@ abstract class _$$BookDetailStateImplCopyWith<$Res>
       String publisher,
       String publishedDate,
       String authors,
-      String memo});
+      String memo,
+      double rating});
 }
 
 /// @nodoc
@@ -171,6 +179,7 @@ class __$$BookDetailStateImplCopyWithImpl<$Res>
     Object? publishedDate = null,
     Object? authors = null,
     Object? memo = null,
+    Object? rating = null,
   }) {
     return _then(_$BookDetailStateImpl(
       id: null == id
@@ -217,6 +226,10 @@ class __$$BookDetailStateImplCopyWithImpl<$Res>
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
               as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -235,7 +248,8 @@ class _$BookDetailStateImpl implements _BookDetailState {
       this.publisher = '',
       this.publishedDate = '',
       this.authors = '',
-      this.memo = ''});
+      this.memo = '',
+      this.rating = 3});
 
   @override
   @JsonKey()
@@ -270,10 +284,13 @@ class _$BookDetailStateImpl implements _BookDetailState {
   @override
   @JsonKey()
   final String memo;
+  @override
+  @JsonKey()
+  final double rating;
 
   @override
   String toString() {
-    return 'BookDetailState(id: $id, title: $title, price: $price, totalPage: $totalPage, smallThumbnail: $smallThumbnail, thumbnail: $thumbnail, description: $description, publisher: $publisher, publishedDate: $publishedDate, authors: $authors, memo: $memo)';
+    return 'BookDetailState(id: $id, title: $title, price: $price, totalPage: $totalPage, smallThumbnail: $smallThumbnail, thumbnail: $thumbnail, description: $description, publisher: $publisher, publishedDate: $publishedDate, authors: $authors, memo: $memo, rating: $rating)';
   }
 
   @override
@@ -297,7 +314,8 @@ class _$BookDetailStateImpl implements _BookDetailState {
             (identical(other.publishedDate, publishedDate) ||
                 other.publishedDate == publishedDate) &&
             (identical(other.authors, authors) || other.authors == authors) &&
-            (identical(other.memo, memo) || other.memo == memo));
+            (identical(other.memo, memo) || other.memo == memo) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @override
@@ -313,7 +331,8 @@ class _$BookDetailStateImpl implements _BookDetailState {
       publisher,
       publishedDate,
       authors,
-      memo);
+      memo,
+      rating);
 
   @JsonKey(ignore: true)
   @override
@@ -335,7 +354,8 @@ abstract class _BookDetailState implements BookDetailState {
       final String publisher,
       final String publishedDate,
       final String authors,
-      final String memo}) = _$BookDetailStateImpl;
+      final String memo,
+      final double rating}) = _$BookDetailStateImpl;
 
   @override
   int get id;
@@ -359,6 +379,8 @@ abstract class _BookDetailState implements BookDetailState {
   String get authors;
   @override
   String get memo;
+  @override
+  double get rating;
   @override
   @JsonKey(ignore: true)
   _$$BookDetailStateImplCopyWith<_$BookDetailStateImpl> get copyWith =>

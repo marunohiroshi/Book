@@ -30,6 +30,10 @@ class AppDbDriftImpl extends _$AppDbDriftImpl {
     return booksDao.updateMemo(book, memo);
   }
 
+  Future updateRating(Book book, double rating) {
+    return booksDao.updateRating(book, rating);
+  }
+
   Future getBook(int id) {
     return booksDao.getBook(id);
   }

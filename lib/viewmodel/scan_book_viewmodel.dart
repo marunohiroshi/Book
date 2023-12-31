@@ -183,7 +183,12 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     }
 
     final bookList = await _appDb.getAllBookList;
-    final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
+    int id;
+    if (bookList == null) {
+      id = 0;
+    } else {
+      id = bookList.isEmpty ? 0 : bookList.last.id + 1;
+    }
     const hasRead = true;
     const memo = '';
     final book = Book(
@@ -197,7 +202,8 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
         authors: authors,
         id: id,
         hasRead: hasRead,
-        memo: memo);
+        memo: memo,
+        rating: 3);
 
     print('id: ${book.id}');
     print('title: ${book.title}');

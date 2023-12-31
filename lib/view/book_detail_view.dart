@@ -1,6 +1,7 @@
 import 'package:book/providers.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -45,6 +46,26 @@ class BookDetailView extends ConsumerWidget {
                 height: 450,
                 width: 300,
                 fit: BoxFit.fill,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Center(
+              child: RatingBar.builder(
+                initialRating: book.rating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) async {
+                  await viewModel.updateRating(book, rating);
+                },
               ),
             ),
             const SizedBox(

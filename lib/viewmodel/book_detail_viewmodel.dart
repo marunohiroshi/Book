@@ -18,6 +18,7 @@ class BookDetailState with _$BookDetailState {
     @Default('') String publishedDate,
     @Default('') String authors,
     @Default('') String memo,
+    @Default(3) double rating,
   }) = _BookDetailState;
 }
 
@@ -40,11 +41,17 @@ class BookDetailViewModel extends StateNotifier<BookDetailState> {
         publisher: book.publisher,
         publishedDate: book.publishedDate,
         authors: book.authors,
-        memo: book.memo);
+        memo: book.memo,
+        rating: book.rating);
   }
 
   Future<void> updateMemo(Book book, String memo) async {
     state = state.copyWith(memo: memo);
     _appDb.updateMemo(book, memo);
+  }
+
+  Future<void> updateRating(Book book, double rating) async {
+    state = state.copyWith(rating: rating);
+    _appDb.updateRating(book, rating);
   }
 }

@@ -15,6 +15,7 @@ class Books extends Table {
   TextColumn get authors => text()();
   BoolColumn get hasRead => boolean()();
   TextColumn get memo => text()();
+  RealColumn get rating => real()();
 }
 
 @DriftAccessor(tables: [Books])
@@ -35,7 +36,8 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
             publishedDate: book.publishedDate,
             authors: book.authors,
             hasRead: book.hasRead,
-            memo: book.memo))
+            memo: book.memo,
+            rating: book.rating))
         .toList();
   }
 
@@ -83,7 +85,8 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         publishedDate: book.publishedDate,
         authors: book.authors,
         hasRead: book.hasRead,
-        memo: book.memo));
+        memo: book.memo,
+        rating: book.rating));
   }
 
   Future<void> updateMemo(Book book, String memo) async {
@@ -98,7 +101,24 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         publishedDate: book.publishedDate,
         authors: book.authors,
         hasRead: book.hasRead,
-        memo: memo));
+        memo: memo,
+        rating: book.rating));
+  }
+
+  Future<void> updateRating(Book book, double rating) async {
+    into(books).insertOnConflictUpdate(Book(
+        id: book.id,
+        title: book.title,
+        price: book.price,
+        totalPage: book.totalPage,
+        thumbnail: book.thumbnail,
+        description: book.description,
+        publisher: book.publisher,
+        publishedDate: book.publishedDate,
+        authors: book.authors,
+        hasRead: book.hasRead,
+        memo: book.memo,
+        rating: rating));
   }
 
   Future<Book?> getBook(int id) async {

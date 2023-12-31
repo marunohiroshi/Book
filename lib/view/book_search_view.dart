@@ -134,6 +134,8 @@ class BookSearch extends ConsumerWidget {
                                                         .data![index].hasRead,
                                                     memo: snapshot
                                                         .data![index].memo,
+                                                    rating: snapshot
+                                                        .data![index].rating,
                                                   );
                                                   viewModel
                                                       .addNotHasReadBook(book);

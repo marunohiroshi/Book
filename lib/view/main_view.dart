@@ -21,10 +21,11 @@ class MainView extends ConsumerWidget {
       }
     });
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Colors.white10,
       body: PersistentTabView(
         context,
         navBarStyle: NavBarStyle.style5,
+        backgroundColor: Colors.white70,
         hideNavigationBarWhenKeyboardShows: true,
         screenTransitionAnimation: const ScreenTransitionAnimation(
             animateTabTransition: true,
@@ -40,22 +41,22 @@ class MainView extends ConsumerWidget {
           PersistentBottomNavBarItem(
             icon: const Icon(Icons.camera_alt),
             activeColorPrimary: Colors.green,
-            inactiveColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.black,
           ),
           PersistentBottomNavBarItem(
             icon: const Icon(Icons.menu_book_rounded),
             activeColorPrimary: Colors.brown,
-            inactiveColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.black,
           ),
           PersistentBottomNavBarItem(
             icon: const Icon(Icons.area_chart_outlined),
             activeColorPrimary: Colors.purple,
-            inactiveColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.black,
           ),
           PersistentBottomNavBarItem(
             icon: const Icon(Icons.settings),
             activeColorPrimary: Colors.pink,
-            inactiveColorPrimary: Colors.blue,
+            inactiveColorPrimary: Colors.black,
           ),
         ],
       ),

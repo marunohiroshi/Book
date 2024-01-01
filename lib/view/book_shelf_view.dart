@@ -31,11 +31,13 @@ class BookShelf extends ConsumerWidget {
       appBar: AppBar(
         leading: !state.listMode
             ? IconButton(
+                color: Colors.white,
                 icon: const Icon(Icons.list),
                 onPressed: () {
                   viewModel.switchListMode(true);
                 })
             : IconButton(
+                color: Colors.white,
                 icon: const Icon(Icons.grid_view),
                 onPressed: () {
                   viewModel.switchListMode(false);
@@ -75,6 +77,7 @@ class BookShelf extends ConsumerWidget {
         actions: !state.searchMode
             ? [
                 IconButton(
+                    color: Colors.white,
                     icon: const Icon(Icons.search),
                     onPressed: () {
                       viewModel.switchSearchMode(true);
@@ -82,6 +85,7 @@ class BookShelf extends ConsumerWidget {
               ]
             : [
                 IconButton(
+                    color: Colors.white,
                     icon: const Icon(Icons.clear),
                     onPressed: () {
                       viewModel.switchSearchMode(false);
@@ -165,7 +169,6 @@ class BookShelf extends ConsumerWidget {
                                             fit: BoxFit.fill,
                                           ),
                                           onTap: () {
-                                            print('index: $index');
                                             final book = snapshot.data?[index];
                                             Navigator.push(
                                               context,
@@ -196,75 +199,113 @@ class BookShelf extends ConsumerWidget {
                               child: FadeInAnimation(
                                 child: Padding(
                                   padding: const EdgeInsets.all(5),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          InkResponse(
-                                            child: Image.network(
-                                              snapshot.data?[index].thumbnail ??
-                                                  '',
-                                              height: 150,
-                                              width: 100,
-                                              fit: BoxFit.fill,
+                                  child: Flexible(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        final book = snapshot.data?[index];
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BookDetailView(book!)));
+                                      },
+                                      child: Card(
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                InkResponse(
+                                                  child: Image.network(
+                                                    snapshot.data?[index]
+                                                            .thumbnail ??
+                                                        '',
+                                                    height: 150,
+                                                    width: 100,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Card(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                          child: AutoSizeText(
+                                                            snapshot
+                                                                    .data?[
+                                                                        index]
+                                                                    .title ??
+                                                                '',
+                                                            style: const TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                            maxLines: 3,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 5),
+                                                          child: SizedBox(
+                                                            child: AutoSizeText(
+                                                              snapshot
+                                                                      .data?[
+                                                                          index]
+                                                                      .authors ??
+                                                                  '',
+                                                              maxLines: 3,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 5),
+                                                          child: SizedBox(
+                                                            width: 100,
+                                                            child: AutoSizeText(
+                                                              snapshot
+                                                                      .data?[
+                                                                          index]
+                                                                      .publishedDate ??
+                                                                  '',
+                                                              maxLines: 3,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            onTap: () {},
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                child: SizedBox(
-                                                  child: AutoSizeText(
-                                                    snapshot.data?[index]
-                                                            .title ??
-                                                        '',
-                                                    style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    maxLines: 3,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5),
-                                                child: SizedBox(
-                                                  child: AutoSizeText(
-                                                    snapshot.data?[index]
-                                                            .authors ??
-                                                        '',
-                                                    maxLines: 3,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5),
-                                                child: SizedBox(
-                                                  width: 100,
-                                                  child: AutoSizeText(
-                                                    snapshot.data?[index]
-                                                            .publishedDate ??
-                                                        '',
-                                                    maxLines: 3,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                            const Divider(
+                                              color: Colors.black,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      const Divider(
-                                        color: Colors.black,
-                                      )
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -309,7 +350,7 @@ class BookShelf extends ConsumerWidget {
         hintText: '本のタイトル、著者名など', //何も入力してないときに表示されるテキスト
         hintStyle: TextStyle(
           //hintTextのスタイル
-          color: Colors.white60,
+          color: Colors.white70,
           fontSize: 20,
         ),
       ),

@@ -47,120 +47,155 @@ class BookSearch extends ConsumerWidget {
                         child: FadeInAnimation(
                           child: Padding(
                             padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                Row(
+                            child: Flexible(
+                              child: Card(
+                                child: Column(
                                   children: [
-                                    InkResponse(
-                                      child: Image.network(
-                                        snapshot.data?[index].thumbnail ?? '',
-                                        height: 150,
-                                        width: 100,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      onTap: () {},
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Row(
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: SizedBox(
-                                            child: AutoSizeText(
-                                              snapshot.data?[index].title ?? '',
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                              maxLines: 3,
-                                            ),
+                                        InkResponse(
+                                          child: Image.network(
+                                            snapshot.data?[index].thumbnail ??
+                                                '',
+                                            height: 150,
+                                            width: 100,
+                                            fit: BoxFit.fill,
                                           ),
+                                          onTap: () {},
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: SizedBox(
-                                            child: AutoSizeText(
-                                              snapshot.data?[index].authors ??
-                                                  '',
-                                              maxLines: 3,
+                                        Flexible(
+                                          child: Card(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: SizedBox(
+                                                    child: AutoSizeText(
+                                                      snapshot.data?[index]
+                                                              .title ??
+                                                          '',
+                                                      style: const TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      maxLines: 3,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5),
+                                                  child: SizedBox(
+                                                    child: AutoSizeText(
+                                                      snapshot.data?[index]
+                                                              .authors ??
+                                                          '',
+                                                      maxLines: 3,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5),
+                                                  child: SizedBox(
+                                                    child: AutoSizeText(
+                                                      snapshot.data?[index]
+                                                              .publishedDate ??
+                                                          '',
+                                                      maxLines: 3,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: IconButton(
+                                                        icon: const Icon(
+                                                            Icons.add),
+                                                        onPressed: () async {
+                                                          print(index);
+                                                          final id =
+                                                              await viewModel
+                                                                  .getLastId();
+                                                          final book = Book(
+                                                            id: id,
+                                                            price: snapshot
+                                                                .data![index]
+                                                                .price,
+                                                            title: snapshot
+                                                                .data![index]
+                                                                .title,
+                                                            totalPage: snapshot
+                                                                .data![index]
+                                                                .totalPage,
+                                                            thumbnail: snapshot
+                                                                .data![index]
+                                                                .thumbnail,
+                                                            description: snapshot
+                                                                .data![index]
+                                                                .description,
+                                                            publisher: snapshot
+                                                                .data![index]
+                                                                .publisher,
+                                                            publishedDate: snapshot
+                                                                .data![index]
+                                                                .publishedDate,
+                                                            authors: snapshot
+                                                                .data![index]
+                                                                .authors,
+                                                            hasRead: snapshot
+                                                                .data![index]
+                                                                .hasRead,
+                                                            memo: snapshot
+                                                                .data![index]
+                                                                .memo,
+                                                            rating: snapshot
+                                                                .data![index]
+                                                                .rating,
+                                                          );
+                                                          viewModel
+                                                              .addNotHasReadBook(
+                                                                  book);
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  "読みたいに追加しました",
+                                                              toastLength: Toast
+                                                                  .LENGTH_SHORT,
+                                                              gravity:
+                                                                  ToastGravity
+                                                                      .CENTER,
+                                                              timeInSecForIosWeb:
+                                                                  1,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .greenAccent,
+                                                              textColor:
+                                                                  Colors.white,
+                                                              fontSize: 16.0);
+                                                        }),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5),
-                                          child: SizedBox(
-                                            child: AutoSizeText(
-                                              snapshot.data?[index]
-                                                      .publishedDate ??
-                                                  '',
-                                              maxLines: 3,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          child: Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: IconButton(
-                                                icon: const Icon(Icons.add),
-                                                onPressed: () async {
-                                                  print(index);
-                                                  final id = await viewModel
-                                                      .getLastId();
-                                                  final book = Book(
-                                                    id: id,
-                                                    price: snapshot
-                                                        .data![index].price,
-                                                    title: snapshot
-                                                        .data![index].title,
-                                                    totalPage: snapshot
-                                                        .data![index].totalPage,
-                                                    thumbnail: snapshot
-                                                        .data![index].thumbnail,
-                                                    description: snapshot
-                                                        .data![index]
-                                                        .description,
-                                                    publisher: snapshot
-                                                        .data![index].publisher,
-                                                    publishedDate: snapshot
-                                                        .data![index]
-                                                        .publishedDate,
-                                                    authors: snapshot
-                                                        .data![index].authors,
-                                                    hasRead: snapshot
-                                                        .data![index].hasRead,
-                                                    memo: snapshot
-                                                        .data![index].memo,
-                                                    rating: snapshot
-                                                        .data![index].rating,
-                                                  );
-                                                  viewModel
-                                                      .addNotHasReadBook(book);
-                                                  Fluttertoast.showToast(
-                                                      msg: "読みたいに追加しました",
-                                                      toastLength:
-                                                          Toast.LENGTH_SHORT,
-                                                      gravity:
-                                                          ToastGravity.CENTER,
-                                                      timeInSecForIosWeb: 1,
-                                                      backgroundColor:
-                                                          Colors.greenAccent,
-                                                      textColor: Colors.white,
-                                                      fontSize: 16.0);
-                                                }),
                                           ),
                                         ),
                                       ],
                                     ),
+                                    const Divider(
+                                      color: Colors.black,
+                                    )
                                   ],
                                 ),
-                                const Divider(
-                                  color: Colors.black,
-                                )
-                              ],
+                              ),
                             ),
                           ),
                         ),

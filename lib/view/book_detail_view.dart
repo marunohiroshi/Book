@@ -53,7 +53,7 @@ class BookDetailView extends ConsumerWidget {
             ),
             Center(
               child: RatingBar.builder(
-                initialRating: book.rating,
+                initialRating: state.rating,
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
@@ -122,7 +122,7 @@ class BookDetailView extends ConsumerWidget {
               ),
             ),
             _bookItem(
-              '詳細',
+              '概要',
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: _shrinkText(book.description),

@@ -61,6 +61,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   settings_ui: ^2.0.2
   url_launcher: ^6.2.2
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:

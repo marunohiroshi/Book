@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,12 +31,21 @@ class SettingsView extends ConsumerWidget {
             ],
           ),
           SettingsSection(
-            title: const Text('Licenses'),
+            title: const Text('App Info'),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.format_list_bulleted_outlined),
-                title: const Text('OSSライセンス一覧'),
-                onPressed: (context) {},
+                title: const Text('アプリ情報'),
+                onPressed: (context) async {
+                  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+                  String appName = packageInfo.appName;
+                  String version = packageInfo.version;
+                  showLicensePage(
+                      context: context,
+                      applicationName: appName,
+                      applicationVersion: version,
+                      applicationLegalese: "※通信環境の良い場所でアプリを使用してください");
+                },
               ),
             ],
           ),

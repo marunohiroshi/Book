@@ -10,6 +10,7 @@ void main() async {
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsFlutterBinding.ensureInitialized();
     // final router = ref.watch(routerProvider);
     // router.go('/main_view');
     // return MaterialApp.router(

@@ -2,6 +2,7 @@ import 'package:book/View/scan_book_view.dart';
 import 'package:book/providers.dart';
 import 'package:book/view/book_search_view.dart';
 import 'package:book/view/book_shelf_view.dart';
+import 'package:book/view/settings_view.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +36,7 @@ class MainView extends ConsumerWidget {
           const ScanBook(),
           BookShelf(),
           const BookSearch('DaiGo'),
-          const ScanBook()
+          SettingsView()
         ],
         items: [
           PersistentBottomNavBarItem(

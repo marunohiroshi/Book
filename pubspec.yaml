@@ -59,6 +59,8 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.15
   expandable_text: 2.3.0
   flutter_rating_bar: ^4.0.1
+  settings_ui: ^2.0.2
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_test:

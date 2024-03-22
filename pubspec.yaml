@@ -63,6 +63,7 @@ dependencies:
   url_launcher: ^6.2.2
   package_info_plus: ^5.0.1
   firebase_core: ^2.27.0
+  mobile_scanner: ^4.0.1
 
 dev_dependencies:
   flutter_test:

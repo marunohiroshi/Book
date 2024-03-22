@@ -17,7 +17,7 @@ part 'scan_book_viewmodel.freezed.dart';
 class ScanBookState with _$ScanBookState {
   const factory ScanBookState({
     @Default(false) bool scanned,
-    @Default(false) bool closeDialog,
+    @Default("") String barcodeNumber,
   }) = _ScanBookState;
 }
 
@@ -45,33 +45,23 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     return barcodeScanRes;
   }
 
-  /// 連続スキャン
-  Future<String> scanBarcodeContinue() async {
-    String res = '';
-    // final subscription = stream.listen(null);
-    // subscription.onData((data) {
-    //   subscription.cancel();
-    // });
-
-    FlutterBarcodeScanner.getBarcodeStreamReceiver(
-            '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
-        .listen((barcode) async {
-      print(barcode);
-      if (barcode.toString().startsWith('978')) {
-        res = barcode.toString();
-        closeDialog();
-      }
-    }).onDone(() {
-      closeDialog();
-    });
-    return res;
-  }
-
   /// GoogleApi取得
   Future<Map<String, dynamic>> getGoogleBookJsonResponse(String isbn) async {
+    Map<String, String> responseError = {
+      'key': 'error',
+    };
+
     Uri url = Uri.https(
         'www.googleapis.com', '/books/v1/volumes', {'q': 'isbn:$isbn'});
     print('url: $url');
+
+    // 謎の「ISBNコード/日本図書コード/書籍JANコード利用の手引き」が検出されるのを防ぐ
+    if (url.toString() ==
+            'https://www.googleapis.com/books/v1/volumes?q=isbn%3A' ||
+        url.toString() ==
+            'https://www.googleapis.com/books/v1/volumes/9gpcewAACAAJ') {
+      return responseError;
+    }
     var response = await http.get(url);
     if (response.statusCode == 200) {
       print('api request success');
@@ -87,7 +77,6 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
       return bookJsonResponse;
     } else {
       print('Request failed with status: ${response.statusCode}.');
-      final responseError = "" as Map<String, dynamic>;
       return responseError;
     }
   }
@@ -154,7 +143,13 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     } catch (e) {
       totalPage = 0;
     }
-    final authors = googleResponse['volumeInfo']['authors'][0];
+    String authors;
+    try {
+      authors = googleResponse['volumeInfo']['authors'][0];
+    } catch (e) {
+      authors = '';
+    }
+
     String description;
     try {
       description = googleResponse['volumeInfo']['description'];
@@ -171,14 +166,17 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     final publishedDate = googleResponse['volumeInfo']['publishedDate'];
     final publisher = googleResponse['volumeInfo']['publisher'];
 
-    String thumbnail;
-    thumbnail = googleResponse['volumeInfo']['imageLinks']['thumbnail'];
-    if (thumbnail == '') {
-      try {
-        thumbnail = openDbResponse[0]['summary']['cover'];
-      } catch (e) {
-        thumbnail =
-            'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png';
+    String thumbnail = '';
+    try {
+      thumbnail = googleResponse['volumeInfo']['imageLinks']['thumbnail'];
+    } catch (e) {
+      if (thumbnail == '') {
+        try {
+          thumbnail = openDbResponse[0]['summary']['cover'];
+        } catch (e) {
+          thumbnail =
+              'https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png';
+        }
       }
     }
 
@@ -228,7 +226,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     return true;
   }
 
-  void closeDialog() {
-    state = state.copyWith(closeDialog: true);
+  void updateBarcodeNumber(String number) {
+    state = state.copyWith(barcodeNumber: number);
   }
 }

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ScanBookState {
   bool get scanned => throw _privateConstructorUsedError;
-  bool get closeDialog => throw _privateConstructorUsedError;
+  String get barcodeNumber => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScanBookStateCopyWith<ScanBookState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $ScanBookStateCopyWith<$Res> {
           ScanBookState value, $Res Function(ScanBookState) then) =
       _$ScanBookStateCopyWithImpl<$Res, ScanBookState>;
   @useResult
-  $Res call({bool scanned, bool closeDialog});
+  $Res call({bool scanned, String barcodeNumber});
 }
 
 /// @nodoc
@@ -47,17 +47,17 @@ class _$ScanBookStateCopyWithImpl<$Res, $Val extends ScanBookState>
   @override
   $Res call({
     Object? scanned = null,
-    Object? closeDialog = null,
+    Object? barcodeNumber = null,
   }) {
     return _then(_value.copyWith(
       scanned: null == scanned
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
               as bool,
-      closeDialog: null == closeDialog
-          ? _value.closeDialog
-          : closeDialog // ignore: cast_nullable_to_non_nullable
-              as bool,
+      barcodeNumber: null == barcodeNumber
+          ? _value.barcodeNumber
+          : barcodeNumber // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$ScanBookStateImplCopyWith<$Res>
       __$$ScanBookStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool scanned, bool closeDialog});
+  $Res call({bool scanned, String barcodeNumber});
 }
 
 /// @nodoc
@@ -85,17 +85,17 @@ class __$$ScanBookStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? scanned = null,
-    Object? closeDialog = null,
+    Object? barcodeNumber = null,
   }) {
     return _then(_$ScanBookStateImpl(
       scanned: null == scanned
           ? _value.scanned
           : scanned // ignore: cast_nullable_to_non_nullable
               as bool,
-      closeDialog: null == closeDialog
-          ? _value.closeDialog
-          : closeDialog // ignore: cast_nullable_to_non_nullable
-              as bool,
+      barcodeNumber: null == barcodeNumber
+          ? _value.barcodeNumber
+          : barcodeNumber // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -103,18 +103,18 @@ class __$$ScanBookStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ScanBookStateImpl implements _ScanBookState {
-  const _$ScanBookStateImpl({this.scanned = false, this.closeDialog = false});
+  const _$ScanBookStateImpl({this.scanned = false, this.barcodeNumber = ""});
 
   @override
   @JsonKey()
   final bool scanned;
   @override
   @JsonKey()
-  final bool closeDialog;
+  final String barcodeNumber;
 
   @override
   String toString() {
-    return 'ScanBookState(scanned: $scanned, closeDialog: $closeDialog)';
+    return 'ScanBookState(scanned: $scanned, barcodeNumber: $barcodeNumber)';
   }
 
   @override
@@ -123,12 +123,12 @@ class _$ScanBookStateImpl implements _ScanBookState {
         (other.runtimeType == runtimeType &&
             other is _$ScanBookStateImpl &&
             (identical(other.scanned, scanned) || other.scanned == scanned) &&
-            (identical(other.closeDialog, closeDialog) ||
-                other.closeDialog == closeDialog));
+            (identical(other.barcodeNumber, barcodeNumber) ||
+                other.barcodeNumber == barcodeNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, scanned, closeDialog);
+  int get hashCode => Object.hash(runtimeType, scanned, barcodeNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -138,13 +138,13 @@ class _$ScanBookStateImpl implements _ScanBookState {
 }
 
 abstract class _ScanBookState implements ScanBookState {
-  const factory _ScanBookState({final bool scanned, final bool closeDialog}) =
-      _$ScanBookStateImpl;
+  const factory _ScanBookState(
+      {final bool scanned, final String barcodeNumber}) = _$ScanBookStateImpl;
 
   @override
   bool get scanned;
   @override
-  bool get closeDialog;
+  String get barcodeNumber;
   @override
   @JsonKey(ignore: true)
   _$$ScanBookStateImplCopyWith<_$ScanBookStateImpl> get copyWith =>

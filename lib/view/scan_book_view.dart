@@ -5,50 +5,54 @@ import 'package:book/viewmodel/scan_book_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanBook extends ConsumerWidget {
   const ScanBook({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(scanBookViewModelProvider.notifier);
-    final mainViewModel = ref.read(mainViewModelProvider.notifier);
-    ref.listen(scanBookViewModelProvider, (_, ScanBookState next) {});
+    MobileScannerController cameraController = MobileScannerController();
+    final viewModel = ref.refresh(scanBookViewModelProvider.notifier);
+    final mainViewModel = ref.watch(mainViewModelProvider.notifier);
+    ref.listen(scanBookViewModelProvider, (_, ScanBookState next) async {
+      final book = await viewModel.getBookInfoFromJson(next.barcodeNumber);
+      final isNewBook = await viewModel.checkNewBook(book.title);
+      showDialog<void>(
+          context: context,
+          builder: (_) {
+            return showBookInfoDialog(
+                book, mainViewModel, ref, isNewBook, viewModel);
+          });
+    });
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 200,
-              height: 200,
-              child: OutlinedButton(
-                onPressed: () async {
-                  String res = await viewModel.checkValidBarcode();
-                  final book = await viewModel.getBookInfoFromJson(res);
-                  final isNewBook = await viewModel.checkNewBook(book.title);
-                  showDialog<void>(
-                      context: context,
-                      builder: (_) {
-                        return showBookInfoDialog(
-                            book, mainViewModel, ref, isNewBook);
-                      });
-                },
-                child: const Text(
-                  'バーコード読み取り',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ],
+      appBar: AppBar(title: const Text('Mobile Scanner')),
+      body: MobileScanner(
+        fit: BoxFit.contain,
+        controller: MobileScannerController(
+          // facing: CameraFacing.back,
+          // torchEnabled: false,
+          returnImage: true,
         ),
+        onDetect: (capture) async {
+          final List<Barcode> barcodes = capture.barcodes;
+          String res = "";
+          for (final barcode in barcodes) {
+            debugPrint('Barcode found! ${barcode.rawValue}');
+            res = barcode.rawValue.toString();
+            if (res.startsWith("978")) {
+              if (res != viewModel.state.barcodeNumber) {
+                viewModel.updateBarcodeNumber(res);
+              }
+            }
+          }
+        },
       ),
     );
   }
 
-  Widget showBookInfoDialog(
-      Book book, MainViewModel mainViewModel, WidgetRef ref, bool isNewBook) {
+  Widget showBookInfoDialog(Book book, MainViewModel mainViewModel,
+      WidgetRef ref, bool isNewBook, ScanBookViewModel viewModel) {
     return AlertDialog(
       title: Text(book.title),
       content: SingleChildScrollView(
@@ -82,6 +86,9 @@ class ScanBook extends ConsumerWidget {
               child: const Text('閉じる'),
               onPressed: () {
                 mainViewModel.closeDialog();
+
+                // 同じ本でも再度登録できるよう初期化しておく
+                viewModel.updateBarcodeNumber('');
               },
             ),
             const Spacer(),

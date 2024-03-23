@@ -16,9 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MainState {
-  int get selectedIndex => throw _privateConstructorUsedError;
   bool get closeDialog => throw _privateConstructorUsedError;
-  bool get isDisplayDialog => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainStateCopyWith<MainState> get copyWith =>
@@ -30,7 +28,7 @@ abstract class $MainStateCopyWith<$Res> {
   factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
       _$MainStateCopyWithImpl<$Res, MainState>;
   @useResult
-  $Res call({int selectedIndex, bool closeDialog, bool isDisplayDialog});
+  $Res call({bool closeDialog});
 }
 
 /// @nodoc
@@ -46,22 +44,12 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedIndex = null,
     Object? closeDialog = null,
-    Object? isDisplayDialog = null,
   }) {
     return _then(_value.copyWith(
-      selectedIndex: null == selectedIndex
-          ? _value.selectedIndex
-          : selectedIndex // ignore: cast_nullable_to_non_nullable
-              as int,
       closeDialog: null == closeDialog
           ? _value.closeDialog
           : closeDialog // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isDisplayDialog: null == isDisplayDialog
-          ? _value.isDisplayDialog
-          : isDisplayDialog // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -75,7 +63,7 @@ abstract class _$$MainStateImplCopyWith<$Res>
       __$$MainStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int selectedIndex, bool closeDialog, bool isDisplayDialog});
+  $Res call({bool closeDialog});
 }
 
 /// @nodoc
@@ -89,22 +77,12 @@ class __$$MainStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedIndex = null,
     Object? closeDialog = null,
-    Object? isDisplayDialog = null,
   }) {
     return _then(_$MainStateImpl(
-      selectedIndex: null == selectedIndex
-          ? _value.selectedIndex
-          : selectedIndex // ignore: cast_nullable_to_non_nullable
-              as int,
       closeDialog: null == closeDialog
           ? _value.closeDialog
           : closeDialog // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isDisplayDialog: null == isDisplayDialog
-          ? _value.isDisplayDialog
-          : isDisplayDialog // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -113,24 +91,15 @@ class __$$MainStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MainStateImpl implements _MainState {
-  const _$MainStateImpl(
-      {this.selectedIndex = 0,
-      this.closeDialog = false,
-      this.isDisplayDialog = false});
+  const _$MainStateImpl({this.closeDialog = false});
 
-  @override
-  @JsonKey()
-  final int selectedIndex;
   @override
   @JsonKey()
   final bool closeDialog;
-  @override
-  @JsonKey()
-  final bool isDisplayDialog;
 
   @override
   String toString() {
-    return 'MainState(selectedIndex: $selectedIndex, closeDialog: $closeDialog, isDisplayDialog: $isDisplayDialog)';
+    return 'MainState(closeDialog: $closeDialog)';
   }
 
   @override
@@ -138,17 +107,12 @@ class _$MainStateImpl implements _MainState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MainStateImpl &&
-            (identical(other.selectedIndex, selectedIndex) ||
-                other.selectedIndex == selectedIndex) &&
             (identical(other.closeDialog, closeDialog) ||
-                other.closeDialog == closeDialog) &&
-            (identical(other.isDisplayDialog, isDisplayDialog) ||
-                other.isDisplayDialog == isDisplayDialog));
+                other.closeDialog == closeDialog));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, selectedIndex, closeDialog, isDisplayDialog);
+  int get hashCode => Object.hash(runtimeType, closeDialog);
 
   @JsonKey(ignore: true)
   @override
@@ -158,17 +122,10 @@ class _$MainStateImpl implements _MainState {
 }
 
 abstract class _MainState implements MainState {
-  const factory _MainState(
-      {final int selectedIndex,
-      final bool closeDialog,
-      final bool isDisplayDialog}) = _$MainStateImpl;
+  const factory _MainState({final bool closeDialog}) = _$MainStateImpl;
 
   @override
-  int get selectedIndex;
-  @override
   bool get closeDialog;
-  @override
-  bool get isDisplayDialog;
   @override
   @JsonKey(ignore: true)
   _$$MainStateImplCopyWith<_$MainStateImpl> get copyWith =>

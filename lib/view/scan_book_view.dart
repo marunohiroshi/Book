@@ -12,8 +12,7 @@ class ScanBook extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    MobileScannerController cameraController = MobileScannerController();
-    final viewModel = ref.refresh(scanBookViewModelProvider.notifier);
+    final viewModel = ref.read(scanBookViewModelProvider.notifier);
     final mainViewModel = ref.watch(mainViewModelProvider.notifier);
     ref.listen(scanBookViewModelProvider, (_, ScanBookState next) async {
       final book = await viewModel.getBookInfoFromJson(next.barcodeNumber);
@@ -26,7 +25,7 @@ class ScanBook extends ConsumerWidget {
           });
     });
     return Scaffold(
-      appBar: AppBar(title: const Text('Mobile Scanner')),
+      appBar: AppBar(title: const Text('バーコードをスキャン')),
       body: MobileScanner(
         fit: BoxFit.contain,
         controller: MobileScannerController(

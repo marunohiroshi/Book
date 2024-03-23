@@ -22,7 +22,7 @@ final mainViewModelProvider =
 
 /// scan_bookプロバイダー
 final scanBookViewModelProvider =
-    StateNotifierProvider<ScanBookViewModel, ScanBookState>(
+    StateNotifierProvider.autoDispose<ScanBookViewModel, ScanBookState>(
         (ref) => ScanBookViewModel(ref.read(appDbProvider)));
 
 /// book_shelfプロバイダー

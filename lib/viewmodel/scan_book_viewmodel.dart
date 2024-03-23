@@ -1,13 +1,8 @@
 import 'dart:async';
 import 'dart:convert' as convert;
-import 'dart:io';
 
 import 'package:book/drift/app_db_drift_impl.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,25 +20,6 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
   ScanBookViewModel(this._appDb) : super(const ScanBookState());
 
   late final AppDbDriftImpl _appDb;
-  String barcodeScanRes = '';
-
-  /// シングルスキャン
-  Future<String> scanBarcode() async {
-    barcodeScanRes = '';
-    try {
-      while (!barcodeScanRes.startsWith('978')) {
-        barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-            '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-        print('スキャン番号; $barcodeScanRes');
-        if (barcodeScanRes.startsWith('-1')) {
-          return '-1';
-        }
-      }
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-    return barcodeScanRes;
-  }
 
   /// GoogleApi取得
   Future<Map<String, dynamic>> getGoogleBookJsonResponse(String isbn) async {
@@ -81,19 +57,6 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     }
   }
 
-  // book.title = googleResponse['items'][0]['volumeInfo']['title'];
-  // book.authors = googleResponse['items'][0]['volumeInfo']['authors'];
-  // book.smallThumbnail = googleResponse['items'][0]['volumeInfo']
-  //     ['imageLinks']['smallThumbnail'];
-  // book.thumbnail = googleResponse['items'][0]['volumeInfo']
-  //     ['imageLinks']['thumbnail'];
-  // book.publisher =
-  //     googleResponse['items'][0]['volumeInfo']['publisher'];
-  // book.publishedDate =
-  //     googleResponse['items'][0]['volumeInfo']['publishedDate'];
-  //   book.price =
-  //       googleResponse['items'][0]['saleInfo']['listPrice']['amount'];
-
   /// OpenDbApi取得
   Future<List<dynamic>> getOpendbBookJsonResponse(String isbn) async {
     Uri url = Uri.https('api.openbd.jp', '/v1/get', {'isbn': isbn});
@@ -110,32 +73,9 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     }
   }
 
-  /// 有効なバーコードかどうか確認
-  Future<String> checkValidBarcode() async {
-    var res = '';
-    while (!res.startsWith('978')) {
-      res = await scanBarcode();
-      if (res.startsWith('-1')) {
-        return '';
-      }
-      var msg =
-          res.startsWith('978') ? 'スキャン成功!!🐶' : '’978’から始まるバーコードをスキャンしてね🐾';
-      Fluttertoast.showToast(
-          msg: msg,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 0.1.toInt(),
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      sleep(const Duration(seconds: 1));
-    }
-    return res;
-  }
-
   Future<Book> getBookInfoFromJson(String res) async {
     final googleResponse = await getGoogleBookJsonResponse(res);
-    final openDbResponse = await getOpendbBookJsonResponse(barcodeScanRes);
+    final openDbResponse = await getOpendbBookJsonResponse(res);
     final title = googleResponse['volumeInfo']['title'];
     int totalPage;
     try {
@@ -182,11 +122,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
 
     final bookList = await _appDb.getAllBookList;
     int id;
-    if (bookList == null) {
-      id = 0;
-    } else {
-      id = bookList.isEmpty ? 0 : bookList.last.id + 1;
-    }
+    id = bookList.isEmpty ? 0 : bookList.last.id + 1;
     const hasRead = true;
     const memo = '';
     final book = Book(

@@ -1,7 +1,7 @@
-import 'package:book/View/scan_book_view.dart';
 import 'package:book/providers.dart';
 import 'package:book/view/book_search_view.dart';
 import 'package:book/view/book_shelf_view.dart';
+import 'package:book/view/home_view.dart';
 import 'package:book/view/settings_view.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +13,7 @@ class MainView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(mainViewModelProvider.notifier);
     ref.listen(mainViewModelProvider, (_, MainState next) {
-      viewModel.getDisplayView(next.selectedIndex);
       if (next.closeDialog) {
         print('closeDialog: ${next.closeDialog}');
         Navigator.pop(context);
@@ -24,6 +22,7 @@ class MainView extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.white10,
       body: PersistentTabView(
+        popAllScreensOnTapAnyTabs: true,
         context,
         navBarStyle: NavBarStyle.style5,
         backgroundColor: Colors.white70,
@@ -33,7 +32,7 @@ class MainView extends ConsumerWidget {
             duration: Duration(milliseconds: 200),
             curve: Curves.ease),
         screens: [
-          const ScanBook(),
+          HomeView(),
           BookShelf(),
           const BookSearch('DaiGo'),
           SettingsView()

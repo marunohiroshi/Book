@@ -54,4 +54,7 @@ class BookDetailViewModel extends StateNotifier<BookDetailState> {
     state = state.copyWith(rating: rating);
     _appDb.updateRating(book, rating);
   }
+
+  // TODO
+  // 登録日の属性を追加する
 }

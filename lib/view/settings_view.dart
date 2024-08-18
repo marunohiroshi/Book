@@ -44,7 +44,7 @@ class SettingsView extends ConsumerWidget {
                       context: context,
                       applicationName: appName,
                       applicationVersion: version,
-                      applicationLegalese: "※通信環境の良い場所でアプリを使用してください");
+                      applicationLegalese: "※通信環境の良い場所でアプリをご利用ください");
                 },
               ),
             ],

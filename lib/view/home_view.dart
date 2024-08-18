@@ -7,10 +7,6 @@ class HomeView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final viewModel = ref.refresh(scanBookViewModelProvider.notifier);
-    // final mainViewModel = ref.watch(mainViewModelProvider.notifier);
-    // ref.listen(scanBookViewModelProvider, (_, ScanBookState next) async {
-    // });
     return Scaffold(
       body: Center(
         child: Container(

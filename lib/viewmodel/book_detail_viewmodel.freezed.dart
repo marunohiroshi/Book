@@ -249,7 +249,7 @@ class _$BookDetailStateImpl implements _BookDetailState {
       this.publishedDate = '',
       this.authors = '',
       this.memo = '',
-      this.rating = 3});
+      this.rating = 0});
 
   @override
   @JsonKey()

@@ -1,6 +1,6 @@
 import 'package:book/providers.dart';
-import 'package:book/view/book_search_view.dart';
 import 'package:book/view/book_shelf_view.dart';
+import 'package:book/view/chart_view.dart';
 import 'package:book/view/home_view.dart';
 import 'package:book/view/settings_view.dart';
 import 'package:book/viewmodel/main_viewmodel.dart';
@@ -31,12 +31,7 @@ class MainView extends ConsumerWidget {
             animateTabTransition: true,
             duration: Duration(milliseconds: 200),
             curve: Curves.ease),
-        screens: [
-          HomeView(),
-          BookShelf(),
-          const BookSearch('DaiGo'),
-          SettingsView()
-        ],
+        screens: [HomeView(), BookShelf(), ChartView(), SettingsView()],
         items: [
           PersistentBottomNavBarItem(
             icon: const Icon(Icons.camera_alt),

@@ -82,6 +82,12 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
   late final GeneratedColumn<double> rating = GeneratedColumn<double>(
       'rating', aliasedName, false,
       type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _selectedGenreMeta =
+      const VerificationMeta('selectedGenre');
+  @override
+  late final GeneratedColumn<String> selectedGenre = GeneratedColumn<String>(
+      'selected_genre', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -95,7 +101,8 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
         authors,
         hasRead,
         memo,
-        rating
+        rating,
+        selectedGenre
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -180,6 +187,14 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
     } else if (isInserting) {
       context.missing(_ratingMeta);
     }
+    if (data.containsKey('selected_genre')) {
+      context.handle(
+          _selectedGenreMeta,
+          selectedGenre.isAcceptableOrUnknown(
+              data['selected_genre']!, _selectedGenreMeta));
+    } else if (isInserting) {
+      context.missing(_selectedGenreMeta);
+    }
     return context;
   }
 
@@ -213,6 +228,8 @@ class $BooksTable extends Books with TableInfo<$BooksTable, Book> {
           .read(DriftSqlType.string, data['${effectivePrefix}memo'])!,
       rating: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}rating'])!,
+      selectedGenre: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}selected_genre'])!,
     );
   }
 
@@ -235,6 +252,7 @@ class Book extends DataClass implements Insertable<Book> {
   final bool hasRead;
   final String memo;
   final double rating;
+  final String selectedGenre;
   const Book(
       {required this.id,
       required this.title,
@@ -247,7 +265,8 @@ class Book extends DataClass implements Insertable<Book> {
       required this.authors,
       required this.hasRead,
       required this.memo,
-      required this.rating});
+      required this.rating,
+      required this.selectedGenre});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -263,6 +282,7 @@ class Book extends DataClass implements Insertable<Book> {
     map['has_read'] = Variable<bool>(hasRead);
     map['memo'] = Variable<String>(memo);
     map['rating'] = Variable<double>(rating);
+    map['selected_genre'] = Variable<String>(selectedGenre);
     return map;
   }
 
@@ -280,6 +300,7 @@ class Book extends DataClass implements Insertable<Book> {
       hasRead: Value(hasRead),
       memo: Value(memo),
       rating: Value(rating),
+      selectedGenre: Value(selectedGenre),
     );
   }
 
@@ -299,6 +320,7 @@ class Book extends DataClass implements Insertable<Book> {
       hasRead: serializer.fromJson<bool>(json['hasRead']),
       memo: serializer.fromJson<String>(json['memo']),
       rating: serializer.fromJson<double>(json['rating']),
+      selectedGenre: serializer.fromJson<String>(json['selectedGenre']),
     );
   }
   @override
@@ -317,6 +339,7 @@ class Book extends DataClass implements Insertable<Book> {
       'hasRead': serializer.toJson<bool>(hasRead),
       'memo': serializer.toJson<String>(memo),
       'rating': serializer.toJson<double>(rating),
+      'selectedGenre': serializer.toJson<String>(selectedGenre),
     };
   }
 
@@ -332,7 +355,8 @@ class Book extends DataClass implements Insertable<Book> {
           String? authors,
           bool? hasRead,
           String? memo,
-          double? rating}) =>
+          double? rating,
+          String? selectedGenre}) =>
       Book(
         id: id ?? this.id,
         title: title ?? this.title,
@@ -346,6 +370,7 @@ class Book extends DataClass implements Insertable<Book> {
         hasRead: hasRead ?? this.hasRead,
         memo: memo ?? this.memo,
         rating: rating ?? this.rating,
+        selectedGenre: selectedGenre ?? this.selectedGenre,
       );
   @override
   String toString() {
@@ -361,14 +386,27 @@ class Book extends DataClass implements Insertable<Book> {
           ..write('authors: $authors, ')
           ..write('hasRead: $hasRead, ')
           ..write('memo: $memo, ')
-          ..write('rating: $rating')
+          ..write('rating: $rating, ')
+          ..write('selectedGenre: $selectedGenre')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, title, price, totalPage, thumbnail,
-      description, publisher, publishedDate, authors, hasRead, memo, rating);
+  int get hashCode => Object.hash(
+      id,
+      title,
+      price,
+      totalPage,
+      thumbnail,
+      description,
+      publisher,
+      publishedDate,
+      authors,
+      hasRead,
+      memo,
+      rating,
+      selectedGenre);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -384,7 +422,8 @@ class Book extends DataClass implements Insertable<Book> {
           other.authors == this.authors &&
           other.hasRead == this.hasRead &&
           other.memo == this.memo &&
-          other.rating == this.rating);
+          other.rating == this.rating &&
+          other.selectedGenre == this.selectedGenre);
 }
 
 class BooksCompanion extends UpdateCompanion<Book> {
@@ -400,6 +439,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
   final Value<bool> hasRead;
   final Value<String> memo;
   final Value<double> rating;
+  final Value<String> selectedGenre;
   const BooksCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
@@ -413,6 +453,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     this.hasRead = const Value.absent(),
     this.memo = const Value.absent(),
     this.rating = const Value.absent(),
+    this.selectedGenre = const Value.absent(),
   });
   BooksCompanion.insert({
     this.id = const Value.absent(),
@@ -427,6 +468,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     required bool hasRead,
     required String memo,
     required double rating,
+    required String selectedGenre,
   })  : title = Value(title),
         price = Value(price),
         totalPage = Value(totalPage),
@@ -437,7 +479,8 @@ class BooksCompanion extends UpdateCompanion<Book> {
         authors = Value(authors),
         hasRead = Value(hasRead),
         memo = Value(memo),
-        rating = Value(rating);
+        rating = Value(rating),
+        selectedGenre = Value(selectedGenre);
   static Insertable<Book> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -451,6 +494,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
     Expression<bool>? hasRead,
     Expression<String>? memo,
     Expression<double>? rating,
+    Expression<String>? selectedGenre,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -465,6 +509,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       if (hasRead != null) 'has_read': hasRead,
       if (memo != null) 'memo': memo,
       if (rating != null) 'rating': rating,
+      if (selectedGenre != null) 'selected_genre': selectedGenre,
     });
   }
 
@@ -480,7 +525,8 @@ class BooksCompanion extends UpdateCompanion<Book> {
       Value<String>? authors,
       Value<bool>? hasRead,
       Value<String>? memo,
-      Value<double>? rating}) {
+      Value<double>? rating,
+      Value<String>? selectedGenre}) {
     return BooksCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -494,6 +540,7 @@ class BooksCompanion extends UpdateCompanion<Book> {
       hasRead: hasRead ?? this.hasRead,
       memo: memo ?? this.memo,
       rating: rating ?? this.rating,
+      selectedGenre: selectedGenre ?? this.selectedGenre,
     );
   }
 
@@ -536,6 +583,9 @@ class BooksCompanion extends UpdateCompanion<Book> {
     if (rating.present) {
       map['rating'] = Variable<double>(rating.value);
     }
+    if (selectedGenre.present) {
+      map['selected_genre'] = Variable<String>(selectedGenre.value);
+    }
     return map;
   }
 
@@ -553,7 +603,8 @@ class BooksCompanion extends UpdateCompanion<Book> {
           ..write('authors: $authors, ')
           ..write('hasRead: $hasRead, ')
           ..write('memo: $memo, ')
-          ..write('rating: $rating')
+          ..write('rating: $rating, ')
+          ..write('selectedGenre: $selectedGenre')
           ..write(')'))
         .toString();
   }

@@ -125,6 +125,7 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
     id = bookList.isEmpty ? 0 : bookList.last.id + 1;
     const hasRead = true;
     const memo = '';
+    const selectedGenre = '';
     final book = Book(
         title: title,
         price: price,
@@ -137,7 +138,8 @@ class ScanBookViewModel extends StateNotifier<ScanBookState> {
         id: id,
         hasRead: hasRead,
         memo: memo,
-        rating: 3);
+        rating: 0,
+        selectedGenre: selectedGenre);
 
     print('id: ${book.id}');
     print('title: ${book.title}');

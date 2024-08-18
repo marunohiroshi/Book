@@ -18,7 +18,8 @@ class BookDetailState with _$BookDetailState {
     @Default('') String publishedDate,
     @Default('') String authors,
     @Default('') String memo,
-    @Default(3) double rating,
+    @Default(0) double rating,
+    // @Default(Set) Set<int> selectedGenreIndex,
   }) = _BookDetailState;
 }
 
@@ -54,6 +55,11 @@ class BookDetailViewModel extends StateNotifier<BookDetailState> {
     state = state.copyWith(rating: rating);
     _appDb.updateRating(book, rating);
   }
+
+  // Future<void> updateGenreIndex(Book book, Set<int> index) async {
+  //   state = state.copyWith(selectedGenreIndex: index);
+  //   _appDb.updateGenreIndex(book, index);
+  // }
 
   // TODO
   // 登録日の属性を追加する

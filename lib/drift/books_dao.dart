@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:book/drift/app_db_drift_impl.dart';
 import 'package:drift/drift.dart';
 
@@ -16,6 +18,7 @@ class Books extends Table {
   BoolColumn get hasRead => boolean()();
   TextColumn get memo => text()();
   RealColumn get rating => real()();
+  TextColumn get selectedGenre => text()();
 }
 
 @DriftAccessor(tables: [Books])
@@ -37,7 +40,8 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
             authors: book.authors,
             hasRead: book.hasRead,
             memo: book.memo,
-            rating: book.rating))
+            rating: book.rating,
+            selectedGenre: book.selectedGenre))
         .toList();
   }
 
@@ -86,7 +90,8 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         authors: book.authors,
         hasRead: book.hasRead,
         memo: book.memo,
-        rating: book.rating));
+        rating: book.rating,
+        selectedGenre: book.selectedGenre));
   }
 
   Future<void> updateMemo(Book book, String memo) async {
@@ -102,7 +107,8 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         authors: book.authors,
         hasRead: book.hasRead,
         memo: memo,
-        rating: book.rating));
+        rating: book.rating,
+        selectedGenre: book.selectedGenre));
   }
 
   Future<void> updateRating(Book book, double rating) async {
@@ -118,7 +124,26 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         authors: book.authors,
         hasRead: book.hasRead,
         memo: book.memo,
-        rating: rating));
+        rating: rating,
+        selectedGenre: book.selectedGenre));
+  }
+
+  Future<void> updateGenreIndex(Book book, int index) async {
+    into(books).insertOnConflictUpdate(Book(
+      id: book.id,
+      title: book.title,
+      price: book.price,
+      totalPage: book.totalPage,
+      thumbnail: book.thumbnail,
+      description: book.description,
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      authors: book.authors,
+      hasRead: book.hasRead,
+      memo: book.memo,
+      rating: book.rating,
+      selectedGenre: book.selectedGenre,
+    ));
   }
 
   Future<Book?> getBook(int id) async {
@@ -140,5 +165,19 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
     final bookList = await getAllBookList;
     final id = bookList.isEmpty ? 0 : bookList.last.id + 1;
     return id;
+  }
+
+  Future<void> insertSet(Book book, Set<int> intSet) async {
+    final jsonString = jsonEncode(intSet.toList());
+    await into(books).insert(BooksCompanion(
+      selectedGenre: Value(jsonString),
+    ));
+  }
+
+  Future<Set<int>> getSetById(int id) async {
+    final row =
+        await (select(books)..where((tbl) => tbl.id.equals(id))).getSingle();
+    final List<dynamic> list = jsonDecode(row.selectedGenre);
+    return list.map((e) => e as int).toSet();
   }
 }

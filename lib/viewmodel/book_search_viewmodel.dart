@@ -41,7 +41,8 @@ class BookSearchViewModel extends StateNotifier<BookSearchState> {
           authors: info.authors.isNotEmpty ? info.authors.first : '',
           hasRead: false,
           memo: '',
-          rating: 3);
+          rating: 3,
+          selectedGenre: '');
       bookList.add(bookData);
     }
     print('${bookList.toString()}¥n');

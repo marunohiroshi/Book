@@ -161,6 +161,9 @@ class BookSearch extends ConsumerWidget {
                                                             rating: snapshot
                                                                 .data![index]
                                                                 .rating,
+                                                            selectedGenre: snapshot
+                                                                .data![index]
+                                                                .selectedGenre,
                                                           );
                                                           viewModel
                                                               .addNotHasReadBook(

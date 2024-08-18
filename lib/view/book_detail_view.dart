@@ -135,6 +135,13 @@ class BookDetailView extends ConsumerWidget {
                     child: _shrinkText(book.description),
                   ),
                 ),
+                _bookItem(
+                  'ジャンル',
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: _choiceChip(),
+                  ),
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
@@ -234,5 +241,58 @@ Widget _bookItem(String title, Widget item) {
         item
       ],
     ),
+  );
+}
+
+Widget _choiceChip() {
+  final Set<int> selectedIndices = {};
+
+  final List<String> options = [
+    '小説',
+    'ビジネス',
+    '自己啓発',
+    '趣味',
+    '学術書・専門書',
+    'エッセイ',
+    '詩集',
+    '絵本',
+    '漫画',
+    'その他',
+  ];
+
+  return Wrap(
+    spacing: 10.0,
+    runSpacing: 15.0,
+    children: List<Widget>.generate(
+      options.length,
+      (int index) {
+        return ChoiceChip(
+          label: Text(options[index]),
+          selected: selectedIndices.contains(index),
+          onSelected: (bool selected) {
+            if (selected) {
+              selectedIndices.add(index);
+            } else {
+              selectedIndices.remove(index);
+            }
+          },
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+            size: 20.0,
+          ),
+          selectedColor: Colors.pink[400],
+          backgroundColor: Colors.grey[300],
+          disabledColor: Colors.grey,
+          labelStyle: TextStyle(
+            color:
+                selectedIndices.contains(index) ? Colors.white : Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              side: const BorderSide(color: Colors.transparent)),
+        );
+      },
+    ).toList(),
   );
 }

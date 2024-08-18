@@ -34,6 +34,10 @@ class AppDbDriftImpl extends _$AppDbDriftImpl {
     return booksDao.updateRating(book, rating);
   }
 
+  // Future updateGenreIndex(Book book, int index) {
+  //   return booksDao.insertSet(book, index);
+  // }
+
   Future getBook(int id) {
     return booksDao.getBook(id);
   }

@@ -20,12 +20,15 @@ class MyApp extends ConsumerWidget {
     //   routeInformationParser: router.routeInformationParser,
     //   routerDelegate: router.routerDelegate,
     // );
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Book',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       themeMode: ThemeMode.light,
-      home: MainView(),
-      routes: {},
+      home: const MainView(),
+      routes: const {},
     );
   }
 }

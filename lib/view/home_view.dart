@@ -8,83 +8,102 @@ class HomeView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/assets/background.jpg'), // 背景画像
+            fit: BoxFit.cover, // 画像が画面いっぱいに表示される
+            opacity: 0.6, // 画像の透明度を少し下げる
+          ),
+        ),
+        child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Spacer(),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 8,
-                        backgroundColor: Colors.blue,
-                        shape: const CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blue,
-                            width: 1,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        child: const Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Icon(
-                                Icons.border_color_outlined,
-                                color: Colors.black,
-                                size: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )),
-                ],
+              const ScanButton(),
+              const SizedBox(height: 32),
+              const ManualRegisterButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// バーコードスキャンボタン
+class ScanButton extends StatelessWidget {
+  const ScanButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ScanBook()),
+        );
+      },
+      borderRadius: BorderRadius.circular(20),
+      child: Card(
+        elevation: 12,
+        shadowColor: Colors.black45,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        color: Colors.blueAccent,
+        child: SizedBox(
+          width: 200,
+          height: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.qr_code_scanner, size: 60, color: Colors.white),
+              const SizedBox(height: 10),
+              const Text(
+                'バーコードで登録',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ScanBook()),
-                  );
-                },
-                child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: Card(
-                      color: Colors.lightGreenAccent,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Icon(
-                              Icons.barcode_reader,
-                              size: 50,
-                            ),
-                            Text(
-                              'バーコードを\nスキャン',
-                              style: TextStyle(fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ),
-                    )),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// 手動登録ボタン
+class ManualRegisterButton extends StatelessWidget {
+  const ManualRegisterButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(16),
+      child: Card(
+        elevation: 8,
+        shadowColor: Colors.black26,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        color: Colors.grey[700],
+        child: SizedBox(
+          width: 160,
+          height: 160,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.edit_note, size: 50, color: Colors.white),
+              const SizedBox(height: 8),
+              const Text(
+                '手動で登録',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
-              const Spacer(),
             ],
           ),
         ),

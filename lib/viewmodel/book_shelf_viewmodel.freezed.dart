@@ -12,7 +12,7 @@ part of 'book_shelf_viewmodel.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$BookShelfState {
@@ -22,7 +22,9 @@ mixin _$BookShelfState {
   bool get searchMode => throw _privateConstructorUsedError;
   bool get listMode => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookShelfState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BookShelfStateCopyWith<BookShelfState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$BookShelfStateCopyWithImpl<$Res, $Val extends BookShelfState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BookShelfState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$BookShelfStateImplCopyWithImpl<$Res>
       _$BookShelfStateImpl _value, $Res Function(_$BookShelfStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BookShelfState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,7 +188,7 @@ class _$BookShelfStateImpl implements _BookShelfState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookShelfStateImpl &&
@@ -205,7 +211,9 @@ class _$BookShelfStateImpl implements _BookShelfState {
       searchMode,
       listMode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookShelfState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BookShelfStateImplCopyWith<_$BookShelfStateImpl> get copyWith =>
@@ -231,8 +239,11 @@ abstract class _BookShelfState implements BookShelfState {
   bool get searchMode;
   @override
   bool get listMode;
+
+  /// Create a copy of BookShelfState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BookShelfStateImplCopyWith<_$BookShelfStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

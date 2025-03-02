@@ -19,7 +19,7 @@ class BookDetailState with _$BookDetailState {
     @Default('') String authors,
     @Default('') String memo,
     @Default(0) double rating,
-    // @Default(Set) Set<int> selectedGenreIndex,
+    @Default(<String>{}) Set<String> selectedGenre,
   }) = _BookDetailState;
 }
 
@@ -44,6 +44,10 @@ class BookDetailViewModel extends StateNotifier<BookDetailState> {
         authors: book.authors,
         memo: book.memo,
         rating: book.rating);
+  }
+
+  Future<Book> getBookInfo(int index) async {
+    return await _appDb.getBook(index);
   }
 
   Future<void> updateMemo(Book book, String memo) async {

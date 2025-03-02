@@ -12,13 +12,15 @@ part of 'book_search_viewmodel.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$BookSearchState {
   List<model.Book> get bookList => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BookSearchStateCopyWith<BookSearchState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$BookSearchStateCopyWithImpl<$Res, $Val extends BookSearchState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BookSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$BookSearchImplCopyWithImpl<$Res>
       _$BookSearchImpl _value, $Res Function(_$BookSearchImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BookSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,7 +117,7 @@ class _$BookSearchImpl implements _BookSearch {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookSearchImpl &&
@@ -122,7 +128,9 @@ class _$BookSearchImpl implements _BookSearch {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_bookList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BookSearchImplCopyWith<_$BookSearchImpl> get copyWith =>
@@ -135,8 +143,11 @@ abstract class _BookSearch implements BookSearchState {
 
   @override
   List<model.Book> get bookList;
+
+  /// Create a copy of BookSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BookSearchImplCopyWith<_$BookSearchImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

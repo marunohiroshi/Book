@@ -128,27 +128,9 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
         selectedGenre: book.selectedGenre));
   }
 
-  Future<void> updateGenreIndex(Book book, int index) async {
-    into(books).insertOnConflictUpdate(Book(
-      id: book.id,
-      title: book.title,
-      price: book.price,
-      totalPage: book.totalPage,
-      thumbnail: book.thumbnail,
-      description: book.description,
-      publisher: book.publisher,
-      publishedDate: book.publishedDate,
-      authors: book.authors,
-      hasRead: book.hasRead,
-      memo: book.memo,
-      rating: book.rating,
-      selectedGenre: book.selectedGenre,
-    ));
-  }
-
   Future<Book?> getBook(int id) async {
     final bookList = await getAllBookList;
-    var book = null;
+    Book? book;
     for (var element in bookList) {
       if (element.id == id) {
         book = element;
@@ -167,10 +149,23 @@ class BooksDao extends DatabaseAccessor<AppDbDriftImpl> with _$BooksDaoMixin {
     return id;
   }
 
-  Future<void> insertSet(Book book, Set<int> intSet) async {
+  Future<void> updateGenre(Book book, Set<int> intSet) async {
+    //  DBに登録するためにSet<int>型をString型に変換
     final jsonString = jsonEncode(intSet.toList());
-    await into(books).insert(BooksCompanion(
-      selectedGenre: Value(jsonString),
+    await into(books).insertOnConflictUpdate(Book(
+      id: book.id,
+      title: book.title,
+      price: book.price,
+      totalPage: book.totalPage,
+      thumbnail: book.thumbnail,
+      description: book.description,
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      authors: book.authors,
+      hasRead: book.hasRead,
+      memo: book.memo,
+      rating: book.rating,
+      selectedGenre: jsonString,
     ));
   }
 

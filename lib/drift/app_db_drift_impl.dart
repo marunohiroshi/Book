@@ -34,9 +34,9 @@ class AppDbDriftImpl extends _$AppDbDriftImpl {
     return booksDao.updateRating(book, rating);
   }
 
-  // Future updateGenreIndex(Book book, int index) {
-  //   return booksDao.insertSet(book, index);
-  // }
+  Future updateGenre(Book book, Set<int> selectedGenre) {
+    return booksDao.updateGenre(book, selectedGenre);
+  }
 
   Future getBook(int id) {
     return booksDao.getBook(id);
@@ -48,6 +48,10 @@ class AppDbDriftImpl extends _$AppDbDriftImpl {
 
   Future getLastId() {
     return booksDao.getLastId();
+  }
+
+  Future getSelectedGenreSetInt(int id) {
+    return booksDao.getSetById(id);
   }
 
   @override

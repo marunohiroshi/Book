@@ -12,7 +12,7 @@ part of 'book_detail_viewmodel.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$BookDetailState {
@@ -28,8 +28,11 @@ mixin _$BookDetailState {
   String get authors => throw _privateConstructorUsedError;
   String get memo => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
+  Set<String> get selectedGenre => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BookDetailStateCopyWith<BookDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,7 +55,8 @@ abstract class $BookDetailStateCopyWith<$Res> {
       String publishedDate,
       String authors,
       String memo,
-      double rating});
+      double rating,
+      Set<String> selectedGenre});
 }
 
 /// @nodoc
@@ -65,6 +69,8 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BookDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +86,7 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
     Object? authors = null,
     Object? memo = null,
     Object? rating = null,
+    Object? selectedGenre = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -130,6 +137,10 @@ class _$BookDetailStateCopyWithImpl<$Res, $Val extends BookDetailState>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
+      selectedGenre: null == selectedGenre
+          ? _value.selectedGenre
+          : selectedGenre // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
     ) as $Val);
   }
 }
@@ -154,7 +165,8 @@ abstract class _$$BookDetailStateImplCopyWith<$Res>
       String publishedDate,
       String authors,
       String memo,
-      double rating});
+      double rating,
+      Set<String> selectedGenre});
 }
 
 /// @nodoc
@@ -165,6 +177,8 @@ class __$$BookDetailStateImplCopyWithImpl<$Res>
       _$BookDetailStateImpl _value, $Res Function(_$BookDetailStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BookDetailState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,6 +194,7 @@ class __$$BookDetailStateImplCopyWithImpl<$Res>
     Object? authors = null,
     Object? memo = null,
     Object? rating = null,
+    Object? selectedGenre = null,
   }) {
     return _then(_$BookDetailStateImpl(
       id: null == id
@@ -230,6 +245,10 @@ class __$$BookDetailStateImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
+      selectedGenre: null == selectedGenre
+          ? _value._selectedGenre
+          : selectedGenre // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
     ));
   }
 }
@@ -249,7 +268,9 @@ class _$BookDetailStateImpl implements _BookDetailState {
       this.publishedDate = '',
       this.authors = '',
       this.memo = '',
-      this.rating = 0});
+      this.rating = 0,
+      final Set<String> selectedGenre = const <String>{}})
+      : _selectedGenre = selectedGenre;
 
   @override
   @JsonKey()
@@ -287,14 +308,22 @@ class _$BookDetailStateImpl implements _BookDetailState {
   @override
   @JsonKey()
   final double rating;
-
+  final Set<String> _selectedGenre;
   @override
-  String toString() {
-    return 'BookDetailState(id: $id, title: $title, price: $price, totalPage: $totalPage, smallThumbnail: $smallThumbnail, thumbnail: $thumbnail, description: $description, publisher: $publisher, publishedDate: $publishedDate, authors: $authors, memo: $memo, rating: $rating)';
+  @JsonKey()
+  Set<String> get selectedGenre {
+    if (_selectedGenre is EqualUnmodifiableSetView) return _selectedGenre;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_selectedGenre);
   }
 
   @override
-  bool operator ==(dynamic other) {
+  String toString() {
+    return 'BookDetailState(id: $id, title: $title, price: $price, totalPage: $totalPage, smallThumbnail: $smallThumbnail, thumbnail: $thumbnail, description: $description, publisher: $publisher, publishedDate: $publishedDate, authors: $authors, memo: $memo, rating: $rating, selectedGenre: $selectedGenre)';
+  }
+
+  @override
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookDetailStateImpl &&
@@ -315,7 +344,9 @@ class _$BookDetailStateImpl implements _BookDetailState {
                 other.publishedDate == publishedDate) &&
             (identical(other.authors, authors) || other.authors == authors) &&
             (identical(other.memo, memo) || other.memo == memo) &&
-            (identical(other.rating, rating) || other.rating == rating));
+            (identical(other.rating, rating) || other.rating == rating) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedGenre, _selectedGenre));
   }
 
   @override
@@ -332,9 +363,12 @@ class _$BookDetailStateImpl implements _BookDetailState {
       publishedDate,
       authors,
       memo,
-      rating);
+      rating,
+      const DeepCollectionEquality().hash(_selectedGenre));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BookDetailStateImplCopyWith<_$BookDetailStateImpl> get copyWith =>
@@ -355,7 +389,8 @@ abstract class _BookDetailState implements BookDetailState {
       final String publishedDate,
       final String authors,
       final String memo,
-      final double rating}) = _$BookDetailStateImpl;
+      final double rating,
+      final Set<String> selectedGenre}) = _$BookDetailStateImpl;
 
   @override
   int get id;
@@ -382,7 +417,12 @@ abstract class _BookDetailState implements BookDetailState {
   @override
   double get rating;
   @override
-  @JsonKey(ignore: true)
+  Set<String> get selectedGenre;
+
+  /// Create a copy of BookDetailState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BookDetailStateImplCopyWith<_$BookDetailStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

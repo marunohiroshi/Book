@@ -259,7 +259,6 @@ Widget _choiceChip() {
     '漫画',
     'その他',
   ];
-
   return Wrap(
     spacing: 10.0,
     runSpacing: 15.0,

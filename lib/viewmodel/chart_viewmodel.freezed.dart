@@ -12,13 +12,15 @@ part of 'chart_viewmodel.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ChartState {
   List<model.Book> get bookList => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChartState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChartStateCopyWith<ChartState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$ChartStateCopyWithImpl<$Res, $Val extends ChartState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChartState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$ChartStateStateImplCopyWithImpl<$Res>
       _$ChartStateStateImpl _value, $Res Function(_$ChartStateStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChartState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,7 +117,7 @@ class _$ChartStateStateImpl implements _ChartStateState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChartStateStateImpl &&
@@ -122,7 +128,9 @@ class _$ChartStateStateImpl implements _ChartStateState {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_bookList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChartState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChartStateStateImplCopyWith<_$ChartStateStateImpl> get copyWith =>
@@ -136,8 +144,11 @@ abstract class _ChartStateState implements ChartState {
 
   @override
   List<model.Book> get bookList;
+
+  /// Create a copy of ChartState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChartStateStateImplCopyWith<_$ChartStateStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

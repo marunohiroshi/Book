@@ -31,7 +31,12 @@ class MainView extends ConsumerWidget {
             animateTabTransition: true,
             duration: Duration(milliseconds: 200),
             curve: Curves.ease),
-        screens: [HomeView(), BookShelf(), ChartView(), SettingsView()],
+        screens: [
+          const HomeView(),
+          BookShelf(),
+          const DescriptionTextField(),
+          SettingsView()
+        ],
         items: [
           PersistentBottomNavBarItem(
             icon: const Icon(Icons.camera_alt),
